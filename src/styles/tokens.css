@@ -1,0 +1,47 @@
+:root {
+  /* 1440px reference: 56px sides leave a 1328px content area. */
+  --container-max: 1328px;
+  --page-padding: 56px;
+  --section-gap: 160px;
+  --section-gap-large: 400px;
+  --section-gap-extra-large: 640px;
+  --content-gap: 32px;
+  --grid-gap: 24px;
+  --small-gap: 8px;
+  --divider-spacing: 32px;
+  /* Intentional dense grids and artwork row spacing. */
+  --grid-gap-compact: 12px;
+  --grid-gap-tight: 4px;
+  --artwork-row-gap: 80px;
+  --color-background: #fff;
+  --color-text: #141414;
+  --color-muted: #595959;
+  --color-divider: #d1d1d1;
+  --color-surface: #f6f4f0;
+  /* Figma font assets will be connected during the design phase. */
+  --font-body: Arial, "Malgun Gothic", sans-serif;
+}
+
+/* Initial responsive values; validate against final page content later. */
+@media (max-width: 1024px) {
+  :root {
+    --page-padding: 32px;
+    --section-gap: 96px;
+    --section-gap-large: 240px;
+    --section-gap-extra-large: 320px;
+    --artwork-row-gap: 48px;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --page-padding: 20px;
+    --section-gap: 64px;
+    --section-gap-large: 96px;
+    --section-gap-extra-large: 160px;
+    --content-gap: 24px;
+    --grid-gap: 16px;
+    --divider-spacing: 24px;
+    --artwork-row-gap: 32px;
+  }
+}

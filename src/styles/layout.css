@@ -1,0 +1,11 @@
+.container { width: min(calc(100% - var(--page-padding) * 2), var(--container-max)); margin-inline: auto; }
+.site-shell { min-height: 100svh; display: flex; flex-direction: column; }
+.site-main { flex: 1; min-width: 0; }
+.stack { display: grid; gap: var(--content-gap); }
+.stack-small { display: grid; align-content: start; gap: var(--small-gap); }
+.section-stack { display: grid; gap: var(--section-gap); }
+.content-grid { display: grid; gap: var(--grid-gap); }
+/* Keep children within their actual column; long news titles may wrap. */
+.content-grid > *, .footer-grid > * { min-width: 0; overflow-wrap: anywhere; }
+.card-copy { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+/* Column counts, image aspect ratios and asymmetry belong to each future layout. */
