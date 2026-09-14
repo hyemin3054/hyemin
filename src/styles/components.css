@@ -7,6 +7,7 @@
 .page-placeholder { padding-block: var(--content-gap); overflow-wrap: anywhere; }
 .divider { border: 0; border-top: 1px solid var(--color-divider); margin-block: var(--divider-spacing); }
 .muted { color: var(--color-muted); }
+.preserve-lines { white-space: pre-line; }
 .site-footer { margin-top: var(--section-gap); padding-bottom: var(--content-gap); }
 .site-footer > .divider { margin-top: 0; }
 .footer-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--content-gap); font-size: 0.875rem; }

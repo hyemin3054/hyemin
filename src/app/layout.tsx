@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { MainLayout } from "@/components/MainLayout";
 import { site } from "@/config/site";
-import "@/styles/globals.css";
 
 export const metadata: Metadata = {
   title: { default: site.name, template: `%s | ${site.name}` },
@@ -11,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  return <html lang="ko"><body><MainLayout>{children}</MainLayout></body></html>;
+  return <html lang="ko"><body>{children}</body></html>;
 }

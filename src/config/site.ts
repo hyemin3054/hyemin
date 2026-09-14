@@ -7,6 +7,4 @@ export const site = {
     { href: "/sales", label: "SALES" },
     { href: "/about", label: "ABOUT" },
   ],
-  // Confirm contact details and opening hours before publishing.
-  contact: { address: "", hours: "", phone: "", email: "", instagramUrl: "" },
 };
