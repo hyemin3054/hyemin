@@ -39,6 +39,7 @@
   .ex-detail-copy, .ex-detail-description { padding-top: 0; }
 }
 @media (max-width: 640px) {
+  .ex-detail-summary, .ex-detail-description { font-size: 14px; }
   .ex-detail-gallery-grid, .ex-detail-archive-grid { grid-template-columns: minmax(0, 1fr); }
   .ex-detail h1 { font-size: 36px; }
 }

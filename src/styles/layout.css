@@ -1,6 +1,7 @@
 .container { width: min(calc(100% - var(--page-padding) * 2), var(--container-max)); margin-inline: auto; }
 .site-shell { min-height: 100svh; display: flex; flex-direction: column; }
 .site-main { flex: 1; min-width: 0; }
+.site-main { overflow-wrap: anywhere; }
 .stack { display: grid; gap: var(--content-gap); }
 .stack-small { display: grid; align-content: start; gap: var(--small-gap); }
 .section-stack { display: grid; gap: var(--section-gap); }

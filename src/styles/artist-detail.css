@@ -34,6 +34,7 @@
 .artist-cv { grid-column: 2; }
 .artist-history-list { padding: 0; margin: 0; list-style: none; font-size: 15px; line-height: 1.8; }
 .artist-history-list li { display: flex; gap: var(--grid-gap); }
+.artist-history-list li > span { min-width: 0; }
 .artist-history-list li > span:first-child:not(:only-child) { flex: 0 0 96px; }
 .artist-cv > section + section { margin-top: var(--small-gap); }
 .artist-pagination { display: grid; grid-template-columns: 1fr 1fr; gap: var(--grid-gap); border-top: 1px solid var(--color-divider); padding-top: calc(var(--content-gap) + var(--small-gap)); margin-top: var(--small-gap); }

@@ -30,6 +30,7 @@
   .exhibition-current-row, .exhibitions-archive { padding-inline: 0; }
 }
 @media (max-width: 640px) {
+  .exhibition-summary { font-size: 14px; }
   .exhibition-current-row, .exhibition-archive-grid { grid-template-columns: minmax(0, 1fr); }
   .exhibitions-page h1 { font-size: 36px; }
 }

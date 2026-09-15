@@ -22,6 +22,7 @@
 .sales-facts { margin: var(--grid-gap) auto 0; font-size: 14px; line-height: 24px; }
 .sales-facts > div { display: flex; justify-content: center; gap: var(--grid-gap); }
 .sales-facts dt { color: var(--color-muted); }
+.sales-facts dd { min-width: 0; }
 .sales-facts dd { margin: 0; }
 .sales-description { margin-top: var(--content-gap); font-size: 18px; line-height: 1.7; }
 .sales-description > * + * { margin-top: var(--small-gap); }
