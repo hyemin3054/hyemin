@@ -3,7 +3,7 @@ export const publishedFilter = '!(_id in path("drafts.**")) && !(_id in path("ve
 const contentFilter = `${publishedFilter} && _type == $type && defined(slug.current)`;
 const projection = `{
   _id, _type, "title": coalesce(name, title, "제목 준비 중"), "slug": slug.current,
-  name, shortBio, fullBio, portrait, representativeImage,
+  name, shortBio, fullBio, portrait, representativeImage, representativeImageDescription,
   "works": coalesce(works, []), "selectedExhibitions": coalesce(selectedExhibitions, []),
   "education": coalesce(education, []), "awards": coalesce(awards, []),
   "artist": artist->{_id, name, "slug": slug.current},

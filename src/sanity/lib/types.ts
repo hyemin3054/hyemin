@@ -14,6 +14,7 @@ export type ContentDocument = {
   _id: string; _type: ContentType; title: string; slug: string;
   name?: string | null; shortBio?: string | null; fullBio?: PortableTextBlock[] | null;
   portrait?: ContentImage | null; representativeImage?: ContentImage | null;
+  representativeImageDescription?: string | null;
   works?: ArtistWork[] | null; selectedExhibitions?: HistoryEntry[] | null; education?: HistoryEntry[] | null; awards?: HistoryEntry[] | null;
   artist?: ArtistReference | null; startDate?: string | null; endDate?: string | null;
   mainImage?: ContentImage | null; galleryImages?: ContentImage[] | null;

@@ -16,10 +16,37 @@
   --color-background: #fff;
   --color-text: #141414;
   --color-muted: #595959;
+  --color-secondary: #6b6b6b;
+  --color-footer: #2e2e2e;
+  --color-copyright: #474747;
   --color-divider: #d1d1d1;
   --color-surface: #f6f4f0;
-  /* Figma font assets will be connected during the design phase. */
-  --font-body: Arial, "Malgun Gothic", sans-serif;
+  --font-body: "Inter", "Pretendard", Arial, sans-serif;
+  --font-navigation: "Pretendard", Arial, sans-serif;
+  --font-heading: "Merriweather", "Pretendard", Georgia, serif;
+  --font-size-navigation: 17px;
+  --font-size-navigation-home: 19px;
+  --font-size-footer: 14px;
+  --font-size-copyright: 10px;
+  --font-size-page-title: 44px;
+  --font-size-section-title: 32px;
+  --weight-regular: 400;
+  --weight-semibold: 600;
+  --header-padding-block: 38px;
+  --header-logo-width: 281px;
+  --header-logo-height: 94px;
+  --home-logo-width: 162px;
+  --home-logo-height: 121px;
+  --home-header-bottom: 15px;
+  --navigation-gap: 52px;
+  --navigation-width: 620px;
+  --navigation-home-gap: 56px;
+  --footer-logo-width: 267px;
+  --footer-logo-height: 89px;
+  --footer-brand-column: 314px;
+  --footer-contact-column: 288px;
+  --footer-padding-bottom: 48px;
+  --footer-line-height: 26px;
 }
 
 /* Initial responsive values; validate against final page content later. */
@@ -30,6 +57,12 @@
     --section-gap-large: 240px;
     --section-gap-extra-large: 320px;
     --artwork-row-gap: 48px;
+    --navigation-gap: 24px;
+    --navigation-home-gap: 32px;
+    --header-logo-width: 240px;
+    --header-logo-height: 80px;
+    --footer-brand-column: 267px;
+    --footer-contact-column: 240px;
   }
 }
 
