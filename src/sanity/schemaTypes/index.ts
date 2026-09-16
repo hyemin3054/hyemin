@@ -6,9 +6,9 @@ import { siteSettings } from "./siteSettings";
 import { contentImage, richText, artistWork, historyEntry } from "./objects";
 
 // Studio presentation only: stored field names and website queries remain unchanged.
-const images = new Set(["portrait", "representativeImage", "mainImage", "galleryImages"]);
+const images = new Set(["portrait", "representativeImage", "mainImage", "galleryImages", "detailImages"]);
 const details = new Set(["fullBio", "works", "selectedExhibitions", "education", "awards", "description", "body"]);
-const display = new Set(["displayOrder", "featured"]);
+const display = new Set(["displayOrder"]);
 const contentSchemas = [artist, exhibition, news, salesArtwork].map((schema) => ({
   ...schema,
   groups: [
@@ -17,10 +17,12 @@ const contentSchemas = [artist, exhibition, news, salesArtwork].map((schema) => 
     { name: "details", title: "상세 내용" },
     { name: "display", title: "정렬 및 표시 설정" },
   ],
-  fields: schema.fields.map((field) => ({
+  fields: [...schema.fields.map((field) => ({
     ...field,
     group: images.has(field.name) ? "images" : details.has(field.name) ? "details" : display.has(field.name) ? "display" : "basic",
   })),
+  // Recognize legacy stored values without exposing an editor or deleting data.
+  { name: "featured", title: "이전 표시 설정", type: "boolean", hidden: true, readOnly: true }],
 }));
 
 export const schemaTypes = [...contentSchemas, siteSettings, contentImage, richText, artistWork, historyEntry];

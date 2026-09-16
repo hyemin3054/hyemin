@@ -21,7 +21,6 @@ export const artistField = defineField({
   name: "artist", title: "작가", type: "reference", to: [{ type: "artist" }],
   description: "ARTIST에서 먼저 등록한 작가를 선택하세요. 참조한 작가를 먼저 Publish해야 합니다. 미정이면 비워둘 수 있습니다.",
 });
-export const featuredField = defineField({ name: "featured", title: "주요 콘텐츠로 표시", type: "boolean", initialValue: false, description: "주요 영역에 소개할 콘텐츠를 지정합니다. 공개하려면 별도로 Publish해야 합니다." });
 export const orderField = defineField({ name: "displayOrder", title: "표시 순서", type: "number", description: "숫자가 작은 콘텐츠가 먼저 표시됩니다.", initialValue: 100, validation: (rule) => rule.integer().min(0) });
 export const displayOrder = { title: "표시 순서", name: "displayOrder", by: [{ field: "displayOrder", direction: "asc" as const }] };
 export const historyField = (name: string, title: string) => defineField({

@@ -28,8 +28,9 @@ export default async function HomePage() {
       </div>
       {current && <Link className="home-current-image" href={`/exhibitions/${encodeURIComponent(current.slug)}`} aria-label={`${current.title} 전시 상세`}><ContentVisual src={imageUrl(current.mainImage, 1500)} alt={current.title || "현재 전시"} /></Link>}
     </section>
-    {archive.length > 0 && <section className="container home-archive" aria-labelledby="home-archive-title">
+    {<section className="container home-archive" aria-labelledby="home-archive-title">
       <div className="home-archive-heading"><h2 id="home-archive-title">ARCHIVE</h2><Link href="/exhibitions">VIEW ARCHIVE →</Link></div>
+      {archive.length === 0 && <p className="muted">{exhibitions.status === "ready" ? "등록된 지난 전시가 없습니다." : "지난 전시 정보를 불러오지 못했습니다."}</p>}
       <div className="home-archive-grid">{archive.map(item => <Link key={item._id} href={`/exhibitions/${encodeURIComponent(item.slug)}`}>
         <div className="home-archive-image"><ContentVisual src={imageUrl(item.mainImage, 900)} alt={item.title || "지난 전시"} /></div>
         <h3>{item.title}</h3>{item.artist?.name && <p>{item.artist.name}</p>}

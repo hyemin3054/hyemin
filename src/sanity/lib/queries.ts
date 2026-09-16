@@ -9,7 +9,8 @@ const projection = `{
   "artist": artist->{_id, name, "slug": slug.current},
   startDate, endDate, mainImage, "galleryImages": coalesce(galleryImages, []),
   shortDescription, description, status, date, excerpt, body,
-  year, medium, dimensions, price, availability, featured, displayOrder
+  "detailImages": coalesce(detailImages, galleryImages, [])[0...5],
+  year, medium, dimensions, price, availability, displayOrder
 }`;
 export const listQuery = `*[${contentFilter}] | order(coalesce(displayOrder, 100) asc, date desc, startDate desc, _id asc) ${projection}`;
 export const detailQuery = `*[${contentFilter} && slug.current == $slug][0] ${projection}`;

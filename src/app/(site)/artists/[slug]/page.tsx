@@ -32,6 +32,7 @@ export default async function DetailPage({ params }: Props) {
   const awards = historyRows(artist.awards);
   const name = artist.name || artist.title;
   const representativeImage = imageUrl(artist.representativeImage);
+  const representativeWork = works.find(work => work.image?.asset?._ref && work.image.asset._ref === artist.representativeImage?.asset?._ref);
   return <article className="container artist-detail">
     <Link className="artist-back" href="/artists">← ARTISTS</Link>
     <section className="artist-intro" aria-label="작가 소개">
@@ -47,7 +48,11 @@ export default async function DetailPage({ params }: Props) {
       <h2 id="artist-works-title">Works</h2>
       {representativeImage && <figure className="artist-representative" aria-label="대표 작품">
         <ArtistDetailImage src={representativeImage} alt={`${name} 대표 작품`} />
-        {artist.representativeImageDescription?.trim() && <figcaption className="preserve-lines">{artist.representativeImageDescription}</figcaption>}
+        {(representativeWork || artist.representativeImageDescription?.trim()) && <figcaption>
+          {representativeWork?.title?.trim() && <p className="artist-work-title">{representativeWork.title}</p>}
+          {representativeWork?.year?.trim() && <p>{representativeWork.year}</p>}
+          {(representativeWork?.description?.trim() || artist.representativeImageDescription?.trim()) && <p className="preserve-lines">{representativeWork?.description?.trim() || artist.representativeImageDescription}</p>}
+        </figcaption>}
       </figure>}
       <div className="artist-works-grid">{works.map((work, i) => <figure className="artist-work" key={work._key || i}>
         <div className="artist-work-image"><ArtistDetailImage src={imageUrl(work.image)} alt={work.title || `${name} 작품 ${i + 1}`} /></div>

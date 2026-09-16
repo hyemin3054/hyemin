@@ -19,7 +19,6 @@ export function ContentInfo({ item }: { item: ContentDocument }) {
   const exhibitionStatus = { current: "현재 전시", upcoming: "예정 전시", archive: "지난 전시" };
   const availability = { available: "구매 가능", reserved: "예약됨", sold: "판매 완료" };
   return <div className="stack-small">
-    {item.featured && <p>주요 콘텐츠</p>}
     {item.artist?.name && <p>작가: {item.artist.slug ? <Link href={`/artists/${encodeURIComponent(item.artist.slug)}`}>{item.artist.name}</Link> : item.artist.name}</p>}
     {item._type === "exhibition" && <>
       {(item.startDate || item.endDate) && <p>전시 기간: {item.startDate && <time dateTime={item.startDate}>{item.startDate}</time>}{item.startDate && item.endDate && " ~ "}{item.endDate && <><span>{!item.startDate && "종료 "}</span><time dateTime={item.endDate}>{item.endDate}</time></>}</p>}

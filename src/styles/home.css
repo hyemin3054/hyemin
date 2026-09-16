@@ -3,7 +3,7 @@
 .home-hero { display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); aspect-ratio: 1440 / 531; }
 .home-hero-image { grid-area: 1 / 1; min-width: 0; min-height: 0; display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); }
 .home-hero-image img { width: 100%; height: 100%; object-fit: cover; }
-.home-wordmark { grid-area: 1 / 1; align-self: end; justify-self: center; width: min(406px, 45%); aspect-ratio: 406 / 237; overflow: hidden; }
+.home-wordmark { grid-area: 1 / 1; align-self: end; justify-self: center; margin-bottom: -24px; width: min(406px, 45%); aspect-ratio: 406 / 237; overflow: hidden; }
 .home-wordmark img { width: 174.5%; max-width: none; height: 100%; margin-left: -74.33%; }
 .home-current-anchor { display: block; text-align: center; margin-top: var(--content-gap); font-size: 15px; line-height: 24px; }
 .home-current { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr); gap: var(--content-gap); margin-top: var(--section-gap); padding-left: max(var(--page-padding), calc((100% - var(--container-max)) / 2)); }
@@ -31,4 +31,10 @@
 @media (max-width: 640px) {
   .home-hero { aspect-ratio: 4 / 3; }
   .home-archive-grid { grid-template-columns: minmax(0, 1fr); gap: var(--content-gap); }
+}
+
+@media (max-width: 768px) {
+ .home-hero { display: flex; flex-direction: column; aspect-ratio: auto; }
+ .home-hero-image { width: 100%; aspect-ratio: 4 / 3; }
+ .home-wordmark { align-self: center; width: min(406px, 70%); margin: var(--small-gap) 0 0; }
 }

@@ -3,7 +3,7 @@
 .sales-page > h1, .sales-section-title { margin-top: var(--small-gap); font-family: var(--font-heading); font-size: var(--font-size-page-title); font-weight: var(--weight-semibold); line-height: 1.6; }
 .sales-page > .divider { margin: 0; }
 .sales-page a { text-decoration: none; }
-.sales-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--artwork-row-gap) var(--grid-gap-compact); list-style: none; padding: 0 var(--content-gap); margin: calc(var(--artwork-row-gap) + var(--grid-gap)) 0 0; }
+.sales-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--artwork-row-gap) var(--grid-gap-compact); list-style: none; padding: 0 var(--content-gap); margin: var(--content-gap) 0 0; }
 .sales-grid li { min-width: 0; text-align: center; }
 .sales-grid-image, .sales-main-image { display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); place-items: center; }
 .sales-grid-image { aspect-ratio: 303 / 225; }

@@ -1,5 +1,5 @@
 import { defineField, defineType } from "sanity";
-import { titleField, slugField, imageField, galleryField, textField, richTextField, artistField, featuredField, orderField, displayOrder } from "./shared";
+import { titleField, slugField, imageField, galleryField, textField, richTextField, artistField, orderField, displayOrder } from "./shared";
 
 export const exhibition = defineType({
   name: "exhibition", title: "전시", type: "document",
@@ -10,6 +10,6 @@ export const exhibition = defineType({
     imageField("mainImage", "대표 이미지"), galleryField("galleryImages", "전시 이미지 갤러리"),
     textField("shortDescription", "짧은 설명"), richTextField("description", "전체 설명"),
     defineField({ name: "status", title: "전시 상태", type: "string", initialValue: "upcoming", options: { list: [{ title: "현재 전시", value: "current" }, { title: "예정 전시", value: "upcoming" }, { title: "지난 전시", value: "archive" }], layout: "radio" }, description: "날짜에 따라 자동 변경되지 않습니다. 상태를 직접 선택하세요.", validation: (rule) => rule.required() }),
-    featuredField, orderField,
+    orderField,
   ], orderings: [displayOrder], preview: { select: { title: "title", subtitle: "status", media: "mainImage" } },
 });

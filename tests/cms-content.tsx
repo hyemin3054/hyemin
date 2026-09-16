@@ -25,6 +25,7 @@ async function main() {
     for (const field of Object.keys(source)) {
       if (field === 'slug') assert.equal(item.slug, 'fixture');
       else if (field === 'title' && source._type === 'artist') assert.equal(item.title, 'Artist name');
+      else if (field === 'featured') assert.equal(item.featured, undefined);
       else if (field === 'artist') assert.equal(item.artist.name, 'Artist name');
       else assert.deepEqual(item[field], (source as any)[field], `${source._type}.${field}`);
     }
@@ -39,7 +40,7 @@ async function main() {
       for (const hidden of ['2000', 'Oil on canvas', '20 × 30 cm', '구매 가능', 'Rich body content', '주요 콘텐츠']) assert.ok(!cardHtml.includes(hidden), hidden);
       for (const visible of ['Fixture', 'Artist name', '0원']) assert.ok(cardHtml.includes(visible), visible);
     }
-    for (const value of ['주요 콘텐츠', 'Rich body content']) assert.ok(html.includes(value), `${source._type}: ${value}`);
+    for (const value of ['Rich body content']) assert.ok(html.includes(value), `${source._type}: ${value}`);
     const expected = source._type === 'artist' ? ['주요 전시 이력', '학력', '수상 내역', 'History content', 'Work title', '1999', 'Work description', 'Short biography']
       : source._type === 'exhibition' ? ['2026-01-01', '2026-02-01', '현재 전시', 'Artist name', 'Exhibition summary']
       : source._type === 'news' ? ['2026-03-01', 'News excerpt'] : ['2000', 'Oil on canvas', '20 × 30 cm', '0원', '구매 가능', 'Artist name'];
@@ -47,6 +48,11 @@ async function main() {
     const emptyHtml = renderToStaticMarkup(<ContentBody item={{ _id: 'empty', _type: source._type as any, title: 'Empty', slug: 'empty', works: [{} as any], education: [{} as any], galleryImages: [null as any] }} />);
     assert.ok(!emptyHtml.includes('<li') && !emptyHtml.includes('<img') && !emptyHtml.includes('undefined'));
   }
+  assert.equal((await query(detailQuery, {type:'news', slug:'fixture'})).detailImages.length, 1);
+  Object.assign(news, { detailImages: Array.from({length: 7}, (_, i) => ({...image, _key: String(i)})) });
+  assert.equal((await query(detailQuery, {type:'news', slug:'fixture'})).detailImages.length, 5);
+  Object.assign(news, { detailImages: [] });
+  assert.deepEqual((await query(detailQuery, {type:'news', slug:'fixture'})).detailImages, []);
   const settingsResult = await query(settingsQuery);
   for (const key of Object.keys(settings).filter(k => !k.startsWith('_'))) assert.deepEqual(settingsResult[key], (settings as any)[key], key);
   const artists = await query(listQuery, { type: 'artist' });

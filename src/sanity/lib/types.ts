@@ -17,12 +17,12 @@ export type ContentDocument = {
   representativeImageDescription?: string | null;
   works?: ArtistWork[] | null; selectedExhibitions?: HistoryEntry[] | null; education?: HistoryEntry[] | null; awards?: HistoryEntry[] | null;
   artist?: ArtistReference | null; startDate?: string | null; endDate?: string | null;
-  mainImage?: ContentImage | null; galleryImages?: ContentImage[] | null;
+  detailImages?: ContentImage[] | null; mainImage?: ContentImage | null; galleryImages?: ContentImage[] | null;
   shortDescription?: string | null; description?: PortableTextBlock[] | null;
   status?: "current" | "upcoming" | "archive" | null;
   date?: string | null; excerpt?: string | null; body?: PortableTextBlock[] | null;
   year?: string | null; medium?: string | null; dimensions?: string | null; price?: number | null;
-  availability?: "available" | "reserved" | "sold" | null; featured?: boolean | null; displayOrder?: number | null;
+  availability?: "available" | "reserved" | "sold" | null; displayOrder?: number | null;
 };
 export type SiteSettings = {
   logo?: ContentImage | null; address?: string | null;

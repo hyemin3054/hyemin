@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { PortableText } from "next-sanity";
 import { Divider } from "@/components/Divider";
 import { NewsImage } from "@/components/NewsImage";
+import { NewsGallery } from "@/components/NewsGallery";
 import { getContentDetail, getContentList } from "@/sanity/lib/content";
 import { imageUrl } from "@/sanity/lib/image";
 import "@/styles/news.css";
@@ -17,12 +18,13 @@ export default async function DetailPage({ params }: Props) {
   if (!item) notFound();
   const sorted = [...list.data].sort((a, b) => (b.date || "").localeCompare(a.date || "") || a._id.localeCompare(b._id));
   const others = sorted.filter((entry) => entry._id !== item._id).slice(0, 3);
+  const images = [item.mainImage, ...(item.detailImages || []).slice(0, 5)].map(image => imageUrl(image, 1200)).filter((url): url is string => Boolean(url));
   return <article className="container news-page news-detail-page">
     <p className="news-section-title">News</p>
     <header className="news-article-heading"><h1>{item.title}</h1>{item.date && <time dateTime={item.date}>{item.date.replaceAll("-", ".")}</time>}</header><Divider />
     <div className="news-article-content">
       {Array.isArray(item.body) && item.body.length > 0 && <div className="news-body"><PortableText value={item.body} /></div>}
-      {imageUrl(item.mainImage) && <div className="news-detail-image"><NewsImage src={imageUrl(item.mainImage, 1200)} alt={item.title} /></div>}
+      <NewsGallery key={item._id} images={images} title={item.title} />
     </div>
     {others.length > 0 && <nav className="news-related" aria-label="다른 소식">{[item, ...others].map((entry) => <Link key={entry._id} href={`/news/${encodeURIComponent(entry.slug)}`} aria-current={entry._id === item._id ? "page" : undefined}>
       <div className="news-related-image"><NewsImage src={imageUrl(entry.mainImage, 500)} alt={entry.title} /></div><p>{entry.title}</p>

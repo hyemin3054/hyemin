@@ -19,13 +19,18 @@ export default async function AboutPage() {
   const location = map?.location;
   const coordinateUrl = location && Number.isFinite(location.lat) && Number.isFinite(location.lng)
     ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${location.lat},${location.lng}`)}` : null;
-  const mapUrl = map?.mapUrl && /^https?:\/\//i.test(map.mapUrl) ? map.mapUrl : coordinateUrl;
+  const mapQuery = coordinateUrl ? `${location!.lat},${location!.lng}` : settings?.address?.trim();
+  const mapUrl = map?.mapUrl && /^https?:\/\//i.test(map.mapUrl) ? map.mapUrl : coordinateUrl || (mapQuery ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}` : null);
+  const embedUrl = mapQuery ? `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed` : null;
   const hasContact = settings && (settings.address || settings.telephone || settings.email || settings.instagram || map?.directions || mapUrl);
   return <article className="container about-page"><h1>ABOUT</h1>
     {status !== "ready" && <p>콘텐츠를 불러오지 못했습니다. 잠시 후 다시 확인해주세요.</p>}
     {status === "ready" && !settings && <p>갤러리 정보를 준비 중입니다.</p>}
     {images[0] && <div className="about-panorama"><ContentVisual src={imageUrl(images[0], 1800)} alt="갤러리 공간" /></div>}
-    {logo && <div className="about-brand"><AboutLogo src={logo} /></div>}
+    <div className="about-brand">
+      {logo && <AboutLogo src={logo} />}
+      <p className="about-tagline">“ 예술과 일상이 마주하는 작은 창 ”</p>
+    </div>
     {settings && (settings.aboutText?.length || settings.openingHours) && <section className="about-introduction" aria-label="갤러리 소개">
       {Array.isArray(settings.aboutText) && settings.aboutText.length > 0 && <div className="about-prose"><PortableText value={settings.aboutText} /></div>}
       {settings.openingHours && <p className="about-hours preserve-lines">{settings.openingHours}</p>}
@@ -44,7 +49,7 @@ export default async function AboutPage() {
           {settings.instagram && /^https?:\/\//i.test(settings.instagram) && <a href={settings.instagram}>Instagram</a>}
         </address>
       </div>
-      {mapUrl && <div className="about-location"><a href={mapUrl}>지도 보기{settings.address && <span>{settings.address}</span>}</a></div>}
+      {mapUrl && <div className="about-map">{embedUrl && <iframe title="The Grotto Art Window 위치" src={embedUrl} loading="eager" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />}<a href={mapUrl} target="_blank" rel="noopener noreferrer">Google Maps에서 위치 보기</a></div>}
       </div>
     </section>}
   </article>;

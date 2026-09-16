@@ -1,7 +1,7 @@
 .artists-page {
   --artists-row-height: 46px;
   --artists-list-width: 500px;
-  --artists-preview-width: 496px;
+  --artists-preview-width: 544px;
   padding-top: calc(var(--content-gap) + var(--small-gap));
   padding-bottom: calc(var(--artwork-row-gap) + var(--content-gap));
 }
