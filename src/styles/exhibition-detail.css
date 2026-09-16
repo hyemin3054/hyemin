@@ -43,3 +43,11 @@
   .ex-detail-gallery-grid, .ex-detail-archive-grid { grid-template-columns: minmax(0, 1fr); }
   .ex-detail h1 { font-size: 36px; }
 }
+
+@media (max-width: 1024px) {
+  .ex-detail-intro, .ex-detail-content { grid-template-columns: minmax(0, 1fr); }
+  .ex-detail-gallery { grid-column: 1; }
+  .ex-detail-copy, .ex-detail-description { padding-top: 0; }
+  .ex-detail-main-image { width: 100%; max-width: 740px; justify-self: end; }
+  .ex-detail-summary, .ex-detail-description, .ex-detail-period { font-size: 14px; }
+}

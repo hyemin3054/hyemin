@@ -38,3 +38,8 @@
  .home-hero-image { width: 100%; aspect-ratio: 4 / 3; }
  .home-wordmark { align-self: center; width: min(406px, 70%); margin: var(--small-gap) 0 0; }
 }
+
+@media (max-width: 1024px) {
+  .home-archive-grid p, .home-archive-heading a { font-size: 14px; }
+  .home-archive h3 { font-size: 16px; }
+}

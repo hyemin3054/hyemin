@@ -40,3 +40,13 @@
 .about-map { min-width: 0; align-self: start; }
 .about-map iframe { display: block; width: 100%; aspect-ratio: 545 / 428; border: 0; }
 .about-map > a { display: block; margin-top: var(--small-gap); font-size: 14px; }
+
+@media (max-width: 800px) {
+  .about-contact-grid { grid-template-columns: minmax(0, 1fr); }
+  .about-map { width: 100%; }
+  .about-contact-copy { max-width: 100%; }
+}
+@media (max-width: 640px) {
+  .about-prose { font-size: 16px; }
+  .about-contact-copy address a { display: flex; align-items: center; justify-content: flex-end; min-height: 44px; max-width: 100%; }
+}

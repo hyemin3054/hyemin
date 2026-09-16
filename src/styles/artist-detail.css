@@ -55,3 +55,19 @@
 }
 
 .artist-work-title { font-weight: var(--weight-semibold); color: var(--color-text); }
+
+@media (min-width: 801px) and (max-width: 1024px) {
+  .artist-intro, .artist-history { grid-template-columns: minmax(0, 1fr); }
+  .artist-intro-copy { padding-top: 0; }
+  .artist-portrait { max-width: 448px; }
+  .artist-cv { grid-column: 1; }
+  .artist-work:nth-child(n) { width: calc((100% - var(--grid-gap)) / 2); }
+  .artist-work:nth-child(n) .artist-work-image { height: 280px; }
+}
+@media (max-width: 800px) {
+  .artist-work:nth-child(n) .artist-work-image { aspect-ratio: auto; }
+  .artist-work-image img { height: auto; max-height: 480px; object-fit: contain; }
+  .artist-work-image .artist-image-placeholder { aspect-ratio: 4 / 3; }
+  .artist-work figcaption, .artist-representative figcaption { font-size: 14px; }
+  .artist-pagination a { min-height: 44px; display: flex; align-items: center; }
+}

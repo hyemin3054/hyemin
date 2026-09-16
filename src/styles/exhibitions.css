@@ -34,3 +34,23 @@
   .exhibition-current-row, .exhibition-archive-grid { grid-template-columns: minmax(0, 1fr); }
   .exhibitions-page h1 { font-size: 36px; }
 }
+
+@media (max-width: 1024px) {
+  .exhibition-current-row { grid-template-columns: minmax(0, 1fr); }
+  .exhibition-current-image { width: 100%; max-width: 651px; justify-self: end; }
+  .exhibition-summary, .exhibition-dates { font-size: 14px; }
+}
+
+@media (max-width: 768px) {
+  .exhibitions-current { margin-top: 16px; }
+  .exhibitions-page h2 { font-size: 16px; line-height: 22px; }
+  .exhibition-current-row { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 12px; margin-top: 16px; align-items: start; }
+  .exhibition-current-copy h3 { font-size: 21px; line-height: 1.3; }
+  .exhibition-current-copy .exhibition-artist { font-size: 15px; line-height: 21px; margin-top: 8px; }
+  .exhibition-current-copy .exhibition-dates { font-size: 12px; line-height: 18px; margin-top: 2px; }
+  .exhibition-summary { font-size: 13px; line-height: 1.5; margin-top: 10px; }
+  .exhibition-current-image { max-width: 300px; }
+  .exhibitions-archive { margin-top: 32px; }
+  .exhibition-archive-grid { margin-top: 16px; }
+}
+@media (max-width: 340px) { .exhibition-current-row { grid-template-columns: minmax(0, 1fr); } }

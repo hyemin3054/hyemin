@@ -30,3 +30,19 @@
 .sales-related .sales-grid { margin-top: 0; }
 @media (max-width: 1024px) { .sales-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); padding-inline: 0; gap: var(--artwork-row-gap) var(--grid-gap); } }
 @media (max-width: 640px) { .sales-grid { grid-template-columns: minmax(0, 1fr); } .sales-page > h1, .sales-section-title { font-size: 36px; } .sales-facts > div { flex-wrap: wrap; gap: var(--small-gap); } }
+
+@media (max-width: 1024px) {
+  .sales-grid h2 { font-size: 16px; margin-top: var(--grid-gap); }
+  .sales-grid p { font-size: 14px; }
+}
+@media (max-width: 640px) {
+  .sales-page { padding-bottom: var(--content-gap); }
+  .sales-description { font-size: 16px; }
+}
+
+@media (max-width: 768px) {
+  .sales-page:not(.sales-detail) > .sales-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 10px; margin-top: 16px; }
+  .sales-page:not(.sales-detail) .sales-grid h2 { font-size: 13px; line-height: 1.4; margin-top: 8px; }
+  .sales-page:not(.sales-detail) .sales-grid p { font-size: 12px; line-height: 1.5; }
+  .sales-page:not(.sales-detail) .sales-grid-price { margin-top: 8px; }
+}
