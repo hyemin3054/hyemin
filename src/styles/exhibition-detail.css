@@ -40,8 +40,15 @@
 }
 @media (max-width: 640px) {
   .ex-detail-summary, .ex-detail-description { font-size: 14px; }
-  .ex-detail-gallery-grid, .ex-detail-archive-grid { grid-template-columns: minmax(0, 1fr); }
+  .ex-detail-archive-grid { grid-template-columns: minmax(0, 1fr); }
   .ex-detail h1 { font-size: 36px; }
+}
+
+@media (max-width: 800px) {
+  .ex-detail-gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--content-gap) calc(var(--small-gap) * 2); margin-top: calc(var(--small-gap) * 2); align-items: start; }
+  .ex-detail-gallery-grid figure { aspect-ratio: auto; }
+  .ex-detail-gallery-grid img { height: auto; object-fit: contain; }
+  .ex-detail-gallery-grid .exhibition-image-placeholder { aspect-ratio: 4 / 3; }
 }
 
 @media (max-width: 1024px) {

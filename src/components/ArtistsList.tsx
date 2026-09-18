@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { ImageDissolve } from "./ImageDissolve";
 
 type Artist = { id: string; name: string; slug: string; image: string | null };
 
@@ -30,7 +31,9 @@ export function ArtistsList({ artists }: { artists: Artist[] }) {
       </li>)}
     </ul>
     <figure className="artists-preview">
-      <ArtistImage key={`${selected.id}-${selected.image}`} artist={selected} />
+      <ImageDissolve imageKey={`${selected.id}-${selected.image}`} src={selected.image}>
+        <ArtistImage key={`${selected.id}-${selected.image}`} artist={selected} />
+      </ImageDissolve>
       <figcaption>{selected.name}</figcaption>
     </figure>
   </div>;

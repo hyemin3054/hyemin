@@ -48,9 +48,10 @@
   .artist-detail h1 { font-size: 40px; }
   .artist-biography { margin-top: var(--content-gap); }
   .artist-portrait { width: 85%; max-width: 448px; justify-self: center; }
-  .artist-works-grid { grid-template-columns: minmax(0, 1fr); }
+  .artist-works-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--content-gap) calc(var(--small-gap) * 2); align-items: start; }
+  .artist-works > h2 { margin-bottom: calc(var(--small-gap) * 2); }
   .artist-work:nth-child(n) { width: 100%; }
-  .artist-work:nth-child(n) .artist-work-image { height: auto; aspect-ratio: 4 / 3; }
+  .artist-work:nth-child(n) .artist-work-image { width: 100%; height: auto; aspect-ratio: auto; margin-inline: 0; }
   .artist-cv { grid-column: 1; }
 }
 
