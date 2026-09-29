@@ -2,10 +2,17 @@
   /* 1440px reference: 56px sides leave a 1328px content area. */
   --container-max: 1328px;
   --page-padding: 56px;
-  --section-gap: 160px;
-  --section-gap-large: 400px;
-  --section-gap-extra-large: 640px;
+  --section-gap: 96px;
+  --section-gap-large: 144px;
+  --section-gap-extra-large: 192px;
   --content-gap: 32px;
+  /* Vertical rhythm: related metadata < section content < separate sections. */
+  --page-entry-gap: 24px;
+  --heading-content-gap: 24px;
+  --caption-gap: 12px;
+  --artwork-vertical-gap: 48px;
+  --line-height-body: 1.6;
+  --line-height-metadata: 1.5;
   --grid-gap: 24px;
   --small-gap: 8px;
   --divider-spacing: 32px;
@@ -32,7 +39,7 @@
   --font-size-section-title: 32px;
   --weight-regular: 400;
   --weight-semibold: 600;
-  --header-padding-block: 38px;
+  --header-padding-block: 28px;
   --header-logo-width: 281px;
   --header-logo-height: 94px;
   --home-logo-width: 162px;
@@ -53,9 +60,12 @@
 @media (max-width: 1024px) {
   :root {
     --page-padding: 32px;
-    --section-gap: 96px;
-    --section-gap-large: 240px;
-    --section-gap-extra-large: 320px;
+    --page-entry-gap: 16px;
+    --heading-content-gap: 20px;
+    --artwork-vertical-gap: 40px;
+    --section-gap: 72px;
+    --section-gap-large: 104px;
+    --section-gap-extra-large: 128px;
     --artwork-row-gap: 48px;
     --navigation-gap: 24px;
     --navigation-home-gap: 32px;
@@ -69,9 +79,13 @@
 @media (max-width: 640px) {
   :root {
     --page-padding: 20px;
-    --section-gap: 64px;
-    --section-gap-large: 96px;
-    --section-gap-extra-large: 160px;
+    --page-entry-gap: 12px;
+    --heading-content-gap: 16px;
+    --caption-gap: 8px;
+    --artwork-vertical-gap: 32px;
+    --section-gap: 48px;
+    --section-gap-large: 64px;
+    --section-gap-extra-large: 80px;
     --content-gap: 24px;
     --grid-gap: 16px;
     --divider-spacing: 24px;

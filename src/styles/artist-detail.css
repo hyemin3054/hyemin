@@ -1,24 +1,24 @@
-.artist-detail { padding-top: var(--grid-gap-tight); padding-bottom: var(--artwork-row-gap); overflow-wrap: anywhere; }
+.artist-detail { padding-top: var(--grid-gap-tight); padding-bottom: var(--artwork-vertical-gap); overflow-wrap: anywhere; }
 .artist-back, .artist-pagination { font-size: 12px; font-weight: var(--weight-semibold); line-height: 24px; color: var(--color-muted); }
 .artist-back, .artist-pagination a { text-decoration: none; }
-.artist-intro { display: grid; grid-template-columns: minmax(0, 635px) minmax(0, 527px); justify-content: space-between; gap: var(--content-gap); margin-top: var(--artwork-row-gap); padding-bottom: var(--artwork-row-gap); border-bottom: 1px solid var(--color-divider); }
-.artist-intro-copy { padding-top: calc(var(--content-gap) + var(--small-gap)); }
+.artist-intro { display: grid; grid-template-columns: minmax(0, 635px) minmax(0, 527px); justify-content: space-between; gap: var(--content-gap); margin-top: var(--artwork-vertical-gap); padding-bottom: var(--artwork-vertical-gap); border-bottom: 1px solid var(--color-divider); }
+.artist-intro-copy { padding-top: var(--caption-gap); }
 .artist-label { font-size: 12px; line-height: 24px; font-weight: var(--weight-semibold); color: var(--color-secondary); }
 .artist-detail h1 { font-family: var(--font-heading); font-size: 52px; line-height: 1.4; font-weight: var(--weight-regular); margin-top: var(--small-gap); border-bottom: 1px solid var(--color-divider); }
 .artist-summary { font-size: 14px; color: var(--color-muted); margin-top: var(--small-gap); }
-.artist-biography { font-size: 16px; line-height: 1.7; margin-top: calc(var(--content-gap) * 2); }
+.artist-biography { font-size: 16px; line-height: var(--line-height-body); margin-top: calc(var(--content-gap) * 2); }
 .artist-biography > * + * { margin-top: var(--small-gap); }
 .artist-portrait, .artist-work-image { display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); place-items: center; }
 .artist-portrait { width: 85%; aspect-ratio: 527 / 440; align-self: start; justify-self: end; }
 .artist-portrait img, .artist-work-image img { width: 100%; height: 100%; min-height: 0; object-fit: contain; }
 .artist-image-placeholder { width: 100%; height: 100%; display: grid; place-items: center; background: var(--color-surface); color: var(--color-muted); font-size: 13px; }
-.artist-works { padding-block: var(--artwork-row-gap) calc(var(--content-gap) + var(--grid-gap)); }
+.artist-works { padding-block: var(--artwork-vertical-gap) var(--content-gap); }
 .artist-detail h2 { font-family: var(--font-heading); font-weight: var(--weight-regular); font-size: 32px; line-height: 1.5; }
-.artist-works > h2 { font-size: 36px; margin-bottom: calc(var(--content-gap) + var(--small-gap)); }
+.artist-works > h2 { font-size: 36px; margin-bottom: var(--heading-content-gap); }
 .artist-works-grid { display: flex; flex-wrap: wrap; gap: var(--content-gap) var(--grid-gap); }
 .artist-representative { margin: 0 auto var(--content-gap); width: min(88%, 480px); }
 .artist-representative img { width: 100%; height: auto; max-height: 375px; object-fit: contain; }
-.artist-representative figcaption { margin-top: var(--grid-gap-compact); font-size: 13px; line-height: 24px; color: var(--color-muted); }
+.artist-representative figcaption { margin-top: var(--grid-gap-compact); font-size: 13px; line-height: var(--line-height-metadata); color: var(--color-muted); }
 .artist-work { margin: 0; min-width: 0; }
 /* Figma's repeating three / two composition keeps the final column wider. */
 .artist-work:nth-child(5n + 1), .artist-work:nth-child(5n + 2) { width: calc((100% - var(--grid-gap) * 2) * .3214); }
@@ -27,17 +27,17 @@
 .artist-work:nth-child(5n + 5) { width: calc((100% - var(--grid-gap)) * .5182); }
 .artist-work-image { width: 88%; margin-inline: auto; height: 272px; }
 .artist-work:nth-child(5n + 4) .artist-work-image, .artist-work:nth-child(5n + 5) .artist-work-image { height: 348px; }
-.artist-work figcaption { margin-top: var(--grid-gap-compact); font-size: 13px; line-height: 24px; }
+.artist-work figcaption { margin-top: var(--grid-gap-compact); font-size: 13px; line-height: var(--line-height-metadata); }
 .artist-work-description { margin-top: var(--small-gap); color: var(--color-muted); }
-.artist-history { display: grid; grid-template-columns: minmax(0, 635px) minmax(0, 527px); justify-content: space-between; gap: var(--content-gap); border-top: 1px solid var(--color-divider); padding-block: calc(var(--content-gap) + var(--small-gap)); }
+.artist-history { display: grid; grid-template-columns: minmax(0, 635px) minmax(0, 527px); justify-content: space-between; gap: var(--content-gap); border-top: 1px solid var(--color-divider); padding-block: var(--heading-content-gap); }
 .artist-history h2 { margin-block: var(--small-gap) var(--grid-gap); }
 .artist-cv { grid-column: 2; }
-.artist-history-list { padding: 0; margin: 0; list-style: none; font-size: 15px; line-height: 1.8; }
+.artist-history-list { padding: 0; margin: 0; list-style: none; font-size: 15px; line-height: var(--line-height-body); }
 .artist-history-list li { display: flex; gap: var(--grid-gap); }
 .artist-history-list li > span { min-width: 0; }
 .artist-history-list li > span:first-child:not(:only-child) { flex: 0 0 96px; }
 .artist-cv > section + section { margin-top: var(--small-gap); }
-.artist-pagination { display: grid; grid-template-columns: 1fr 1fr; gap: var(--grid-gap); border-top: 1px solid var(--color-divider); padding-top: calc(var(--content-gap) + var(--small-gap)); margin-top: var(--small-gap); }
+.artist-pagination { display: grid; grid-template-columns: 1fr 1fr; gap: var(--grid-gap); border-top: 1px solid var(--color-divider); padding-top: var(--heading-content-gap); margin-top: var(--small-gap); }
 .artist-next { grid-column: 2; justify-self: end; text-align: right; }
 @media (min-width: 801px) {
   .artist-detail { width: min(calc(100% - (var(--page-padding) + var(--content-gap)) * 2), 1200px); }
@@ -56,6 +56,9 @@
 }
 
 .artist-work-title { font-weight: var(--weight-semibold); color: var(--color-text); }
+.artist-portfolio { padding-top: var(--content-gap); }
+.artist-detail > .artist-biography { max-width: 720px; margin-block: var(--content-gap); }
+.artist-portfolio-image { display: grid; place-items: center; }
 
 @media (min-width: 801px) and (max-width: 1024px) {
   .artist-intro, .artist-history { grid-template-columns: minmax(0, 1fr); }
@@ -72,3 +75,43 @@
   .artist-work figcaption, .artist-representative figcaption { font-size: 14px; }
   .artist-pagination a { min-height: 44px; display: flex; align-items: center; }
 }
+
+/* One main artwork; subsequent works exclude its Sanity asset. */
+.artist-main-artwork { margin: 0; min-width: 0; align-self: start; }
+.artist-main-image { display: grid; place-items: center; height: min(48svh, 430px); }
+.artist-main-image img { width: 100%; height: 100%; object-fit: contain; }
+.artist-main-artwork figcaption { margin-top: var(--caption-gap); font-size: 13px; line-height: 1.45; color: var(--color-muted); }
+.artist-intro { margin-top: 24px; padding-bottom: 24px; }
+.artist-intro-copy { padding-top: 0; }
+.artist-summary { margin-top: 16px; line-height: 1.6; }
+.artist-works { padding-block: 24px; }
+.artist-works > h2 { font-size: 24px; margin-bottom: 16px; }
+.artist-detail > .artist-biography { margin-block: 24px; }
+.artist-history { display: block; padding-block: 16px; margin-top: 24px; }
+.artist-history > h2 { font-family: var(--font-body); font-size: 13px; line-height: 1.4; font-weight: var(--weight-semibold); margin: 0 0 12px; }
+.artist-history-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.artist-history h3 { font-size: 12px; line-height: 1.4; font-weight: 500; margin: 0 0 8px; color: var(--color-secondary); }
+.artist-history-list { font-size: 12px; line-height: 1.45; }
+.artist-history-list li { gap: 12px; }
+.artist-history-list li > span:first-child:not(:only-child) { flex-basis: 64px; }
+.artist-history .artist-cv { grid-column: auto; }
+@media (max-width: 800px) { .artist-history-columns { grid-template-columns: 1fr; gap: 16px; } .artist-main-image { height: auto; max-height: 430px; } .artist-main-image img { height: auto; max-height: 430px; } }
+
+/* The artwork and its caption stay in normal document flow. */
+.artist-main-artwork { width: 100%; max-width: 460px; justify-self: end; }
+.artist-main-image { display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); height: min(44svh, 400px); min-height: 0; }
+.artist-main-image img { display: block; min-height: 0; max-height: 100%; width: 100%; height: 100%; object-fit: contain; }
+.artist-main-artwork figcaption { margin-top: 8px; font-size: 13px; line-height: 1.45; }
+.artist-main-artwork figcaption p { margin: 0; }
+.artist-intro-copy .artist-biography { margin-top: 16px; font-size: 14px; line-height: 1.65; }
+.artist-intro-copy .artist-biography > * + * { margin-top: 10px; }
+.artist-work figcaption { margin-top: 8px; line-height: 1.45; }
+@media (max-width: 1024px) { .artist-main-artwork { justify-self: center; } }
+@media (max-width: 800px) {
+ .artist-main-image { height: min(48svh, 360px); }
+ .artist-main-image img { height: 100%; max-height: 100%; }
+ .artist-intro { gap: 24px; }
+}
+
+.artist-works-grid { gap: calc(var(--content-gap) / 2) calc(var(--grid-gap) / 2); }
+@media (max-width: 800px) { .artist-works-grid { gap: calc(var(--content-gap) / 2) var(--small-gap); } }

@@ -3,7 +3,7 @@ export const publishedFilter = '!(_id in path("drafts.**")) && !(_id in path("ve
 const contentFilter = `${publishedFilter} && _type == $type && defined(slug.current)`;
 const projection = `{
   _id, _type, "title": coalesce(name, title, "제목 준비 중"), "slug": slug.current,
-  name, shortBio, fullBio, portrait, representativeImage, representativeImageDescription,
+  name, shortBio, fullBio, portrait, representativeImage, representativeImageDescription, "portfolioImages": coalesce(portfolioImages, []),
   "works": coalesce(works, []), "selectedExhibitions": coalesce(selectedExhibitions, []),
   "education": coalesce(education, []), "awards": coalesce(awards, []),
   "artist": artist->{_id, name, "slug": slug.current},
@@ -16,7 +16,7 @@ export const listQuery = `*[${contentFilter}] | order(coalesce(displayOrder, 100
 export const detailQuery = `*[${contentFilter} && slug.current == $slug][0] ${projection}`;
 export const settingsQuery = `*[_type == "siteSettings" && _id == "siteSettings" && ${publishedFilter}][0]{
   logo, address, openingHours, telephone, email, instagram, copyright,
-  aboutText, "aboutImages": coalesce(aboutImages, []), mapInformation
+  "heroImages": coalesce(heroImages, []), aboutText, "aboutImages": coalesce(aboutImages, []), mapInformation
 }`;
 export const healthQuery = `{
   "artists": count(*[_type == "artist" && ${publishedFilter}]),

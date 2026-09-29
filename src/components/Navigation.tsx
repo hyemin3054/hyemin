@@ -11,7 +11,12 @@ export function Navigation() {
       <ul className="navigation">
         {site.navigation.map(({ href, label }) => (
           <li key={href}>
-            <Link href={href} aria-current={pathname === href ? "page" : pathname.startsWith(`${href}/`) ? "location" : undefined}>
+            <Link href={href} scroll={href === "/#archive" ? false : undefined} onClick={event => {
+              if (href !== "/#archive" || pathname !== "/" || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+              event.preventDefault();
+              window.history.pushState(window.history.state, "", "/#archive");
+              document.getElementById("archive")?.scrollIntoView({ block: "start", behavior: "instant" });
+            }} aria-current={pathname === href ? "page" : pathname.startsWith(`${href}/`) ? "location" : undefined}>
               {label}
             </Link>
           </li>

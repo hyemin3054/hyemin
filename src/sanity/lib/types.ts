@@ -2,6 +2,7 @@ import type { PortableTextBlock } from "next-sanity";
 
 export type ContentImage = {
   _key?: string;
+  title?: string | null; year?: string | null; medium?: string | null; size?: string | null;
   asset?: { _ref: string } | null;
   crop?: { top: number; bottom: number; left: number; right: number };
   hotspot?: { x: number; y: number; width: number; height: number };
@@ -15,6 +16,7 @@ export type ContentDocument = {
   name?: string | null; shortBio?: string | null; fullBio?: PortableTextBlock[] | null;
   portrait?: ContentImage | null; representativeImage?: ContentImage | null;
   representativeImageDescription?: string | null;
+  portfolioImages?: ContentImage[] | null;
   works?: ArtistWork[] | null; selectedExhibitions?: HistoryEntry[] | null; education?: HistoryEntry[] | null; awards?: HistoryEntry[] | null;
   artist?: ArtistReference | null; startDate?: string | null; endDate?: string | null;
   detailImages?: ContentImage[] | null; mainImage?: ContentImage | null; galleryImages?: ContentImage[] | null;
@@ -28,7 +30,7 @@ export type SiteSettings = {
   logo?: ContentImage | null; address?: string | null;
   openingHours?: string | null; telephone?: string | null; email?: string | null;
   instagram?: string | null; copyright?: string | null; aboutText?: PortableTextBlock[] | null;
-  aboutImages?: ContentImage[] | null;
+  aboutImages?: ContentImage[] | null; heroImages?: ContentImage[] | null;
   mapInformation?: { mapUrl?: string | null; directions?: string | null; location?: { lat: number; lng: number; alt?: number } | null } | null;
 };
 export type ContentResult<T> = { status: "ready"; data: T } | { status: "unconfigured" | "error"; data: T };

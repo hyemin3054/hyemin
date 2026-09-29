@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
+import { ArtworkViewer } from "./ArtworkViewer";
 import { NewsImage } from "./NewsImage";
+import { ImageIndicators } from "./ImageIndicators";
 import { ImageDissolve } from "./ImageDissolve";
 
 export function NewsGallery({ images, title }: { images: string[]; title: string }) {
@@ -8,7 +10,8 @@ export function NewsGallery({ images, title }: { images: string[]; title: string
   if (!images.length) return null;
   const active = selected < images.length ? selected : 0;
   return <div className="news-gallery">
-    <div className="news-detail-image"><ImageDissolve imageKey={images[active]} src={images[active]}><NewsImage key={images[active]} src={images[active]} alt={`${title} 이미지 ${active + 1}`} /></ImageDissolve></div>
+    <div className="news-detail-image"><ArtworkViewer images={images.map(src => ({ src, title }))} initialIndex={active} src={images[active]} alt={`${title} 이미지 ${active + 1}`}><ImageDissolve imageKey={images[active]} src={images[active]}><NewsImage key={images[active]} src={images[active]} alt={`${title} 이미지 ${active + 1}`} /></ImageDissolve></ArtworkViewer></div>
+    <ImageIndicators count={images.length} active={active} onSelect={setSelected} />
     {images.length > 1 && <div className="news-thumbnails" aria-label="소식 이미지 선택">{images.map((src, index) =>
       <button key={`${src}-${index}`} type="button" aria-label={`이미지 ${index + 1} 보기`} aria-pressed={index === active} onClick={() => setSelected(index)}>
         <NewsImage src={src} alt="" />

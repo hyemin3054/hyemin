@@ -2,6 +2,12 @@ import { defineArrayMember, defineField, defineType } from "sanity";
 
 export const contentImage = defineType({
   name: "contentImage", title: "이미지", type: "image", options: { hotspot: true },
+  fields: [
+    defineField({ name: "title", title: "작품 제목", type: "string", hidden: ({ document }) => !["exhibition", "artist"].includes(String(document?._type)) }),
+    defineField({ name: "year", title: "제작 연도", type: "string", hidden: ({ document }) => !["exhibition", "artist"].includes(String(document?._type)) }),
+    defineField({ name: "medium", title: "재료 / 기법", type: "string", hidden: ({ document }) => !["exhibition", "artist"].includes(String(document?._type)) }),
+    defineField({ name: "size", title: "작품 크기", type: "string", description: "예: 130 × 162 cm. 캡션은 모두 선택 입력입니다.", hidden: ({ document }) => !["exhibition", "artist"].includes(String(document?._type)) }),
+  ],
 });
 export const richText = defineType({
   name: "richText", title: "본문", type: "array", of: [defineArrayMember({

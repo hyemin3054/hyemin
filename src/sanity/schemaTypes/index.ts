@@ -6,7 +6,7 @@ import { siteSettings } from "./siteSettings";
 import { contentImage, richText, artistWork, historyEntry } from "./objects";
 
 // Studio presentation only: stored field names and website queries remain unchanged.
-const images = new Set(["portrait", "representativeImage", "mainImage", "galleryImages", "detailImages"]);
+const images = new Set(["portfolioImages", "portrait", "representativeImage", "mainImage", "galleryImages", "detailImages"]);
 const details = new Set(["fullBio", "works", "selectedExhibitions", "education", "awards", "description", "body"]);
 const display = new Set(["displayOrder"]);
 const contentSchemas = [artist, exhibition, news, salesArtwork].map((schema) => ({

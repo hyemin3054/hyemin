@@ -1,13 +1,26 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { usePathname } from "next/navigation";
 
 // Enhance the existing document without taking ownership of navigation or layout.
 export function SiteMotion() {
   const pathname = usePathname();
-  const entered = useRef(false);
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if (pathname !== "/artists") return;
+    const page = document.querySelector<HTMLElement>(".artists-page");
+    const about = document.querySelector<HTMLElement>('.site-header a[href="/about"]');
+    if (!page || !about) return;
+    const measure = () => page.style.setProperty("--artists-about-inset", `${Math.max(0, page.getBoundingClientRect().right - about.getBoundingClientRect().left)}px`);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(page);
+    observer.observe(about);
+    window.addEventListener("resize", measure);
+    document.fonts.ready.then(measure);
+    return () => { observer.disconnect(); window.removeEventListener("resize", measure); };
+  }, [pathname]);
+  useLayoutEffect(() => {
     const header = document.querySelector<HTMLElement>(".site-header");
     if (!header) return;
     const measure = () => document.documentElement.style.setProperty("--sticky-header-height", `${header.getBoundingClientRect().height}px`);
@@ -16,6 +29,21 @@ export function SiteMotion() {
     observer.observe(header);
     return () => { observer.disconnect(); document.documentElement.style.removeProperty("--sticky-header-height"); };
   }, []);
+
+  useLayoutEffect(() => {
+    if (pathname !== "/" || window.location.hash !== "#archive") return;
+    // Wait for the streamed home content and its measured header before aligning.
+    const align = () => {
+      const archive = document.getElementById("archive");
+      if (!archive) return;
+      observer.disconnect();
+      archive.scrollIntoView({ block: "start", behavior: "instant" });
+    };
+    const observer = new MutationObserver(align);
+    observer.observe(document.body, { childList: true, subtree: true });
+    align();
+    return () => { observer.disconnect();  };
+  }, [pathname]);
 
   useEffect(() => {
     const main = document.querySelector<HTMLElement>(".site-main");
@@ -28,25 +56,36 @@ export function SiteMotion() {
       animations.add(animation);
       animation.onfinish = () => animations.delete(animation);
     };
-    if (!entered.current || !("startViewTransition" in document)) {
-      animate(main, [{ opacity: 0, transform: "translateY(10px)" }, { opacity: 1, transform: "translateY(0)" }], 450);
-    }
-    entered.current = true;
     // Offscreen sections stay readable even when JS or an observer is unavailable.
     const observer = typeof IntersectionObserver !== "undefined" ? new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
-        animate(entry.target, [{ opacity: 0, transform: "translateY(12px)" }, { opacity: 1, transform: "translateY(0)" }], 500);
+        animate(entry.target, [{ opacity: 0 }, { opacity: 1 }], 500);
         observer?.unobserve(entry.target);
       });
     }, { threshold: 0, rootMargin: "0px 0px -24px 0px" }) : null;
-    main.querySelectorAll("section").forEach(section => {
-      const parentSection = section.parentElement?.closest("section");
-      if ((!parentSection || parentSection.parentElement === main) && section.getBoundingClientRect().top > window.innerHeight) observer?.observe(section);
+    main.querySelectorAll("img").forEach(image => {
+      // Galleries own their decoded image transition. Never fade a visible
+      // gallery image again when the scroll observer first sees it.
+      if (image.closest(".home-hero, .exhibition-viewer--home")) return;
+      if (image.getBoundingClientRect().top > window.innerHeight) observer?.observe(image);
     });
     const stop = () => { if (reduced.matches) animations.forEach(animation => animation.cancel()); };
     reduced.addEventListener("change", stop);
     return () => { observer?.disconnect(); animations.forEach(animation => animation.cancel()); reduced.removeEventListener("change", stop); };
+  }, [pathname]);
+  useLayoutEffect(() => {
+    const hero = document.querySelector<HTMLElement>(".home-hero");
+    const logo = document.querySelector<HTMLElement>(".home-hero-wordmark");
+    if (!hero || !logo) return;
+    const measure = () => {
+      const frame = hero.getBoundingClientRect(), wordmark = logo.getBoundingClientRect();
+      hero.style.setProperty("--hero-gradient-top", `${wordmark.top - frame.top + wordmark.height * .2}px`);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(hero); observer.observe(logo);
+    return () => observer.disconnect();
   }, [pathname]);
   return null;
 }

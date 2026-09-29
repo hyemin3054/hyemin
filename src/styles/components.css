@@ -76,3 +76,7 @@
   .site-main :is(.artists-page, .exhibitions-page, .ex-detail, .news-list-page, .sales-page) > h1,
   .site-main :is(.news-section-title, .sales-section-title) { font-size: 28px; line-height: 1.35; margin-top: 4px; padding-bottom: 8px; }
 }
+
+/* Six navigation items share the existing header without wrapping. */
+@media (min-width: 1025px) { .site-header--inner .navigation { flex-wrap: nowrap; column-gap: 18px; } }
+@media (max-width: 768px) { .site-header .navigation { gap: clamp(3px, 1vw, 8px); } .site-header .navigation a { font-size: clamp(9px, 2.8vw, 14px); } }

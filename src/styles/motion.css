@@ -5,13 +5,6 @@
   --motion-page: 320ms;
   --motion-ease: cubic-bezier(.2, .65, .3, 1);
 }
-::view-transition { pointer-events: none; }
-::view-transition-group(page-content) { animation: none; }
-::view-transition-old(page-content) { animation: dissolve-out 200ms var(--motion-ease) both; }
-::view-transition-new(page-content) { animation: page-arrive var(--motion-page) var(--motion-ease) both; }
-::view-transition-group(root), ::view-transition-new(root) { animation: none; }
-::view-transition-old(root) { display: none; }
-@keyframes page-arrive { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 html { scroll-behavior: smooth; scroll-padding-top: calc(var(--sticky-header-height, 160px) + 16px); }
 .site-header { position: sticky; top: 0; z-index: 30; background: var(--color-background); }
 .site-main [id] { scroll-margin-top: 16px; }

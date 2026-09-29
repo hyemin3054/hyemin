@@ -1,4 +1,4 @@
-.about-page { padding-top: calc(var(--content-gap) * 2); padding-bottom: var(--content-gap); overflow-wrap: anywhere; }
+.about-page { padding-top: var(--page-entry-gap); padding-bottom: var(--content-gap); overflow-wrap: anywhere; }
 .about-page h1, .about-page h2 { font-family: var(--font-body); font-size: 12px; line-height: 24px; font-weight: var(--weight-semibold); }
 .about-page h1 { color: var(--color-secondary); font-size: 20px; }
 .about-contact > h2 { font-size: 18px; }
@@ -13,14 +13,14 @@
 .about-logo-wordmark { display: block; width: 220px; max-width: 100%; height: 97px; overflow: hidden; margin-top: calc(-1 * var(--content-gap)); }
 .about-logo-wordmark img { width: 171.34%; max-width: none; height: 126px; margin-left: -71.34%; }
 .about-introduction { margin-top: var(--section-gap); }
-.about-prose { max-width: 1089px; font-size: 18px; line-height: 1.7; }
-.about-prose > * + * { margin-top: var(--grid-gap); }
+.about-prose { max-width: 1089px; font-size: 18px; line-height: var(--line-height-body); }
+.about-prose > * + * { margin-top: var(--caption-gap); }
 .about-hours { margin-top: var(--grid-gap); font-size: 14px; line-height: 24px; }
-.about-space { margin: calc(var(--content-gap) * 2) var(--content-gap) 0; }
+.about-space { margin: var(--artwork-vertical-gap) var(--content-gap) 0; }
 .about-space-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--grid-gap-tight); margin-top: var(--grid-gap-compact); }
 .about-space-grid figure { margin: 0; min-width: 0; aspect-ratio: 317 / 220; display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); }
 .about-contact { margin: var(--section-gap) var(--content-gap) 0; }
-.about-contact-grid { display: grid; grid-template-columns: minmax(0, 580px) minmax(0, 545px); gap: var(--artwork-row-gap); margin-top: calc(var(--content-gap) * 2); }
+.about-contact-grid { display: grid; grid-template-columns: minmax(0, 580px) minmax(0, 545px); gap: var(--artwork-row-gap); margin-top: var(--heading-content-gap); }
 .about-contact-copy { min-width: 0; width: 100%; max-width: 500px; justify-self: end; text-align: right; font-size: 14px; line-height: 24px; }
 .about-contact-copy .about-logo { margin-left: auto; }
 .about-contact-copy > p { margin-top: var(--grid-gap); }
