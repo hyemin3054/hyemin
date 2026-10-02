@@ -31,12 +31,19 @@ export function SiteMotion() {
   }, []);
 
   useLayoutEffect(() => {
-    if (pathname !== "/" || window.location.hash !== "#archive") return;
+    if ((pathname !== "/" && pathname !== "/exhibitions") || window.location.hash !== "#archive") return;
     // Wait for the streamed home content and its measured header before aligning.
     const align = () => {
       const archive = document.getElementById("archive");
       if (!archive) return;
       observer.disconnect();
+      if (pathname === "/exhibitions") {
+        const offset = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) + parseFloat(getComputedStyle(archive).scrollMarginTop);
+        const requiredScroll = archive.getBoundingClientRect().top + window.scrollY - offset;
+        const availableScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const deficit = Math.max(0, requiredScroll - availableScroll);
+        if (deficit > 0) archive.style.minHeight = `${archive.getBoundingClientRect().height + deficit}px`;
+      }
       archive.scrollIntoView({ block: "start", behavior: "instant" });
     };
     const observer = new MutationObserver(align);
@@ -67,7 +74,7 @@ export function SiteMotion() {
     main.querySelectorAll("img").forEach(image => {
       // Galleries own their decoded image transition. Never fade a visible
       // gallery image again when the scroll observer first sees it.
-      if (image.closest(".home-hero, .exhibition-viewer--home")) return;
+      if (image.closest(".home-hero, .exhibition-viewer--home, .artists-mobile-browser")) return;
       if (image.getBoundingClientRect().top > window.innerHeight) observer?.observe(image);
     });
     const stop = () => { if (reduced.matches) animations.forEach(animation => animation.cancel()); };

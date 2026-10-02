@@ -17,7 +17,7 @@ export function PurchaseContact({ settings }: { settings: SiteSettings | null })
 
 export function SalesPageHeader({ settings, detail = false }: { settings: SiteSettings | null; detail?: boolean }) {
   return <header className="sales-page-heading">
-    <div><p className="sales-eyebrow">SALES</p>{!detail && <h1 className="sales-works-heading">Works</h1>}</div>
+    <div>{detail ? <p className="sales-eyebrow">SALES</p> : <h1 className="sales-works-heading">SALES</h1>}</div>
     {!detail && <PurchaseContact settings={settings} />}
   </header>;
 }

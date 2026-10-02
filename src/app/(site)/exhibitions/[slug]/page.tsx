@@ -30,7 +30,7 @@ export default async function DetailPage({ params }: Props) {
   const archive = groups.archive.filter(entry => entry._id !== item._id).slice(0, 8);
   const status = groups.past?._id === item._id ? "PAST" : groups.archive.some(entry => entry._id === item._id) ? "ARCHIVE" : groups.current.some(entry => entry._id === item._id) ? "CURRENT" : item.status === "upcoming" ? "UPCOMING" : null;
   return <article className="container ex-detail">
-    <Link className="ex-detail-eyebrow" href="/exhibitions">EXHIBITIONS / ARCHIVE</Link>
+    <Link className="ex-detail-eyebrow" href={status === "ARCHIVE" ? "/exhibitions#archive" : "/exhibitions"}>{status === "ARCHIVE" ? "ARCHIVE" : "EXHIBITION"}</Link>
     {status && <p className="ex-detail-status">{status}</p>}<Divider />
     <div className="ex-detail-layout">
     <section className="ex-detail-heading" aria-label="전시 정보">

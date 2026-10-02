@@ -91,3 +91,5 @@
 .exhibitions-page .exhibition-archive-grid .exhibition-archive-image { aspect-ratio: 420 / 594; overflow: hidden; }
 .exhibitions-page .exhibition-archive-grid .exhibition-archive-image img { width: 100%; height: 100%; object-fit: cover; }
 .exhibitions-page .exhibition-current-row { padding-inline: 0; margin-top: 0; }
+/* The document scroll-padding already accounts for the sticky header. */
+.exhibitions-page #archive { scroll-margin-top: 4px; }
