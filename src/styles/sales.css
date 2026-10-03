@@ -144,3 +144,14 @@
  .sales-page:not(.sales-detail) > .sales-grid { column-gap: 8px; }
  .sales-page:not(.sales-detail) .sales-grid-image { width: 100%; aspect-ratio: 1; }
 }
+
+@media (max-width: 800px) {
+ .sales-page:not(.sales-detail) .sales-grid-image { aspect-ratio: 1 / 1.3; }
+ .sales-page:not(.sales-detail) .sales-grid .sales-grid-price { font-size: 9.936px; }
+ .sales-detail .sales-artwork h1 { font-size: 28.8px; }
+ .sales-detail .sales-artwork-artist { font-size: 16px; }
+ .sales-detail .sales-facts { font-size: 11.2px; line-height: 19.2px; }
+ .sales-detail .sales-artwork-copy .sales-status { font-size: 9.6px; }
+ .sales-detail .sales-description { font-size: 12.8px; }
+ .sales-detail .sales-artwork-price { font-size: 16.2px; }
+}

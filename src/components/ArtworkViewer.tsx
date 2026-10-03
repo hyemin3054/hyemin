@@ -43,7 +43,7 @@ export function ArtworkLightbox({ images, initialIndex, alt, contact, onClose }:
   </dialog>;
 }
 
-export function ArtworkViewer({ src, fullSrc, alt, className = "", href, magnifier = true, images, initialIndex = 0, contact, onSwipe, children }: { src: string | null; fullSrc?: string; alt: string; className?: string; href?: string; magnifier?: boolean; images?: ArtworkSlide[]; initialIndex?: number; contact?: ReactNode; onSwipe?: (direction: number) => void; children?: ReactNode }) {
+export function ArtworkViewer({ src, fullSrc, alt, className = "", href, magnifier = true, images, initialIndex = 0, contact, onSwipe, swipeThreshold = 40, children }: { src: string | null; fullSrc?: string; alt: string; className?: string; href?: string; magnifier?: boolean; images?: ArtworkSlide[]; initialIndex?: number; contact?: ReactNode; onSwipe?: (direction: number) => void; swipeThreshold?: number; children?: ReactNode }) {
   const [open, setOpen] = useState(false);
   const [lens, setLens] = useState<{x: number; y: number; width: number; height: number; px: number; py: number} | null>(null);
   const start = useRef<{x: number; y: number} | null>(null);
@@ -75,8 +75,8 @@ export function ArtworkViewer({ src, fullSrc, alt, className = "", href, magnifi
       const touch = event.changedTouches[0];
       if (!first || !touch || !onSwipe) return;
       const dx = touch.clientX - first.x, dy = touch.clientY - first.y;
-      swiped.current = Math.max(Math.abs(dx), Math.abs(dy)) > 40;
-      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      swiped.current = Math.max(Math.abs(dx), Math.abs(dy)) > swipeThreshold;
+      if (Math.abs(dx) > swipeThreshold && Math.abs(dx) > Math.abs(dy) * (swipeThreshold < 40 ? 1.2 : 1.5)) {
         setLens(null); onSwipe(dx < 0 ? 1 : -1);
       }
     },
@@ -85,7 +85,8 @@ export function ArtworkViewer({ src, fullSrc, alt, className = "", href, magnifi
     onPointerUp: (event: PointerEvent<HTMLElement>) => {
       if (event.pointerType === "touch") return;
       const first = start.current; start.current = null;
-      if (first && onSwipe && Math.abs(event.clientX - first.x) > 40 && Math.abs(event.clientX - first.x) > Math.abs(event.clientY - first.y)) { swiped.current = true; setLens(null); onSwipe(event.clientX < first.x ? 1 : -1); }
+      const threshold = matchMedia("(max-width: 800px)").matches ? swipeThreshold : 40;
+      if (first && onSwipe && Math.abs(event.clientX - first.x) > threshold && Math.abs(event.clientX - first.x) > Math.abs(event.clientY - first.y)) { swiped.current = true; setLens(null); onSwipe(event.clientX < first.x ? 1 : -1); }
     },
     onClick: (event: React.MouseEvent<HTMLElement>) => {
       if (swiped.current) { event.preventDefault(); swiped.current = false; return; }
