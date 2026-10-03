@@ -78,5 +78,9 @@
 }
 
 /* Six navigation items share the existing header without wrapping. */
+@media (max-width: 800px) {
+ .site-header--home .site-logo--home { width: calc(var(--home-logo-width) * .6); height: calc(var(--home-logo-height) * .6); }
+ .site-header--home .header-content { gap: 2px; }
+}
 @media (min-width: 1025px) { .site-header--inner .navigation { flex-wrap: nowrap; column-gap: 18px; } }
 @media (max-width: 768px) { .site-header .navigation { gap: clamp(3px, 1vw, 8px); } .site-header .navigation a { font-size: clamp(9px, 2.8vw, 14px); } }

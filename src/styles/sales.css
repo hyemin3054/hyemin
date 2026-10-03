@@ -138,3 +138,9 @@
 }
 
 @media (min-width: 801px) { .sales-page { --sales-frame-ratio: 1.111111; } }
+
+@media (max-width: 800px) {
+ .sales-page:not(.sales-detail) { width: 100%; padding-inline: 12px; --sales-image-width: 100%; --sales-frame-ratio: 1; }
+ .sales-page:not(.sales-detail) > .sales-grid { column-gap: 8px; }
+ .sales-page:not(.sales-detail) .sales-grid-image { width: 100%; aspect-ratio: 1; }
+}

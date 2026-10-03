@@ -64,9 +64,26 @@ export function ArtworkViewer({ src, fullSrc, alt, className = "", href, magnifi
     onPointerMove: move,
     onPointerLeave: () => setLens(null),
     onDragStart: (event: React.DragEvent) => event.preventDefault(),
-    onPointerDown: (event: PointerEvent<HTMLElement>) => { swiped.current = false; start.current = {x: event.clientX, y: event.clientY}; if (onSwipe) event.currentTarget.setPointerCapture(event.pointerId); },
+    onTouchStart: (event: React.TouchEvent<HTMLElement>) => {
+      swiped.current = false;
+      const touch = event.touches[0];
+      start.current = onSwipe && event.touches.length === 1 ? { x: touch.clientX, y: touch.clientY } : null;
+    },
+    onTouchCancel: () => { start.current = null; },
+    onTouchEnd: (event: React.TouchEvent<HTMLElement>) => {
+      const first = start.current; start.current = null;
+      const touch = event.changedTouches[0];
+      if (!first || !touch || !onSwipe) return;
+      const dx = touch.clientX - first.x, dy = touch.clientY - first.y;
+      swiped.current = Math.max(Math.abs(dx), Math.abs(dy)) > 40;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+        setLens(null); onSwipe(dx < 0 ? 1 : -1);
+      }
+    },
+    onPointerDown: (event: PointerEvent<HTMLElement>) => { if (event.pointerType === "touch") return; swiped.current = false; start.current = {x: event.clientX, y: event.clientY}; if (onSwipe) event.currentTarget.setPointerCapture(event.pointerId); },
     onPointerCancel: () => { start.current = null; },
     onPointerUp: (event: PointerEvent<HTMLElement>) => {
+      if (event.pointerType === "touch") return;
       const first = start.current; start.current = null;
       if (first && onSwipe && Math.abs(event.clientX - first.x) > 40 && Math.abs(event.clientX - first.x) > Math.abs(event.clientY - first.y)) { swiped.current = true; setLens(null); onSwipe(event.clientX < first.x ? 1 : -1); }
     },
