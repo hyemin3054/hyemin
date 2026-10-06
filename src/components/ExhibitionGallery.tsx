@@ -6,7 +6,8 @@ import { ImageIndicators } from "./ImageIndicators";
 import { ImageDissolve } from "./ImageDissolve";
 
 export type ExhibitionSlide = { src: string; fullSrc: string; title?: string | null; year?: string | null; medium?: string | null; size?: string | null };
-const captionLine = (...values: (string | null | undefined)[]) => values.map(value => value?.trim()).filter(Boolean).join(" / ");
+const captionLine = (...values: (string | null | undefined)[]) => values.map(value => value?.trim()).filter(Boolean).join(", ");
+const protectedSize = (value?: string | null) => value?.trim().replace(/(\d)\s*[×x]\s*(\d)/gi, "$1\u00a0×\u00a0$2").replace(/(\d)\s+(cm|mm|m)\b/gi, "$1\u00a0$2");
 
 export function ExhibitionGallery({ images, title, layout = "detail", information, href, label }: { images: ExhibitionSlide[]; title: string; layout?: "detail" | "home" | "list"; information?: ReactNode; href?: string; label?: ReactNode }) {
   const [selected, setSelected] = useState(0);
@@ -28,7 +29,7 @@ export function ExhibitionGallery({ images, title, layout = "detail", informatio
     }
   };
   const firstLine = captionLine(image.title, image.year);
-  const secondLine = captionLine(image.medium, image.size);
+  const secondLine = captionLine(protectedSize(image.size), image.medium);
   const thumbnails = images.length > 1 && <div className="exhibition-thumbnail-navigation"><div className="exhibition-thumbnails" role="group" aria-label="작품 선택" onMouseLeave={() => setPreview(null)}>{(layout === "detail" ? images : images.slice(0, 4)).map((slide, index) => (
       <button key={`${slide.src}-${index}`} type="button" aria-label={`${slide.title || title} 이미지 ${index + 1}`} aria-pressed={selected === index} onPointerEnter={event => { if (event.pointerType === "mouse") setPreview(index); }} onFocus={() => setPreview(index)} onBlur={() => setPreview(null)} onClick={() => select(index)}><ContentVisual src={slide.src} alt="" /></button>
     ))}</div></div>;

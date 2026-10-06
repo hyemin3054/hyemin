@@ -93,9 +93,13 @@
 .exhibitions-page .exhibition-current-row { padding-inline: 0; margin-top: 0; }
 /* The document scroll-padding already accounts for the sticky header. */
 .exhibitions-page #archive { scroll-margin-top: 4px; }
+.exhibition-archive-link h3 { font-size: 36.8px; line-height: 1.25; margin-top: 12px; }
+.exhibition-archive-link h3 + .exhibition-artist { margin-top: 4px; }
 
 /* Keep the shared preview stage stable; only reduce the mobile artwork inside it. */
 @media (max-width: 800px) {
+ .exhibition-archive-link h3 { font-size: 25.76px; }
+ .exhibition-archive-link h3 + .exhibition-artist { margin-top: 2px; }
  .site-main .exhibitions-page .exhibition-preview.exhibition-viewer .exhibition-enlarge.artwork-viewer { width: 60%; height: 80%; }
  .site-main .exhibitions-page .exhibition-preview.exhibition-viewer .home-past-label { margin-bottom: 12px; }
  .site-main .exhibitions-page .exhibition-preview.exhibition-viewer .exhibition-viewer-information h3 { margin-bottom: 12px; }

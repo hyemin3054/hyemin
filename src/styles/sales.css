@@ -32,10 +32,12 @@
 .sales-artwork-price { font-size: 24px; margin-top: var(--caption-gap); }
 .sales-availability { font-size: 14px; margin-top: var(--small-gap); }
 .sales-facts { margin: var(--grid-gap) auto 0; font-size: 14px; line-height: 24px; }
-.sales-facts > div { display: flex; justify-content: center; gap: var(--grid-gap); }
+.sales-facts > div { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 16px; align-items: baseline; }
+.sales-facts > div + div { margin-top: 7px; }
 .sales-facts dt { color: var(--color-muted); }
 .sales-facts dd { min-width: 0; }
 .sales-facts dd { margin: 0; }
+.sales-year-value { font-weight: var(--weight-semibold); }
 .sales-description { margin-top: var(--content-gap); font-size: 18px; line-height: var(--line-height-body); }
 .sales-description > * + * { margin-top: var(--small-gap); }
 .sales-related { margin-top: var(--section-gap); }
@@ -133,6 +135,9 @@
  .sales-page:not(.sales-detail) { padding-inline: calc(var(--page-padding) / 2); --sales-image-width: 100%; }
 }
 .sales-detail .sales-artwork-price { font-size: 18px; }
+.sales-detail .sales-artwork h1, .sales-detail .sales-artwork-artist { font-weight: var(--weight-semibold); }
+.sales-detail .sales-artwork-price { margin-top: 0; font-weight: var(--weight-regular); }
+.sales-detail .sales-facts .sales-status { margin-top: 0; font-size: inherit; font-weight: var(--weight-regular); }
 @media (min-width: 801px) {
  .sales-page:not(.sales-detail) .sales-grid-image { aspect-ratio: 10 / 9; }
 }
@@ -154,4 +159,6 @@
  .sales-detail .sales-artwork-copy .sales-status { font-size: 9.6px; }
  .sales-detail .sales-description { font-size: 12.8px; }
  .sales-detail .sales-artwork-price { font-size: 16.2px; }
+ .sales-detail .sales-facts { width: 100%; margin-inline: 0; }
+ .sales-detail .sales-facts > div { grid-template-columns: 88px minmax(0, 1fr); gap: 10px; }
 }

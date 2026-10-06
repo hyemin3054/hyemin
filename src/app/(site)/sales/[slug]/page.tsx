@@ -18,13 +18,13 @@ export default async function DetailPage({ params }: Props) {
   const item = result.data;
   if (!item) notFound();
   const related = sortArtworks(list.data).filter((entry) => entry._id !== item._id).slice(0, 8);
-  const facts = [["Year", item.year], ["Dimensions", item.dimensions], ["Medium", item.medium]].filter(([, value]) => value?.trim());
+  const facts = [["Year", item.year], ["Dimensions", item.dimensions], ["Medium", item.medium], ["Price", item.price != null ? artworkPrice(item.price) : null]].filter(([, value]) => typeof value === "string" && value.trim());
   return <article className="container sales-page sales-detail"><SalesPageHeader settings={settings.data} detail /><Divider />
     <section className="sales-artwork" aria-label="작품 정보"><div className="sales-artwork-copy"><h1>{item.title}</h1>
       {item.artist?.name && <p className="sales-artwork-artist">{item.artist.slug ? <Link href={`/artists/${encodeURIComponent(item.artist.slug)}`}>{item.artist.name}</Link> : item.artist.name}</p>}
-      {facts.length > 0 && <div className="sales-facts">{facts.map(([label, value]) => <p key={label}>{value}</p>)}</div>}
-      {item.price != null && <p className="sales-artwork-price">{artworkPrice(item.price)}</p>}
-      <div className="sales-availability"><SalesStatus value={item.availability} /></div>
+      <dl className="sales-facts">{facts.map(([label, value]) => <div key={label}><dt>{label}</dt><dd className={label === "Year" ? "sales-year-value" : label === "Price" ? "sales-artwork-price" : undefined}>{value}</dd></div>)}
+        {item.availability && <div><dt>Status</dt><dd><SalesStatus value={item.availability} /></dd></div>}
+      </dl>
       <PurchaseContact settings={settings.data} /></div>
       <div className="sales-main-image"><ArtworkViewer contact={<PurchaseContact settings={settings.data} />} images={imageUrl(item.mainImage) ? [{ src: imageUrl(item.mainImage)!, fullSrc: imageUrl(item.mainImage, 3000) || undefined, title: item.title, year: item.year, medium: item.medium, size: item.dimensions }] : []} fullSrc={imageUrl(item.mainImage, 3000) || undefined} src={imageUrl(item.mainImage, 1420)} alt={item.title} /></div>
     </section>

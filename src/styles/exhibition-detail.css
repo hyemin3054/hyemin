@@ -85,20 +85,22 @@
  .ex-detail-layout .exhibition-thumbnails { grid-template-columns: repeat(4, minmax(0, 64px)); }
 }
 
-/* Caption belongs to the selected artwork, alongside it on wide screens. */
-.ex-detail-layout .exhibition-viewer--detail { display: grid; grid-template-columns: minmax(0, 1fr) minmax(90px, .26fr); gap: 6px 14px; }
+/* Caption belongs to the selected artwork and follows it in the same column. */
+.ex-detail-layout .exhibition-viewer--detail { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px 14px; }
 .ex-detail-layout .exhibition-viewer-main { grid-column: 1; grid-row: 1; }
-.ex-detail-layout .exhibition-caption { grid-column: 2; grid-row: 1; align-self: end; font-size: 10px; line-height: 1.4; }
-.ex-detail-layout .exhibition-caption p:first-child { font-size: 11px; }
-.ex-detail-layout .exhibition-viewer-indicators { grid-column: 1; grid-row: 2; }
-.ex-detail-layout .exhibition-thumbnail-navigation { grid-column: 1 / -1; grid-row: 3; }
+.ex-detail-layout .exhibition-caption { grid-column: 1; grid-row: 2; align-self: start; font-size: 10px; line-height: 1.4; }
+.ex-detail-layout .exhibition-caption p { overflow-wrap: normal; word-break: keep-all; }
+.ex-detail-layout .exhibition-caption p:first-child { font-size: 11px; font-weight: var(--weight-semibold); }
+.ex-detail-layout .exhibition-viewer-indicators { grid-column: 1; grid-row: 3; }
+.ex-detail-layout .exhibition-thumbnail-navigation { grid-column: 1; grid-row: 4; }
 .ex-detail-layout .ex-detail-description { border-top: 1px solid var(--color-divider); padding-top: 16px; }
 @media (max-width: 800px) {
  .ex-detail-layout .exhibition-viewer--detail { grid-template-columns: minmax(0, 1fr); }
- .ex-detail-layout .exhibition-caption { grid-column: 1; grid-row: 2; font-size: 10px; }
+ .ex-detail-layout .exhibition-caption { grid-column: 1; grid-row: 2; width: 60%; margin-inline: auto; font-size: 10px; }
  .ex-detail-layout .exhibition-viewer-indicators { grid-column: 1; grid-row: 3; }
  .ex-detail-layout .exhibition-thumbnail-navigation { display: none; }
- .ex-detail-layout .exhibition-enlarge { height: min(62svh, 540px); display: grid; }
+ .ex-detail-layout .exhibition-viewer-main { display: grid; min-height: min(62svh, 540px); place-items: center; }
+ .ex-detail-layout .exhibition-enlarge { width: 60%; height: min(37.2svh, 324px); display: grid; }
  .ex-detail-layout .exhibition-enlarge img { height: 100%; max-height: 100%; }
  .ex-detail-archive h3 { font-size: 11.2px; }
 }
