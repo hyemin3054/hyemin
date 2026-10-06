@@ -98,7 +98,8 @@
 
 /* Keep the shared preview stage stable; only reduce the mobile artwork inside it. */
 @media (max-width: 800px) {
- .exhibition-archive-link h3 { font-size: 11px; }
+ .exhibition-archive-link h3 { font-size: 12.5px; }
+ .exhibition-archive-link .exhibition-artist { font-size: 10.5px; }
  .exhibition-archive-link h3 + .exhibition-artist { margin-top: 2px; }
  .site-main .exhibitions-page .exhibition-preview.exhibition-viewer .exhibition-enlarge.artwork-viewer { width: 60%; height: 80%; }
  .site-main .exhibitions-page .exhibition-preview.exhibition-viewer .home-past-label { margin-bottom: 12px; }
