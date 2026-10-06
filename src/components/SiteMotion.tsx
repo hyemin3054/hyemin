@@ -44,12 +44,15 @@ export function SiteMotion() {
         const deficit = Math.max(0, requiredScroll - availableScroll);
         if (deficit > 0) archive.style.minHeight = `${archive.getBoundingClientRect().height + deficit}px`;
       }
-      archive.scrollIntoView({ block: "start", behavior: "instant" });
+      archive.scrollIntoView({ block: "start", behavior: pathname === "/" ? "smooth" : "instant" });
     };
     const observer = new MutationObserver(align);
     observer.observe(document.body, { childList: true, subtree: true });
+    const resize = new ResizeObserver(align);
+    const archive = document.getElementById("archive");
+    if (archive) resize.observe(archive);
     align();
-    return () => { observer.disconnect();  };
+    return () => { observer.disconnect(); resize.disconnect(); };
   }, [pathname]);
 
   useEffect(() => {
