@@ -134,7 +134,7 @@
   .home-current .exhibition-viewer-main { height: clamp(260px, 85vw, 420px); }
 }
 #current-exhibition { min-height: 0; scroll-margin-top: 16px; }
-#past-exhibition { margin-top: 16px; }
+#past-exhibition { margin-top: 28.8px; }
 .home-current .home-past-label { margin: 0 0 auto; }
 .home-current .exhibition-enlarge.artwork-viewer img { object-position: center; }
 @media (max-width: 800px) { .home-current .home-past-label { margin-bottom: 16px; } }
@@ -150,13 +150,13 @@
  .site-main .home-current .exhibition-preview.exhibition-viewer .exhibition-enlarge.artwork-viewer { width: 60%; height: 80%; align-self: center; }
  .site-main .home-current .exhibition-preview.exhibition-viewer .exhibition-enlarge.artwork-viewer img { object-fit: contain; object-position: center; }
  #past-exhibition { margin-top: 2px; }
- .home-archive h3 { font-size: 18.4px; }
+ .home-archive h3 { font-size: 14px; }
 }
 
 .home-archive h3 { font-size: 18.4px; }
 @media (max-width: 800px) {
  .home-archive-heading h2 { font-size: 16px; }
- .home-archive h3 { font-size: 18.4px; }
+ .home-archive h3 { font-size: 14px; }
  .site-main .home-current .exhibition-preview.exhibition-viewer .exhibition-viewer-main { height: clamp(220px, 70vw, 340px); margin-top: -12px; margin-bottom: 4px; }
  .site-main #past-exhibition .exhibition-preview.exhibition-viewer .exhibition-enlarge.artwork-viewer { width: min(78.3%, 100%); height: 100%; }
 }
