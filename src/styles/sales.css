@@ -122,11 +122,11 @@
 
 /* List prices are quiet metadata; detail prices retain their existing scale. */
 .sales-page:not(.sales-detail) .sales-grid .sales-grid-price { font-size: 12.42px; line-height: 1.5; }
-@media (min-width: 1280px) {
+@media (min-width: 801px) {
  .sales-artwork-copy { align-self: stretch; display: flex; flex-direction: column; }
  .sales-artwork-copy > .sales-purchase-contact { margin-top: auto; padding-top: 24px; }
 }
-@media (min-width: 1280px) { .sales-artwork-copy .sales-facts { margin-inline: 0; } }
+@media (min-width: 801px) { .sales-artwork-copy .sales-facts { margin-inline: 0; } }
 @media (min-width: 801px) {
  .sales-page:not(.sales-detail) .sales-grid { column-gap: 12px; }
  .sales-page:not(.sales-detail) .sales-grid-image { width: 100%; }
@@ -155,10 +155,10 @@
  .sales-page:not(.sales-detail) .sales-grid .sales-grid-price { font-size: 9.936px; }
  .sales-detail .sales-artwork h1 { font-size: 28.8px; }
  .sales-detail .sales-artwork-artist { font-size: 16px; }
- .sales-detail .sales-facts { font-size: 11.2px; line-height: 19.2px; }
- .sales-detail .sales-artwork-copy .sales-status { font-size: 9.6px; }
+ .sales-detail .sales-facts { font-size: 13.44px; line-height: 23.04px; }
+ .sales-detail .sales-artwork-copy .sales-status { font-size: 12.48px; }
  .sales-detail .sales-description { font-size: 12.8px; }
- .sales-detail .sales-artwork-price { font-size: 16.2px; }
+ .sales-detail .sales-artwork-price { font-size: inherit; }
  .sales-detail .sales-facts { width: 100%; margin-inline: 0; }
  .sales-detail .sales-facts > div { grid-template-columns: 88px minmax(0, 1fr); gap: 10px; }
 }

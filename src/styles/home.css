@@ -149,4 +149,8 @@
  .home-hero-wordmark span + span { font-size: clamp(10.8px, 1.2vw, 18px); }
  .site-main .home-current .exhibition-preview.exhibition-viewer .exhibition-enlarge.artwork-viewer { width: 60%; height: 80%; align-self: center; }
  .site-main .home-current .exhibition-preview.exhibition-viewer .exhibition-enlarge.artwork-viewer img { object-fit: contain; object-position: center; }
+ #past-exhibition { margin-top: 16px; }
+ .home-archive h3 { font-size: 18.4px; }
 }
+
+.home-archive h3 { font-size: 18.4px; }
