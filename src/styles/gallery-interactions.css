@@ -103,13 +103,14 @@
 .grotto-viewer button { border: 0; background: transparent; color: inherit; cursor: pointer; min-width: 44px; min-height: 44px; font-size: 24px; }
 .grotto-viewer button:disabled { visibility: hidden; }
 .grotto-viewer .viewer-close { position: absolute; top: 12px; right: 20px; }
-.grotto-viewer .viewer-zoom-controls { position: absolute; top: 12px; left: 20px; z-index: 2; display: flex; align-items: center; gap: 4px; }
+.grotto-viewer .viewer-zoom-controls { position: absolute; top: 8px; right: 8px; z-index: 2; display: flex; align-items: center; gap: 4px; padding: 2px 4px; background: rgba(255, 255, 255, .82); }
 .grotto-viewer .viewer-zoom-controls button { min-width: 36px; min-height: 36px; font-size: 20px; }
 .grotto-viewer .viewer-zoom-controls button:disabled { visibility: visible; opacity: .25; cursor: default; }
 .grotto-viewer .viewer-zoom-controls output { min-width: 48px; text-align: center; font-size: 11px; font-variant-numeric: tabular-nums; }
 .viewer-stage { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; gap: 16px; min-height: 100%; }
-.viewer-artwork { justify-self: center; min-width: 0; margin: 0; animation: grotto-viewer-fade 260ms ease-out; }
-.viewer-window { width: fit-content; max-width: min(78vw, 1100px); max-height: 66dvh; margin-inline: auto; border: 1px solid #d8d8d4; overflow: auto; }
+.viewer-artwork { position: relative; justify-self: center; min-width: 0; margin: 0; animation: grotto-viewer-fade 260ms ease-out; }
+.viewer-window { width: fit-content; max-width: min(78vw, 1100px); max-height: 66dvh; margin-inline: auto; border: 1px solid #d8d8d4; overflow: auto; scrollbar-width: none; -ms-overflow-style: none; }
+.viewer-window::-webkit-scrollbar { display: none; }
 .viewer-zoom-surface { width: max-content; transform-origin: top left; transition: transform 160ms ease; }
 .grotto-viewer .viewer-window img { display: block; width: auto; height: auto; max-width: min(78vw, 1100px); max-height: 66dvh; object-fit: contain; }
 .grotto-viewer figcaption { width: 0; min-width: 100%; text-align: left; font-size: 13px; line-height: 1.5; padding-top: 12px; overflow-wrap: anywhere; }

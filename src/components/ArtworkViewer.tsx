@@ -36,14 +36,14 @@ export function ArtworkLightbox({ images, initialIndex, alt, contact, onClose }:
     if (event.key === "-") { event.preventDefault(); adjustZoom(-1); }
   }}>
     <button className="viewer-close" type="button" onClick={onClose} autoFocus aria-label="확대 이미지 닫기">×</button>
-    <div className="viewer-zoom-controls" aria-label="이미지 확대 조절">
-      <button type="button" onClick={() => adjustZoom(-1)} disabled={zoom <= 1} aria-label="이미지 축소">−</button>
-      <output aria-live="polite">{Math.round(zoom * 100)}%</output>
-      <button type="button" onClick={() => adjustZoom(1)} disabled={zoom >= 2.5} aria-label="이미지 확대">+</button>
-    </div>
     <div className="viewer-stage">
       <button className="viewer-previous" type="button" disabled={images.length < 2} onClick={() => change(-1)} aria-label="이전 작품">&lt;</button>
       <figure className="viewer-artwork" key={index}>
+        <div className="viewer-zoom-controls" aria-label="이미지 확대 조절">
+          <button type="button" onClick={() => adjustZoom(-1)} disabled={zoom <= 1} aria-label="이미지 축소">−</button>
+          <output aria-live="polite">{Math.round(zoom * 100)}%</output>
+          <button type="button" onClick={() => adjustZoom(1)} disabled={zoom >= 2.5} aria-label="이미지 확대">+</button>
+        </div>
         <div className="viewer-window"><div className="viewer-zoom-surface" style={{ transform: `scale(${zoom})` }}><ViewerVisual image={image} alt={alt} /></div></div>
         <figcaption aria-live="polite"><p className="viewer-index">{String(index + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}</p>{caption.map((line, i) => <p key={i}>{line}</p>)}{contact && <div className="viewer-contact">{contact}</div>}</figcaption>
       </figure>
