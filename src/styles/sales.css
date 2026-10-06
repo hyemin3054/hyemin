@@ -123,8 +123,8 @@
 /* List prices are quiet metadata; detail prices retain their existing scale. */
 .sales-page:not(.sales-detail) .sales-grid .sales-grid-price { font-size: 12.42px; line-height: 1.5; }
 @media (min-width: 801px) {
- .sales-artwork-copy { align-self: stretch; display: flex; flex-direction: column; }
- .sales-artwork-copy > .sales-purchase-contact { margin-top: auto; padding-top: 24px; }
+ .sales-artwork-copy { align-self: stretch; display: flex; flex-direction: column; justify-content: flex-end; }
+ .sales-artwork-copy > .sales-purchase-contact { display: none; }
 }
 @media (min-width: 801px) { .sales-artwork-copy .sales-facts { margin-inline: 0; } }
 @media (min-width: 801px) {
@@ -145,6 +145,7 @@
 @media (min-width: 801px) { .sales-page { --sales-frame-ratio: 1.111111; } }
 
 @media (max-width: 800px) {
+ .sales-detail .sales-page-heading > .sales-purchase-contact { display: none; }
  .sales-page:not(.sales-detail) { width: 100%; padding-inline: 12px; --sales-image-width: 100%; --sales-frame-ratio: 1; }
  .sales-page:not(.sales-detail) > .sales-grid { column-gap: 8px; }
  .sales-page:not(.sales-detail) .sales-grid-image { width: 100%; aspect-ratio: 1; }

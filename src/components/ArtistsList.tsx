@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ImageDissolve } from "./ImageDissolve";
 
 type Artist = { id: string; name: string; slug: string; image: string | null; thumbnail: string | null };
@@ -9,10 +10,13 @@ function ArtistImage({ artist }: { artist: Artist }) {
  return <div className="artists-image">{artist.image && !failed ? <img src={artist.image} alt={`${artist.name} 대표 이미지`} onError={() => setFailed(true)} /> : <p className="muted">이미지 준비 중</p>}</div>;
 }
 function MobileArtists({ artists }: { artists: Artist[] }) {
+ const router = useRouter();
  const [active, setActive] = useState(0);
  const rail = useRef<HTMLDivElement>(null);
  const request = useRef(0);
  const progress = useRef<HTMLDivElement>(null);
+ const gestureStart = useRef(0);
+ const dragged = useRef(false);
  useEffect(() => {
   const element = rail.current;
   if (!element) return;
@@ -38,14 +42,16 @@ function MobileArtists({ artists }: { artists: Artist[] }) {
    if (src) { const image = new Image(); image.src = src; image.decode().then(commit, commit); } else commit();
   };
   const scrolling = () => { if (!frame) frame = requestAnimationFrame(updateProgress); ++request.current; clearTimeout(timer); timer = setTimeout(settle, 120); };
-  const down = () => { dragging = true; ++request.current; };
+  const down = (event: PointerEvent) => { dragging = true; dragged.current = false; gestureStart.current = event.clientX; ++request.current; };
+  const move = (event: PointerEvent) => { if (Math.abs(event.clientX - gestureStart.current) > 8) dragged.current = true; };
   const up = () => { dragging = false; scrolling(); };
   element.addEventListener("scroll", scrolling, { passive: true });
   element.addEventListener("scrollend", settle);
   element.addEventListener("pointerdown", down);
+  element.addEventListener("pointermove", move);
   window.addEventListener("pointerup", up);
   window.addEventListener("pointercancel", up);
-  return () => { resize.disconnect(); cancelAnimationFrame(frame); ++request.current; clearTimeout(timer); element.removeEventListener("scroll", scrolling); element.removeEventListener("scrollend", settle); element.removeEventListener("pointerdown", down); window.removeEventListener("pointerup", up); window.removeEventListener("pointercancel", up); };
+  return () => { resize.disconnect(); cancelAnimationFrame(frame); ++request.current; clearTimeout(timer); element.removeEventListener("scroll", scrolling); element.removeEventListener("scrollend", settle); element.removeEventListener("pointerdown", down); element.removeEventListener("pointermove", move); window.removeEventListener("pointerup", up); window.removeEventListener("pointercancel", up); };
  }, [artists]);
  const selected = artists[active];
  const centerCard = (index: number) => {
@@ -58,7 +64,7 @@ function MobileArtists({ artists }: { artists: Artist[] }) {
    <ImageDissolve imageKey={selected.id} src={selected.image}><ArtistImage key={selected.id} artist={selected} /></ImageDissolve>
   </Link>
   <div className="artists-mobile-current" aria-live="polite" aria-atomic="true"><Link href={`/artists/${encodeURIComponent(selected.slug)}`}>{selected.name}</Link><p>{String(active + 1).padStart(2, "0")} / {String(artists.length).padStart(2, "0")}</p></div>
-  <div ref={rail} className="artists-rail" aria-label="작가 선택">{artists.map((artist, index) => <button type="button" key={artist.id} aria-pressed={index === active} aria-label={`${artist.name} 선택`} onClick={() => centerCard(index)} onKeyDown={event => { if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); const next = Math.max(0, Math.min(artists.length - 1, index + (event.key === "ArrowRight" ? 1 : -1))); rail.current?.querySelectorAll("button")[next].focus({ preventScroll: true }); centerCard(next); } }}><span>{artist.name}</span>{artist.thumbnail ? <img loading="lazy" src={artist.thumbnail} alt="" /> : <span className="artists-rail-placeholder">이미지 준비 중</span>}</button>)}</div>
+  <div ref={rail} className="artists-rail" aria-label="작가 선택">{artists.map((artist, index) => <button type="button" key={artist.id} aria-pressed={index === active} aria-label={`${artist.name} 상세 보기`} onClick={event => { if (dragged.current) { event.preventDefault(); return; } router.push(`/artists/${encodeURIComponent(artist.slug)}`); }} onKeyDown={event => { if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); const next = Math.max(0, Math.min(artists.length - 1, index + (event.key === "ArrowRight" ? 1 : -1))); rail.current?.querySelectorAll("button")[next].focus({ preventScroll: true }); centerCard(next); } }}><span>{artist.name}</span>{artist.thumbnail ? <img loading="lazy" src={artist.thumbnail} alt="" /> : <span className="artists-rail-placeholder">이미지 준비 중</span>}</button>)}</div>
   <p className="artists-swipe-hint">‹ 좌우로 밀어 작가를 살펴보세요 ›</p>
   <div ref={progress} className="artists-scroll-progress" aria-hidden="true"><span /></div>
  </div>;
