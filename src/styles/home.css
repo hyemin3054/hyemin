@@ -162,6 +162,7 @@
  .home-archive h3 + p { font-size: 10.5px; }
  .site-main .home-current .exhibition-preview.exhibition-viewer .exhibition-viewer-main { height: clamp(220px, 70vw, 340px); margin-top: -12px; margin-bottom: 4px; }
  .site-main :is(#current-exhibition, #past-exhibition) .exhibition-preview.exhibition-viewer .exhibition-enlarge.artwork-viewer { align-self: end; margin-bottom: 11px; }
+ .site-main #current-exhibition .exhibition-preview.exhibition-viewer .exhibition-enlarge.artwork-viewer { width: 72%; height: 96%; }
  .site-main #past-exhibition .exhibition-preview.exhibition-viewer .exhibition-viewer-main { margin-top: 20px; }
  .site-main #past-exhibition .exhibition-preview.exhibition-viewer .exhibition-enlarge.artwork-viewer { width: min(78.3%, 100%); height: 100%; }
 }

@@ -19,8 +19,10 @@ function ViewerVisual({ image, alt }: { image: ArtworkSlide; alt: string }) {
 export function ArtworkLightbox({ images, initialIndex, alt, contact, onClose }: { images: ArtworkSlide[]; initialIndex: number; alt: string; contact?: ReactNode; onClose: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [index, setIndex] = useState(Math.min(initialIndex, images.length - 1));
+  const [zoom, setZoom] = useState(1);
   const image = images[index];
-  const change = (direction: number) => setIndex(value => (value + direction + images.length) % images.length);
+  const change = (direction: number) => { setZoom(1); setIndex(value => (value + direction + images.length) % images.length); };
+  const adjustZoom = (direction: number) => setZoom(value => Math.min(2.5, Math.max(1, Number((value + direction * .25).toFixed(2)))));
   useEffect(() => {
     const element = dialog.current;
     const overflow = document.body.style.overflow;
@@ -30,12 +32,19 @@ export function ArtworkLightbox({ images, initialIndex, alt, contact, onClose }:
   const caption = image.caption || [[image.title, image.year].filter(Boolean).join(", "), [image.medium, image.size].filter(Boolean).join(", ")].filter(Boolean);
   return <dialog ref={dialog} className="artwork-lightbox grotto-viewer" aria-label={`${alt} 크게 보기`} onCancel={event => { event.preventDefault(); onClose(); }} onKeyDown={event => {
     if (event.key === "ArrowLeft" || event.key === "ArrowRight") { event.preventDefault(); change(event.key === "ArrowLeft" ? -1 : 1); }
+    if (event.key === "+" || event.key === "=") { event.preventDefault(); adjustZoom(1); }
+    if (event.key === "-") { event.preventDefault(); adjustZoom(-1); }
   }}>
     <button className="viewer-close" type="button" onClick={onClose} autoFocus aria-label="확대 이미지 닫기">×</button>
+    <div className="viewer-zoom-controls" aria-label="이미지 확대 조절">
+      <button type="button" onClick={() => adjustZoom(-1)} disabled={zoom <= 1} aria-label="이미지 축소">−</button>
+      <output aria-live="polite">{Math.round(zoom * 100)}%</output>
+      <button type="button" onClick={() => adjustZoom(1)} disabled={zoom >= 2.5} aria-label="이미지 확대">+</button>
+    </div>
     <div className="viewer-stage">
       <button className="viewer-previous" type="button" disabled={images.length < 2} onClick={() => change(-1)} aria-label="이전 작품">&lt;</button>
       <figure className="viewer-artwork" key={index}>
-        <div className="viewer-window"><ViewerVisual image={image} alt={alt} /></div>
+        <div className="viewer-window"><div className="viewer-zoom-surface" style={{ transform: `scale(${zoom})` }}><ViewerVisual image={image} alt={alt} /></div></div>
         <figcaption aria-live="polite"><p className="viewer-index">{String(index + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}</p>{caption.map((line, i) => <p key={i}>{line}</p>)}{contact && <div className="viewer-contact">{contact}</div>}</figcaption>
       </figure>
       <button className="viewer-next" type="button" disabled={images.length < 2} onClick={() => change(1)} aria-label="다음 작품">&gt;</button>

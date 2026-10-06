@@ -104,6 +104,7 @@
  .ex-detail-layout .exhibition-enlarge img { height: 100%; max-height: 100%; }
  .ex-detail-archive h3 { font-size: 11.2px; }
  .ex-detail--archive .ex-detail-title { font-size: 27.2px; }
+ .ex-detail--archive > .ex-detail-status { display: none; }
 }
 
 .ex-detail-archive-image { aspect-ratio: 420 / 594; overflow: hidden; }
@@ -119,7 +120,9 @@
 @media (max-width: 800px) { .ex-detail.ex-detail--archive .ex-detail-title { font-size: 27.2px; } }
 
 .ex-detail-layout .exhibition-thumbnail-navigation { display: grid; grid-template-columns: 28px minmax(0, 240px) 28px; align-items: center; justify-content: center; gap: 6px; width: 100%; }
-.ex-detail-layout .exhibition-thumbnails { display: flex; flex-flow: row nowrap; justify-content: center; gap: 4px; width: 100%; }
+.ex-detail-layout .exhibition-thumbnail-navigation > .thumbnail-page-step:first-child { grid-column: 1; }
+.ex-detail-layout .exhibition-thumbnails { grid-column: 2; display: flex; flex-flow: row nowrap; justify-content: center; gap: 4px; width: 100%; }
+.ex-detail-layout .exhibition-thumbnail-navigation > .thumbnail-page-step:last-child { grid-column: 3; }
 .ex-detail-layout .exhibition-thumbnails button { flex: 0 0 57px; width: 57px; min-width: 0; }
 .ex-detail-layout .exhibition-thumbnails img { width: 100%; height: 52px; object-fit: contain; }
 .ex-detail-layout .thumbnail-page-step { border: 0; background: transparent; color: inherit; font: inherit; font-size: 18px; min-width: 28px; min-height: 32px; cursor: pointer; }
