@@ -47,6 +47,6 @@
   .about-contact-copy { max-width: 100%; }
 }
 @media (max-width: 640px) {
-  .about-prose { font-size: 16px; }
+  .about-prose { font-size: 14px; line-height: 1.7; }
   .about-contact-copy address a { display: flex; align-items: center; justify-content: flex-end; min-height: 44px; max-width: 100%; }
 }
