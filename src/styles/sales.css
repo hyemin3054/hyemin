@@ -134,12 +134,13 @@
 @media (min-width: 801px) {
  .sales-page:not(.sales-detail) { padding-inline: calc(var(--page-padding) / 2); --sales-image-width: 100%; }
 }
-.sales-detail .sales-artwork-price { font-size: 18px; }
+.sales-detail .sales-artwork-price { font-size: inherit; }
 .sales-detail .sales-artwork h1, .sales-detail .sales-artwork-artist { font-weight: var(--weight-semibold); }
 .sales-detail .sales-artwork-price { margin-top: 0; font-weight: var(--weight-regular); }
 .sales-detail .sales-facts .sales-status { margin-top: 0; font-size: inherit; font-weight: var(--weight-regular); }
 @media (min-width: 801px) {
  .sales-page:not(.sales-detail) .sales-grid-image { aspect-ratio: 10 / 9; }
+ .sales-detail .sales-main-image { width: 85%; height: min(57.8svh, 578px); justify-self: end; }
 }
 
 @media (min-width: 801px) { .sales-page { --sales-frame-ratio: 1.111111; } }

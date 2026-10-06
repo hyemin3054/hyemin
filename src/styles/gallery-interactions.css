@@ -144,7 +144,7 @@
 .site-main .exhibition-preview.exhibition-viewer .home-past-label { margin: 0 0 auto; font-size: 18.08px; line-height: 1.4; font-weight: var(--weight-semibold); }
 .site-main .exhibition-preview.exhibition-viewer .exhibition-viewer-main { grid-column: 2; grid-row: 1; height: clamp(300px, 40vw, 540px); }
 .site-main .exhibition-preview.exhibition-viewer .exhibition-enlarge.artwork-viewer { display: grid; width: 75%; height: 100%; margin-inline: auto; }
-.site-main .exhibition-preview.exhibition-viewer .exhibition-enlarge.artwork-viewer img { width: 100%; height: 100%; max-height: 100%; object-fit: contain; object-position: center top; }
+.site-main .exhibition-preview.exhibition-viewer .exhibition-enlarge.artwork-viewer img { width: 100%; height: 100%; max-height: 100%; object-fit: contain; object-position: center; }
 .site-main .exhibition-preview.exhibition-viewer .exhibition-thumbnail-navigation { display: block; width: 100%; margin: 0; padding-left: 12px; }
 .site-main .exhibition-preview.exhibition-viewer .exhibition-thumbnails { display: grid; grid-template-columns: repeat(4, minmax(0, 76px)); gap: 3px; width: 100%; }
 .site-main .exhibition-preview.exhibition-viewer .exhibition-thumbnails button { width: auto; padding: 0; border: 0; }
@@ -174,6 +174,7 @@
  .site-main :is(.home-current, .exhibitions-page) .exhibition-preview.exhibition-viewer .exhibition-enlarge.artwork-viewer img { object-fit: contain; object-position: center; }
  .site-main :is(.home-current, .exhibitions-page) .exhibition-preview.exhibition-viewer .exhibition-viewer-information :is(h1, h3) { font-size: clamp(22.88px, 4.16vw, 31.2px); }
  .site-main .home-current .exhibition-preview.exhibition-viewer .exhibition-viewer-information h1 { margin-bottom: 8px; }
+ .site-main .home-current .exhibition-preview.exhibition-viewer .exhibition-viewer-main { margin-bottom: 12px; }
  .site-main .exhibitions-page .exhibition-preview.exhibition-viewer .exhibition-viewer-information h3 { margin-bottom: 6px; }
- .site-main .exhibitions-page .exhibition-preview.exhibition-viewer .exhibition-viewer-main { margin-top: -48px; margin-bottom: 48px; }
+ .site-main .exhibitions-page .exhibition-preview.exhibition-viewer .exhibition-viewer-main { margin-top: -48px; margin-bottom: 4px; }
 }

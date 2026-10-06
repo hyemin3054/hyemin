@@ -136,7 +136,7 @@
 #current-exhibition { min-height: calc(100svh - var(--sticky-header-height, 174px) - 32px); scroll-margin-top: 16px; }
 #past-exhibition { margin-top: 32px; }
 .home-current .home-past-label { margin: 0 0 auto; }
-.home-current .exhibition-enlarge.artwork-viewer img { object-position: center top; }
+.home-current .exhibition-enlarge.artwork-viewer img { object-position: center; }
 @media (max-width: 800px) { .home-current .home-past-label { margin-bottom: 16px; } }
 .home-archive-heading h2 { font-size: 18.08px; }
 #current-exhibition { margin-top: 40px; }
@@ -149,9 +149,12 @@
  .home-hero-wordmark span + span { font-size: clamp(10.8px, 1.2vw, 18px); }
  .site-main .home-current .exhibition-preview.exhibition-viewer .exhibition-enlarge.artwork-viewer { width: 60%; height: 80%; align-self: center; }
  .site-main .home-current .exhibition-preview.exhibition-viewer .exhibition-enlarge.artwork-viewer img { object-fit: contain; object-position: center; }
- #past-exhibition { margin-top: 8px; }
- .home-archive h3 { font-size: 9.2px; }
+ #past-exhibition { margin-top: 4px; }
+ .home-archive h3 { font-size: 18.4px; }
 }
 
 .home-archive h3 { font-size: 18.4px; }
-@media (max-width: 800px) { .home-archive h3 { font-size: 9.2px; } }
+@media (max-width: 800px) {
+ .home-archive-heading h2 { font-size: 16px; }
+ .home-archive h3 { font-size: 18.4px; }
+}
