@@ -53,7 +53,7 @@
   .navigation a { min-height: 44px; display: flex; align-items: center; }
 }
 @media (max-width: 640px) {
-  .site-header { --header-padding-block: 24px; --header-logo-width: 112px; --header-logo-height: 80px; }
+  .site-header { --header-padding-block: 24px; --header-logo-width: 37.33px; --header-logo-height: 26.67px; }
   .site-header--home { --home-logo-width: 100px; --home-logo-height: 71px; }
   .site-header--inner .header-content { gap: var(--small-gap); }
   .header-content nav { width: 100%; }
