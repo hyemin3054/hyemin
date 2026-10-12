@@ -10,6 +10,9 @@ export function SiteLogo({ src: _src, variant = "header" }: { src: string | null
     window.history.replaceState(window.history.state, "", "/#home-top");
     window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
   }}>
-    <img src={logoSrc} alt="" />
+    {variant === "header" ? <span className="site-logo-pair" aria-hidden="true">
+      <img src={site.homeLogo} alt="" />
+      <img src={site.wordmarkLogo} alt="" />
+    </span> : <img src={logoSrc} alt="" />}
   </Link>;
 }
