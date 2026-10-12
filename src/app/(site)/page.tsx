@@ -28,7 +28,7 @@ export default async function HomePage() {
   return <div id="home-top" className="home-page">
     <section className="home-hero-screen" aria-label="갤러리 전경">
       <div className="home-hero"><ImageCarousel images={heroImages} frameClass="home-hero-image" alt="The Grotto Art Window 전시 전경" autoPlay />
-        <div className="home-hero-wordmark"><img src={site.logo} alt="The Grotto Art Window" /></div>
+        <div className="home-hero-wordmark"><img src={site.wordmarkLogo} alt="The Grotto Art Window" /></div>
       </div>
       <CurrentExhibitionLink />
     </section>
