@@ -150,7 +150,7 @@
 }
 @media (min-width: 801px) {
  .sales-page:not(.sales-detail) {
-  width: min(calc(100% - 16px), 1434px);
+  width: min(calc(100% - 64px), 1434px);
   max-width: 1434px;
   padding-inline: 0;
  }
