@@ -16,6 +16,9 @@
 @media (min-width: 1025px) {
   .site-header--inner nav { flex: 0 1 var(--navigation-width); }
   .site-header--inner .navigation { justify-content: space-between; }
+  .site-header--sales-list .header-content {
+    width: min(calc(100% - 64px), 1434px);
+  }
 }
 .page-placeholder { padding-block: var(--content-gap); overflow-wrap: anywhere; }
 .divider { border: 0; border-top: 1px solid var(--color-divider); margin-block: var(--divider-spacing); }
@@ -54,7 +57,7 @@
   .navigation a { min-height: 44px; display: flex; align-items: center; }
 }
 @media (max-width: 640px) {
-  .site-header { --header-padding-block: 24px; --header-logo-width: 186.67px; --header-logo-height: 66.67px; }
+  .site-header { --header-padding-block: 24px; --header-logo-width: 168px; --header-logo-height: 60px; }
   .site-header--home { --home-logo-width: 100px; --home-logo-height: 71px; }
   .site-header--inner .header-content { gap: var(--small-gap); }
   .header-content nav { width: 100%; }
