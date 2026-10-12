@@ -40,8 +40,8 @@
   --weight-regular: 400;
   --weight-semibold: 600;
   --header-padding-block: 28px;
-  --header-logo-width: 270px;
-  --header-logo-height: 96px;
+  --header-logo-width: 300px;
+  --header-logo-height: 106.67px;
   --home-logo-width: 134px;
   --home-logo-height: 95px;
   --home-header-bottom: 15px;
@@ -69,8 +69,8 @@
     --artwork-row-gap: 48px;
     --navigation-gap: 24px;
     --navigation-home-gap: 32px;
-    --header-logo-width: 225px;
-    --header-logo-height: 80.25px;
+    --header-logo-width: 250px;
+    --header-logo-height: 89.17px;
     --footer-brand-column: 267px;
     --footer-contact-column: 240px;
   }

@@ -57,7 +57,7 @@
   .navigation a { min-height: 44px; display: flex; align-items: center; }
 }
 @media (max-width: 640px) {
-  .site-header { --header-padding-block: 24px; --header-logo-width: 168px; --header-logo-height: 60px; }
+  .site-header { --header-padding-block: 24px; --header-logo-width: 186.67px; --header-logo-height: 66.67px; }
   .site-header--home { --home-logo-width: 100px; --home-logo-height: 71px; }
   .site-header--inner .header-content { gap: var(--small-gap); }
   .header-content nav { width: 100%; }

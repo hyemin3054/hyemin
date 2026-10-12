@@ -183,3 +183,12 @@
  .sales-detail .sales-facts { width: 100%; margin-inline: 0; }
  .sales-detail .sales-facts > div { grid-template-columns: 88px minmax(0, 1fr); gap: 10px; }
 }
+
+/* Keep the expanded Sales grid while reducing only the list artwork frames by 10%. */
+.sales-page:not(.sales-detail) {
+ --sales-image-width: 90%;
+}
+.sales-page:not(.sales-detail) .sales-grid-image {
+ width: 90%;
+ margin-inline: auto;
+}
