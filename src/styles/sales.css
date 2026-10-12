@@ -138,6 +138,16 @@
 .sales-detail .sales-artwork h1, .sales-detail .sales-artwork-artist { font-weight: var(--weight-semibold); }
 .sales-detail .sales-artwork-price { margin-top: 0; font-weight: var(--weight-regular); }
 .sales-detail .sales-facts .sales-status { margin-top: 0; font-size: inherit; font-weight: var(--weight-regular); }
+
+/* Give each list row more breathing room while reducing every grid cell by 10%. */
+.sales-page:not(.sales-detail) > .sales-grid {
+ width: 90%;
+ margin-inline: auto;
+ row-gap: 60px;
+}
+@media (max-width: 1024px) {
+ .sales-page:not(.sales-detail) > .sales-grid { row-gap: 52px; }
+}
 @media (min-width: 801px) {
  .sales-page:not(.sales-detail) .sales-grid-image { aspect-ratio: 10 / 9; }
  .sales-detail .sales-main-image { width: 85%; height: min(57.8svh, 578px); justify-self: end; }
@@ -150,6 +160,9 @@
  .sales-page:not(.sales-detail) { width: 100%; padding-inline: 12px; --sales-image-width: 100%; --sales-frame-ratio: 1; }
  .sales-page:not(.sales-detail) > .sales-grid { column-gap: 8px; }
  .sales-page:not(.sales-detail) .sales-grid-image { width: 100%; aspect-ratio: 1; }
+}
+@media (max-width: 768px) {
+ .sales-page:not(.sales-detail) > .sales-grid { row-gap: 32px; }
 }
 
 @media (max-width: 800px) {
