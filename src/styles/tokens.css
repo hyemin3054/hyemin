@@ -40,16 +40,16 @@
   --weight-regular: 400;
   --weight-semibold: 600;
   --header-padding-block: 28px;
-  --header-logo-width: 281px;
-  --header-logo-height: 94px;
-  --home-logo-width: 162px;
-  --home-logo-height: 121px;
+  --header-logo-width: 180px;
+  --header-logo-height: 128px;
+  --home-logo-width: 134px;
+  --home-logo-height: 95px;
   --home-header-bottom: 15px;
   --navigation-gap: 52px;
   --navigation-width: 620px;
   --navigation-home-gap: 56px;
-  --footer-logo-width: 267px;
-  --footer-logo-height: 89px;
+  --footer-logo-width: 112px;
+  --footer-logo-height: 80px;
   --footer-brand-column: 314px;
   --footer-contact-column: 288px;
   --footer-padding-bottom: 48px;
@@ -69,8 +69,8 @@
     --artwork-row-gap: 48px;
     --navigation-gap: 24px;
     --navigation-home-gap: 32px;
-    --header-logo-width: 240px;
-    --header-logo-height: 80px;
+    --header-logo-width: 150px;
+    --header-logo-height: 107px;
     --footer-brand-column: 267px;
     --footer-contact-column: 240px;
   }

@@ -44,7 +44,7 @@ export default async function DetailPage({ params }: Props) {
     <ExhibitionGallery title={item.title} images={gallery.map(image => ({ src: imageUrl(image, 1600)!, fullSrc: imageUrl({ asset: image.asset }, 3000)!, title: image.title, year: image.year, medium: image.medium, size: image.size }))} />
     {hasDescription && <section className="ex-detail-description" aria-label="상세 전시 설명"><PortableText value={item.description!} /></section>}
     </div>
-    {archive.length > 0 && <section className="ex-detail-archive" aria-labelledby="ex-archive-title"><h2 id="ex-archive-title">ARCHIVE</h2>
+    {status !== "CURRENT" && archive.length > 0 && <section className="ex-detail-archive" aria-labelledby="ex-archive-title"><h2 id="ex-archive-title">ARCHIVE</h2>
       <div className="ex-detail-archive-grid">{archive.map((entry) => <Link key={entry._id} href={`/exhibitions/${encodeURIComponent(entry.slug)}`}>
         <div className="ex-detail-archive-image"><ExhibitionImage src={imageUrl(entry.mainImage, 700)} alt={entry.title} /></div>
         <h3>{entry.title}</h3>{entry.artist?.name && <p>{entry.artist.name}</p>}<Period item={entry} />

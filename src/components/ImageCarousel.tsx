@@ -45,7 +45,12 @@ export function ImageCarousel({ images, alt, frameClass, href, thumbnails = fals
     return () => { cancelled = true; cancelAnimationFrame(frame); };
   }, [autoPlay, images, selected, cycle]);
   const active = selected < images.length ? selected : 0;
-  const visual = <ImageDissolve imageKey={images[active] || "empty"} src={images[active] || null}><ContentVisual src={images[active] || null} alt={alt} /></ImageDissolve>;
+  const isHero = frameClass === "home-hero-image";
+  const content = isHero ? <div className="hero-image-layers">
+    <div className="hero-image-backdrop" aria-hidden="true"><ContentVisual src={images[active] || null} alt="" /></div>
+    <div className="hero-image-foreground"><ContentVisual src={images[active] || null} alt={alt} /></div>
+  </div> : <ContentVisual src={images[active] || null} alt={alt} />;
+  const visual = <ImageDissolve imageKey={images[active] || "empty"} src={images[active] || null}>{content}</ImageDissolve>;
   return <div className="image-carousel">
     {href ? <Link className={frameClass} href={href} aria-label={`${alt} 상세`}>{visual}</Link> : <div className={frameClass}>{visual}</div>}
     {autoPlay && images.length > 1 ? <div className="hero-slider-controls">

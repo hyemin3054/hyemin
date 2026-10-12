@@ -6,9 +6,8 @@
 .logo-fallback { display: flex; height: 100%; align-items: center; font-family: var(--font-heading); }
 .site-header--home { padding-block: 0 var(--home-header-bottom); }
 .site-header--home .header-content { flex-direction: column; justify-content: flex-start; gap: 0; }
-/* Figma crops the symbol from the same horizontal logo; keep it in normal flow. */
-.site-logo--home { width: var(--home-logo-width); height: var(--home-logo-height); overflow: hidden; }
-.site-logo--home img { width: 223.28%; max-width: none; height: 100%; object-fit: fill; }
+.site-logo--home { width: var(--home-logo-width); height: var(--home-logo-height); }
+.site-logo--home img { width: 100%; height: 100%; object-fit: contain; }
 .navigation { display: flex; flex-wrap: wrap; align-items: center; gap: var(--small-gap) var(--navigation-gap); padding: 0; margin: 0; list-style: none; }
 .navigation a { display: block; font-family: var(--font-navigation); font-weight: var(--weight-semibold); font-size: var(--font-size-navigation); line-height: 24px; text-decoration: none; }
 .site-header--home .navigation { justify-content: center; column-gap: var(--navigation-home-gap); }
@@ -23,8 +22,8 @@
 .preserve-lines { white-space: pre-line; }
 .site-footer { margin-top: var(--section-gap); padding-bottom: var(--footer-padding-bottom); }
 .site-footer > .divider { margin: 0 0 var(--divider-spacing); }
-.footer-grid { display: grid; grid-template-columns: var(--footer-brand-column) minmax(0, 1fr) var(--footer-contact-column); gap: var(--grid-gap); font-size: var(--font-size-footer); line-height: var(--footer-line-height); color: var(--color-footer); font-weight: var(--weight-regular); }
-.footer-brand { display: flex; flex-direction: column; align-items: flex-start; gap: var(--grid-gap-tight); }
+.footer-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--grid-gap); font-size: var(--font-size-footer); line-height: var(--footer-line-height); color: var(--color-footer); font-weight: var(--weight-regular); }
+.footer-brand { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--grid-gap); }
 .site-logo--footer { width: var(--footer-logo-width); height: var(--footer-logo-height); max-width: 100%; }
 .footer-copyright { color: var(--color-copyright); font-size: var(--font-size-copyright); line-height: 24px; }
 .footer-location { padding-top: var(--grid-gap-compact); }
@@ -54,8 +53,8 @@
   .navigation a { min-height: 44px; display: flex; align-items: center; }
 }
 @media (max-width: 640px) {
-  .site-header { --header-padding-block: 24px; --header-logo-width: 210px; --header-logo-height: 70px; }
-  .site-header--home { --home-logo-width: 134px; --home-logo-height: 100px; }
+  .site-header { --header-padding-block: 24px; --header-logo-width: 112px; --header-logo-height: 80px; }
+  .site-header--home { --home-logo-width: 100px; --home-logo-height: 71px; }
   .site-header--inner .header-content { gap: var(--small-gap); }
   .header-content nav { width: 100%; }
   .navigation { column-gap: var(--grid-gap); row-gap: 0; }
@@ -79,8 +78,18 @@
 
 /* Six navigation items share the existing header without wrapping. */
 @media (max-width: 800px) {
- .site-header--home .site-logo--home { width: calc(var(--home-logo-width) * .6); height: calc(var(--home-logo-height) * .6); }
+ .site-header--home .site-logo--home { width: var(--home-logo-width); height: var(--home-logo-height); }
  .site-header--home .header-content { gap: 2px; }
 }
 @media (min-width: 1025px) { .site-header--inner .navigation { flex-wrap: nowrap; column-gap: 18px; } }
 @media (max-width: 768px) { .site-header .navigation { gap: clamp(3px, 1vw, 8px); } .site-header .navigation a { font-size: clamp(9px, 2.8vw, 14px); } }
+
+/* All list-page headings use the Artists page's heading face. */
+.site-main :is(.exhibitions-page, .artists-page, .news-list-page, .about-page) > h1,
+.site-main .sales-works-heading,
+.site-main .home-archive-heading > h2,
+.site-main .exhibitions-archive > h2 {
+  font-family: var(--font-heading);
+  font-weight: var(--weight-semibold);
+}
+@media (max-width: 640px) { .footer-brand { align-items: flex-start; flex-direction: column; } }

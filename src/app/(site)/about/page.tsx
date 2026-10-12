@@ -2,19 +2,16 @@ import { PortableText } from "next-sanity";
 import { getSiteSettings } from "@/sanity/lib/content";
 import { imageUrl } from "@/sanity/lib/image";
 import { ContentVisual } from "@/components/ContentVisual";
+import { site } from "@/config/site";
 import "@/styles/about.css";
 
-function AboutLogo({ src }: { src: string }) {
-  return <div className="about-logo" role="img" aria-label="The Grotto Art Window">
-    <span className="about-logo-symbol"><img src={src} alt="" /></span>
-    <span className="about-logo-wordmark"><img src={src} alt="" /></span>
-  </div>;
+function AboutLogo() {
+  return <div className="about-logo"><img src={site.logo} alt="The Grotto Art Window" /></div>;
 }
 export const metadata = { title: "About" };
 export default async function AboutPage() {
   const { data: settings, status } = await getSiteSettings();
   const images = (settings?.aboutImages || []).filter((image) => imageUrl(image));
-  const logo = imageUrl(settings?.logo, 900);
   const map = settings?.mapInformation;
   const location = map?.location;
   const coordinateUrl = location && Number.isFinite(location.lat) && Number.isFinite(location.lng)
@@ -28,7 +25,7 @@ export default async function AboutPage() {
     {status === "ready" && !settings && <p>갤러리 정보를 준비 중입니다.</p>}
     {images[0] && <div className="about-panorama"><ContentVisual src={imageUrl(images[0], 1800)} alt="갤러리 공간" /></div>}
     <div className="about-brand">
-      {logo && <AboutLogo src={logo} />}
+      <AboutLogo />
       <p className="about-tagline">“ 예술과 일상이 마주하는 작은 창 ”</p>
     </div>
     {settings && (settings.aboutText?.length || settings.openingHours) && <section className="about-introduction" aria-label="갤러리 소개">
@@ -40,14 +37,15 @@ export default async function AboutPage() {
     </section>}
     {hasContact && <section id="contact" className="about-contact" aria-labelledby="contact-title"><h2 id="contact-title">CONTACT</h2>
       <div className="about-contact-grid"><div className="about-contact-copy">
-        {logo && <AboutLogo src={logo} />}
-        {settings.address && <p className="preserve-lines">{settings.address}</p>}
-        {map?.directions?.trim() && <p className="preserve-lines">{map.directions}</p>}
-        <address>
+        <section className="about-contact-information" aria-labelledby="contact-information-title"><h3 id="contact-information-title">Contact Information</h3><address>
           {settings.telephone && <a href={`tel:${settings.telephone.replace(/[^+\d]/g, "")}`}>{settings.telephone}</a>}
           {settings.email && <a href={`mailto:${settings.email}`}>{settings.email}</a>}
-          {settings.instagram && /^https?:\/\//i.test(settings.instagram) && <a href={settings.instagram}>Instagram</a>}
-        </address>
+          {settings.instagram && /^https?:\/\//i.test(settings.instagram) && <a href={settings.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>}
+        </address></section>
+        <section className="about-location-copy" aria-labelledby="location-title"><h3 id="location-title">Location</h3>
+          {settings.address && <p className="preserve-lines">{settings.address}</p>}
+          {map?.directions?.trim() && <p className="preserve-lines">{map.directions}</p>}
+        </section>
       </div>
       {mapUrl && <div className="about-map">{embedUrl && <iframe title="The Grotto Art Window 위치" src={embedUrl} loading="eager" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />}<a href={mapUrl} target="_blank" rel="noopener noreferrer">Google Maps에서 위치 보기</a></div>}
       </div>

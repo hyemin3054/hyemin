@@ -66,9 +66,8 @@
 .home-hero > .image-carousel { grid-area: 1 / 1; display: flex; flex-direction: column; }
 .home-hero-image { flex: 1; min-height: 0; }
 .home-hero-image img { object-fit: contain; }
-.home-hero-wordmark { grid-area: 1 / 1; align-self: end; justify-self: center; text-align: center; z-index: 1; margin-bottom: 60px; pointer-events: none; font-family: var(--font-heading); font-weight: 600; }
-.home-hero-wordmark span { display: block; font-size: clamp(36px, 5vw, 72px); line-height: 1.1; }
-.home-hero-wordmark span + span { font-size: clamp(18px, 2vw, 30px); }
+.home-hero-wordmark { grid-area: 1 / 1; align-self: end; justify-self: center; z-index: 1; width: clamp(180px, 22vw, 300px); margin-bottom: 44px; pointer-events: none; }
+.home-hero-wordmark img { width: 100%; height: auto; object-fit: contain; }
 .home-current-anchor { margin: 16px 0; }
 .home-current { display: block; padding-inline: var(--page-padding); margin-top: 32px; scroll-margin-top: var(--sticky-header-height, 174px); }
 .home-current-copy { padding: 0; }
@@ -102,7 +101,7 @@
 /* Preview images share a frame; original proportions remain in detail viewers. */
 .home-hero { position: relative; isolation: isolate; }
 .home-hero::after { content: ""; position: absolute; inset: var(--hero-gradient-top, 55%) 0 0; pointer-events: none; background: linear-gradient(to bottom, transparent, rgb(255 255 255 / .44) 50%, rgb(255 255 255 / .76)); z-index: 0; }
-.home-hero .home-hero-image img { object-fit: cover; }
+.home-hero .home-hero-image img { object-fit: contain; }
 .home-hero .hero-slider-controls { position: relative; z-index: 2; }
 .home-current .exhibition-enlarge.artwork-viewer { width: 75%; margin-inline: auto; display: block; height: auto; aspect-ratio: auto; }
 .home-current .exhibition-enlarge.artwork-viewer img { display: block; width: 100%; height: auto; max-height: none; object-fit: contain; }
@@ -144,16 +143,24 @@
 @media (max-width: 800px) { #current-exhibition { margin-top: 32px; } }
 
 @media (max-width: 800px) {
- .home-hero-screen .home-hero { aspect-ratio: 1440 / 901; }
+ .home-hero-screen .home-hero { aspect-ratio: 1440 / 850; }
  .site-main .home-current .exhibition-preview.exhibition-viewer .exhibition-viewer-main { display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); }
- .home-hero-wordmark span { font-size: clamp(21.6px, 3vw, 43.2px); }
- .home-hero-wordmark span + span { font-size: clamp(10.8px, 1.2vw, 18px); }
+ .home-hero-wordmark { width: clamp(128px, 42vw, 180px); margin-bottom: 34px; }
  .site-main .home-current .exhibition-preview.exhibition-viewer .exhibition-enlarge.artwork-viewer { width: 60%; height: 80%; align-self: center; }
  .site-main .home-current .exhibition-preview.exhibition-viewer .exhibition-enlarge.artwork-viewer img { object-fit: contain; object-position: center; }
  #past-exhibition { margin-top: 48px; }
  .home-archive h3 { font-size: 12.5px; }
  .home-archive h3 + p { font-size: 10.5px; }
 }
+
+/* The same uncropped image region is visible on desktop and mobile. */
+.home-hero-image .hero-image-layers { position: relative; width: 100%; height: 100%; overflow: hidden; isolation: isolate; background: var(--color-surface); }
+.home-hero-image :is(.hero-image-backdrop, .hero-image-foreground) { position: absolute; inset: 0; display: grid; place-items: center; }
+.home-hero-image .hero-image-backdrop { z-index: 0; overflow: hidden; background: var(--color-surface); }
+.home-hero-image .hero-image-backdrop img { width: 100%; height: 100%; object-fit: cover; filter: blur(22px) saturate(.82); opacity: .28; transform: scale(1.08); }
+.home-hero-image .hero-image-foreground { z-index: 1; }
+.home-hero-image .hero-image-foreground img { width: 100%; height: 100%; object-fit: contain; object-position: center; }
+.home-hero-image .hero-image-layers::after { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(to bottom, rgb(255 255 255 / .16), transparent 24%, transparent 74%, rgb(255 255 255 / .24)); }
 
 .home-archive h3 { font-size: 18.4px; }
 @media (max-width: 800px) {
