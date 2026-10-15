@@ -5,8 +5,8 @@
 .about-panorama { margin-top: var(--grid-gap-compact); aspect-ratio: 1328 / 430; display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); }
 .about-panorama img, .about-space-grid img { width: 100%; height: 100%; min-height: 0; object-fit: contain; }
 .about-page .content-visual-empty { width: 100%; height: 100%; display: grid; place-items: center; background: var(--color-surface); font-size: 13px; color: var(--color-muted); }
-.about-brand { display: flex; flex-direction: column; align-items: center; gap: var(--small-gap); margin-top: var(--content-gap); }
-.about-tagline { font-size: 16px; line-height: 1.6; font-weight: 700; text-align: center; }
+.about-brand { display: flex; flex-direction: column; align-items: center; gap: 22px; margin-top: var(--content-gap); }
+.about-tagline { max-width: 720px; font-family: var(--font-heading); font-size: clamp(20px, 2.1vw, 30px); line-height: 1.45; font-weight: var(--weight-semibold); text-align: center; text-wrap: balance; word-break: keep-all; overflow-wrap: normal; }
 .about-logo { width: 220px; max-width: 100%; }
 .about-logo img { width: 100%; height: auto; object-fit: contain; }
 .about-introduction { margin-top: var(--section-gap); }
@@ -22,6 +22,8 @@
 .about-contact-copy h3 { font-family: var(--font-heading); font-size: 16px; line-height: 1.4; font-weight: var(--weight-semibold); margin-bottom: var(--small-gap); }
 .about-contact-copy address { display: flex; flex-direction: column; align-items: flex-start; gap: var(--grid-gap-tight); }
 .about-location-copy > p + p { margin-top: var(--small-gap); }
+.about-opening-hours { margin-top: var(--content-gap); }
+.about-opening-hours h3 { margin-bottom: var(--small-gap); }
 .about-contact a { color: inherit; text-decoration: none; }
 .about-location { min-width: 0; aspect-ratio: 545 / 428; display: grid; place-items: center; background: var(--color-surface); text-align: center; padding: var(--grid-gap); align-self: start; }
 .about-location span { display: block; margin-top: var(--small-gap); font-size: 14px; }
@@ -45,5 +47,7 @@
 }
 @media (max-width: 640px) {
   .about-prose { font-size: 14px; line-height: 1.7; }
+  .about-brand { gap: 16px; }
+  .about-tagline { max-width: 18em; font-size: 18px; line-height: 1.5; }
   .about-contact-copy address a { display: flex; align-items: center; justify-content: flex-start; min-height: 44px; max-width: 100%; }
 }

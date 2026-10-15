@@ -98,21 +98,25 @@
 }
 
 /* Grotto artwork window: intrinsic artwork proportions, aligned metadata. */
-.artwork-lightbox.grotto-viewer { width: 100vw; max-width: 100vw; height: 100dvh; max-height: 100dvh; margin: 0; padding: 64px 24px 24px; border: 0; background: #fff; color: var(--color-text); overflow: auto; animation: grotto-viewer-fade 260ms ease-out; }
+.artwork-lightbox.grotto-viewer { width: 100vw; max-width: 100vw; height: 100dvh; max-height: 100dvh; margin: 0; padding: 72px 24px 24px; border: 0; background: #fff; color: var(--color-text); overflow: hidden; animation: grotto-viewer-fade 260ms ease-out; }
 .grotto-viewer::backdrop { background: #fff; }
-.grotto-viewer button { border: 0; background: transparent; color: inherit; cursor: pointer; min-width: 44px; min-height: 44px; font-size: 24px; }
+.grotto-viewer button { border: 0; background: transparent; color: inherit; cursor: pointer; min-width: 48px; min-height: 48px; font-size: 28px; }
 .grotto-viewer button:disabled { visibility: hidden; }
-.grotto-viewer .viewer-close { position: absolute; top: 12px; right: 20px; }
-.grotto-viewer .viewer-zoom-controls { position: absolute; top: 8px; right: 8px; z-index: 2; display: flex; align-items: center; gap: 4px; padding: 2px 4px; background: rgba(255, 255, 255, .82); }
-.grotto-viewer .viewer-zoom-controls button { min-width: 36px; min-height: 36px; font-size: 20px; }
+.grotto-viewer .viewer-close { position: absolute; top: 12px; right: 24px; z-index: 3; min-width: 64px; min-height: 64px; font-size: 48px; line-height: 1; }
+.grotto-viewer .viewer-previous, .grotto-viewer .viewer-next { min-width: 64px; min-height: 64px; font-size: 46px; line-height: 1; }
+.viewer-controls-row { display: flex; justify-content: flex-end; width: 100%; margin-top: 8px; }
+.grotto-viewer .viewer-zoom-controls { position: static; z-index: 2; display: flex; align-items: center; gap: 4px; padding: 2px 4px; background: transparent; }
+.grotto-viewer .viewer-zoom-controls button { min-width: 44px; min-height: 44px; font-size: 24px; }
 .grotto-viewer .viewer-zoom-controls button:disabled { visibility: visible; opacity: .25; cursor: default; }
 .grotto-viewer .viewer-zoom-controls output { min-width: 48px; text-align: center; font-size: 11px; font-variant-numeric: tabular-nums; }
-.viewer-stage { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; gap: 16px; min-height: 100%; }
+.viewer-stage { display: grid; grid-template-columns: 72px minmax(0, 1fr) 72px; align-items: center; gap: 16px; width: 100%; height: 100%; min-height: 0; }
 .viewer-artwork { position: relative; justify-self: center; min-width: 0; margin: 0; animation: grotto-viewer-fade 260ms ease-out; }
-.viewer-window { width: fit-content; max-width: min(78vw, 1100px); max-height: 66dvh; margin-inline: auto; border: 1px solid #d8d8d4; overflow: auto; scrollbar-width: none; -ms-overflow-style: none; }
+.viewer-window { width: fit-content; max-width: min(72vw, 1100px); max-height: 62dvh; margin-inline: auto; border: 1px solid #d8d8d4; overflow: auto; scrollbar-width: none; -ms-overflow-style: none; overscroll-behavior: contain; }
+.viewer-window.is-zoomed { cursor: grab; touch-action: none; }
+.viewer-window.is-panning { cursor: grabbing; }
 .viewer-window::-webkit-scrollbar { display: none; }
-.viewer-zoom-surface { width: max-content; transform-origin: top left; transition: transform 160ms ease; }
-.grotto-viewer .viewer-window img { display: block; width: auto; height: auto; max-width: min(78vw, 1100px); max-height: 66dvh; object-fit: contain; }
+.viewer-zoom-surface { width: max-content; transform-origin: top left; transition: transform 160ms ease; will-change: transform; }
+.grotto-viewer .viewer-window img { display: block; width: auto; height: auto; max-width: min(72vw, 1100px); max-height: 62dvh; object-fit: contain; user-select: none; pointer-events: none; }
 .grotto-viewer figcaption { width: 0; min-width: 100%; text-align: left; font-size: 13px; line-height: 1.5; padding-top: 12px; overflow-wrap: anywhere; }
 .grotto-viewer figcaption p { margin: 0; }
 .grotto-viewer .viewer-index { font-size: 11px; color: var(--color-muted); letter-spacing: .08em; margin-bottom: 8px; font-variant-numeric: tabular-nums; }
@@ -122,11 +126,14 @@
 .grotto-viewer .sales-purchase-contact address { display: flex; flex-wrap: wrap; gap: 12px; font-size: 12px; }
 @keyframes grotto-viewer-fade { from { opacity: 0; } to { opacity: 1; } }
 @media (max-width: 800px) {
- .artwork-lightbox.grotto-viewer { padding: 60px 8px 20px; }
- .grotto-viewer .viewer-zoom-controls { display: none; }
- .viewer-stage { grid-template-columns: 32px minmax(0, 1fr) 32px; gap: 4px; }
- .grotto-viewer .viewer-stage > button { min-width: 32px; }
- .grotto-viewer .viewer-window img { max-width: calc(100vw - 92px); max-height: 62dvh; }
+ .artwork-lightbox.grotto-viewer { padding: 64px 6px 12px; }
+ .grotto-viewer .viewer-close { top: 8px; right: 10px; min-width: 56px; min-height: 56px; font-size: 40px; }
+ .viewer-stage { grid-template-columns: 52px minmax(0, 1fr) 52px; gap: 2px; }
+ .grotto-viewer .viewer-stage > button { min-width: 52px; min-height: 52px; font-size: 38px; }
+ .grotto-viewer .viewer-window { max-width: calc(100vw - 118px); max-height: 54dvh; }
+ .grotto-viewer .viewer-window img { max-width: calc(100vw - 118px); max-height: 54dvh; }
+ .viewer-controls-row { margin-top: 6px; }
+ .grotto-viewer .viewer-zoom-controls button { min-width: 44px; min-height: 44px; font-size: 24px; }
 }
 @media (prefers-reduced-motion: reduce) { .artwork-lightbox.grotto-viewer, .viewer-artwork { animation: none; } }
 /* Static thumbnail collections: wrap within their information column. */

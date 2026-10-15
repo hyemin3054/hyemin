@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { exhibitionImages } from "@/lib/exhibition-images";
 import { ExhibitionGallery } from "@/components/ExhibitionGallery";
+import { ExhibitionWorksGrid } from "@/components/ExhibitionWorksGrid";
 import { groupExhibitions } from "@/lib/exhibitions";
 import { notFound } from "next/navigation";
 import { PortableText } from "next-sanity";
@@ -24,7 +25,13 @@ export default async function DetailPage({ params }: Props) {
   if (result.status !== "ready") return <section className="container ex-detail"><Link href="/exhibitions">EXHIBITIONS / ARCHIVE</Link><p>콘텐츠를 불러오지 못했습니다. 잠시 후 다시 확인해주세요.</p></section>;
   const item = result.data;
   if (!item) notFound();
-  const gallery = exhibitionImages(item.mainImage, item.galleryImages).filter(image => imageUrl(image));
+  const legacyGallery = exhibitionImages(item.mainImage, item.galleryImages).filter(image => imageUrl(image));
+  const savedInstallationImages = exhibitionImages(null, item.installationImages).filter(image => imageUrl(image));
+  const installationImages = savedInstallationImages.length ? savedInstallationImages : legacyGallery.slice(0, 1);
+  const savedArtworkImages = exhibitionImages(null, item.artworkImages).filter(image => imageUrl(image));
+  const legacyArtworkImages = exhibitionImages(null, item.galleryImages).filter(image => imageUrl(image));
+  const artworkImages = savedArtworkImages.length ? savedArtworkImages : legacyArtworkImages;
+  const slides = (images: typeof installationImages) => images.map(image => ({ src: imageUrl(image, 1600)!, fullSrc: imageUrl({ asset: image.asset }, 3000)!, title: image.title, year: image.year, medium: image.medium, size: image.size }));
   const hasDescription = Array.isArray(item.description) && item.description.length > 0;
   const groups = groupExhibitions(list.data);
   const archive = groups.archive.filter(entry => entry._id !== item._id).slice(0, 8);
@@ -41,9 +48,10 @@ export default async function DetailPage({ params }: Props) {
       </div>
 
     </section>
-    <ExhibitionGallery title={item.title} images={gallery.map(image => ({ src: imageUrl(image, 1600)!, fullSrc: imageUrl({ asset: image.asset }, 3000)!, title: image.title, year: image.year, medium: image.medium, size: image.size }))} />
+    <ExhibitionGallery title={item.title} images={slides(installationImages)} ariaLabel="전시장 전경 이미지" />
     {hasDescription && <section className="ex-detail-description" aria-label="상세 전시 설명"><PortableText value={item.description!} /></section>}
     </div>
+    <ExhibitionWorksGrid exhibitionTitle={item.title} images={slides(artworkImages)} />
     {status !== "CURRENT" && archive.length > 0 && <section className="ex-detail-archive" aria-labelledby="ex-archive-title"><h2 id="ex-archive-title">ARCHIVE</h2>
       <div className="ex-detail-archive-grid">{archive.map((entry) => <Link key={entry._id} href={`/exhibitions/${encodeURIComponent(entry.slug)}`}>
         <div className="ex-detail-archive-image"><ExhibitionImage src={imageUrl(entry.mainImage, 700)} alt={entry.title} /></div>

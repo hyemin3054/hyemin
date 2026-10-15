@@ -9,7 +9,7 @@ export type ExhibitionSlide = { src: string; fullSrc: string; title?: string | n
 const captionLine = (...values: (string | null | undefined)[]) => values.map(value => value?.trim()).filter(Boolean).join(", ");
 const protectedSize = (value?: string | null) => value?.trim().replace(/(\d)\s*[×x]\s*(\d)/gi, "$1\u00a0×\u00a0$2").replace(/(\d)\s+(cm|mm|m)\b/gi, "$1\u00a0$2");
 
-export function ExhibitionGallery({ images, title, layout = "detail", information, href, label }: { images: ExhibitionSlide[]; title: string; layout?: "detail" | "home" | "list"; information?: ReactNode; href?: string; label?: ReactNode }) {
+export function ExhibitionGallery({ images, title, layout = "detail", information, href, label, ariaLabel = "전시 작품 이미지" }: { images: ExhibitionSlide[]; title: string; layout?: "detail" | "home" | "list"; information?: ReactNode; href?: string; label?: ReactNode; ariaLabel?: string }) {
   const visibleImages = layout === "detail" ? images : images.slice(0, 4);
   const [selected, setSelected] = useState(0);
   const [preview, setPreview] = useState<number | null>(null);
@@ -47,7 +47,7 @@ export function ExhibitionGallery({ images, title, layout = "detail", informatio
     })}</div>
     {layout === "detail" && <button className="thumbnail-page-step" type="button" aria-label="다음 작품 이미지 그룹" disabled={thumbnailPage >= thumbnailPageCount - 1} onClick={() => setThumbnailPage(page => Math.min(thumbnailPageCount - 1, page + 1))}>&gt;</button>}
   </div>;
-  return <section className={`exhibition-viewer exhibition-viewer--${layout}${layout !== "detail" ? " exhibition-preview" : ""}`} aria-label="전시 작품 이미지">
+  return <section className={`exhibition-viewer exhibition-viewer--${layout}${layout !== "detail" ? " exhibition-preview" : ""}`} aria-label={ariaLabel}>
     {information && <div className="exhibition-viewer-information">{label}<div>{information}</div>{layout !== "detail" && thumbnails}</div>}
     {layout === "detail" && thumbnails}
     <div ref={main} className="exhibition-viewer-main"><ArtworkViewer className="exhibition-enlarge" src={image.src} fullSrc={image.fullSrc} alt={image.title || `${title} 이미지 ${active + 1}`} href={layout !== "detail" ? href : undefined} magnifier={layout !== "home"} images={visibleImages} initialIndex={active} swipeThreshold={layout === "detail" ? 40 : 24} onSwipe={swipe}>{layout === "home" ? <ImageDissolve imageKey={image.src} src={image.src}><ContentVisual src={image.src} alt={image.title || `${title} 이미지 ${active + 1}`} /></ImageDissolve> : undefined}</ArtworkViewer></div>

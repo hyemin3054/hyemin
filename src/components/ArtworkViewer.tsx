@@ -18,11 +18,19 @@ function ViewerVisual({ image, alt }: { image: ArtworkSlide; alt: string }) {
 }
 export function ArtworkLightbox({ images, initialIndex, alt, contact, onClose }: { images: ArtworkSlide[]; initialIndex: number; alt: string; contact?: ReactNode; onClose: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
+  const viewerWindow = useRef<HTMLDivElement>(null);
+  const panStart = useRef<{ pointerId: number; x: number; y: number; left: number; top: number } | null>(null);
   const [index, setIndex] = useState(Math.min(initialIndex, images.length - 1));
   const [zoom, setZoom] = useState(1);
+  const [panning, setPanning] = useState(false);
   const image = images[index];
-  const change = (direction: number) => { setZoom(1); setIndex(value => (value + direction + images.length) % images.length); };
-  const adjustZoom = (direction: number) => setZoom(value => Math.min(2.5, Math.max(1, Number((value + direction * .25).toFixed(2)))));
+  const resetViewport = () => requestAnimationFrame(() => viewerWindow.current?.scrollTo({ left: 0, top: 0 }));
+  const change = (direction: number) => { setZoom(1); setPanning(false); panStart.current = null; resetViewport(); setIndex(value => (value + direction + images.length) % images.length); };
+  const adjustZoom = (direction: number) => setZoom(value => {
+    const next = Math.min(2.5, Math.max(1, Number((value + direction * .25).toFixed(2))));
+    if (next === 1) { setPanning(false); panStart.current = null; resetViewport(); }
+    return next;
+  });
   useEffect(() => {
     const element = dialog.current;
     const overflow = document.body.style.overflow;
@@ -39,12 +47,29 @@ export function ArtworkLightbox({ images, initialIndex, alt, contact, onClose }:
     <div className="viewer-stage">
       <button className="viewer-previous" type="button" disabled={images.length < 2} onClick={() => change(-1)} aria-label="이전 작품">&lt;</button>
       <figure className="viewer-artwork" key={index}>
-        <div className="viewer-zoom-controls" aria-label="이미지 확대 조절">
+        <div ref={viewerWindow} className={`viewer-window${zoom > 1 ? " is-zoomed" : ""}${panning ? " is-panning" : ""}`} onPointerDown={event => {
+          if (zoom <= 1) return;
+          event.preventDefault();
+          event.currentTarget.setPointerCapture(event.pointerId);
+          panStart.current = { pointerId: event.pointerId, x: event.clientX, y: event.clientY, left: event.currentTarget.scrollLeft, top: event.currentTarget.scrollTop };
+          setPanning(true);
+        }} onPointerMove={event => {
+          const start = panStart.current;
+          if (!start || start.pointerId !== event.pointerId) return;
+          event.preventDefault();
+          event.currentTarget.scrollLeft = start.left - (event.clientX - start.x);
+          event.currentTarget.scrollTop = start.top - (event.clientY - start.y);
+        }} onPointerUp={event => {
+          if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+          panStart.current = null; setPanning(false);
+        }} onPointerCancel={() => { panStart.current = null; setPanning(false); }}>
+          <div className="viewer-zoom-surface" style={{ transform: `scale(${zoom})` }}><ViewerVisual image={image} alt={alt} /></div>
+        </div>
+        <div className="viewer-controls-row"><div className="viewer-zoom-controls" aria-label="이미지 확대 조절">
           <button type="button" onClick={() => adjustZoom(-1)} disabled={zoom <= 1} aria-label="이미지 축소">−</button>
           <output aria-live="polite">{Math.round(zoom * 100)}%</output>
           <button type="button" onClick={() => adjustZoom(1)} disabled={zoom >= 2.5} aria-label="이미지 확대">+</button>
-        </div>
-        <div className="viewer-window"><div className="viewer-zoom-surface" style={{ transform: `scale(${zoom})` }}><ViewerVisual image={image} alt={alt} /></div></div>
+        </div></div>
         <figcaption aria-live="polite"><p className="viewer-index">{String(index + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}</p>{caption.map((line, i) => <p key={i}>{line}</p>)}{contact && <div className="viewer-contact">{contact}</div>}</figcaption>
       </figure>
       <button className="viewer-next" type="button" disabled={images.length < 2} onClick={() => change(1)} aria-label="다음 작품">&gt;</button>

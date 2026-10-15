@@ -14,8 +14,14 @@ export default async function HomePage() {
   const [exhibitions, settings] = await Promise.all([getContentList("exhibition"), getSiteSettings()]);
   const { current: ongoing, past, archive } = groupExhibitions(exhibitions.data);
   const current = ongoing[0];
-  const heroImages = (settings.data?.heroImages || []).map(image => imageUrl(image, 1800)).filter((src): src is string => Boolean(src));
-  if (!heroImages.length) { const fallback = imageUrl(settings.data?.aboutImages?.[0], 1800); if (fallback) heroImages.push(fallback); }
+  // The opening Hero always shows the complete source asset. Saved crop/hotspot
+  // values remain in Sanity, but are intentionally ignored for this uncropped view.
+  const heroImages = (settings.data?.heroImages || []).map(image => imageUrl(image?.asset?._ref ? { asset: image.asset } : null, 1800)).filter((src): src is string => Boolean(src));
+  if (!heroImages.length) {
+    const fallbackImage = settings.data?.aboutImages?.[0];
+    const fallback = imageUrl(fallbackImage?.asset?._ref ? { asset: fallbackImage.asset } : null, 1800);
+    if (fallback) heroImages.push(fallback);
+  }
   const renderExhibition = (item: typeof current, past = false) => <section id={past ? "past-exhibition" : "current-exhibition"} className="home-current" aria-label={past ? "지난 전시" : "현재 전시"}>
     <ExhibitionGallery label={past ? <h2 className="home-past-label">PAST</h2> : undefined} href={item ? `/exhibitions/${encodeURIComponent(item.slug)}` : undefined} layout="home" title={item?.title || "현재 전시"} images={item ? exhibitionImages(item.mainImage, item.galleryImages).map(image => ({ ...image, src: imageUrl(image, 1500)!, fullSrc: imageUrl({asset: image.asset}, 3000)! })) : []} information={<div className="home-current-copy">
       {item ? <><h1><Link href={"/exhibitions/" + encodeURIComponent(item.slug)}>{item.title}</Link></h1>

@@ -20,6 +20,7 @@ export type ContentDocument = {
   works?: ArtistWork[] | null; selectedExhibitions?: HistoryEntry[] | null; education?: HistoryEntry[] | null; awards?: HistoryEntry[] | null;
   artist?: ArtistReference | null; startDate?: string | null; endDate?: string | null;
   detailImages?: ContentImage[] | null; mainImage?: ContentImage | null; galleryImages?: ContentImage[] | null;
+  installationImages?: ContentImage[] | null; artworkImages?: ContentImage[] | null;
   shortDescription?: string | null; description?: PortableTextBlock[] | null;
   status?: "current" | "upcoming" | "archive" | null;
   date?: string | null; excerpt?: string | null; body?: PortableTextBlock[] | null;

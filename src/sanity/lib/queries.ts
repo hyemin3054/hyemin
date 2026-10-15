@@ -8,6 +8,7 @@ const projection = `{
   "education": coalesce(education, []), "awards": coalesce(awards, []),
   "artist": artist->{_id, name, "slug": slug.current},
   startDate, endDate, mainImage, "galleryImages": coalesce(galleryImages, []),
+  "installationImages": coalesce(installationImages, []), "artworkImages": coalesce(artworkImages, []),
   shortDescription, description, status, date, excerpt, body,
   "detailImages": coalesce(detailImages, galleryImages, [])[0...5],
   year, medium, dimensions, price, availability, displayOrder

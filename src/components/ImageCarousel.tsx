@@ -47,7 +47,6 @@ export function ImageCarousel({ images, alt, frameClass, href, thumbnails = fals
   const active = selected < images.length ? selected : 0;
   const isHero = frameClass === "home-hero-image";
   const content = isHero ? <div className="hero-image-layers">
-    <div className="hero-image-backdrop" aria-hidden="true"><ContentVisual src={images[active] || null} alt="" /></div>
     <div className="hero-image-foreground"><ContentVisual src={images[active] || null} alt={alt} /></div>
   </div> : <ContentVisual src={images[active] || null} alt={alt} />;
   const visual = <ImageDissolve imageKey={images[active] || "empty"} src={images[active] || null}>{content}</ImageDissolve>;
