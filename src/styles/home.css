@@ -138,7 +138,7 @@
 .home-current .home-past-label { margin: 0 0 auto; }
 .home-current .exhibition-enlarge.artwork-viewer img { object-position: center; }
 @media (max-width: 800px) { .home-current .home-past-label { margin-bottom: 16px; } }
-.site-main .home-archive-heading > .page-heading { font-size: 18.08px; line-height: 1.4; font-weight: var(--weight-semibold); }
+.site-main .home-archive-heading > .page-heading { font-family: var(--font-body); font-size: 18.08px; line-height: 1.4; font-weight: var(--weight-semibold); }
 #current-exhibition { margin-top: 40px; }
 @media (max-width: 800px) { #current-exhibition { margin-top: 32px; } }
 

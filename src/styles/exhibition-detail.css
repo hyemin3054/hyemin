@@ -24,7 +24,8 @@
 .ex-detail-description { padding-top: calc(var(--grid-gap) + var(--content-gap)); font-size: 12px; line-height: 24px; }
 .ex-detail-description > * + * { margin-top: var(--small-gap); }
 .ex-detail-gallery { grid-column: 2; min-width: 0; }
-.ex-detail-gallery h2, .ex-detail-archive > h2 { font-size: 16px; line-height: 24px; font-weight: var(--weight-semibold); }
+.ex-detail-gallery h2 { font-size: 16px; line-height: 24px; font-weight: var(--weight-semibold); }
+.ex-detail-archive > h2 { font-family: var(--font-body); font-size: 18.08px; line-height: 1.4; font-weight: var(--weight-semibold); }
 .ex-detail-gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--artwork-row-gap) var(--content-gap); margin-top: var(--content-gap); }
 .ex-detail-gallery-grid figure { margin: 0; aspect-ratio: 353 / 224; }
 .ex-detail-archive { max-width: 1024px; margin: var(--section-gap-extra-large) auto 0; }

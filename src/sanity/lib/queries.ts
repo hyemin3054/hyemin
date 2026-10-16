@@ -17,7 +17,7 @@ export const listQuery = `*[${contentFilter}] | order(coalesce(displayOrder, 100
 export const detailQuery = `*[${contentFilter} && slug.current == $slug][0] ${projection}`;
 export const settingsQuery = `*[_type == "siteSettings" && _id == "siteSettings" && ${publishedFilter}][0]{
   logo, address, openingHours, telephone, email, instagram, copyright,
-  "heroImages": coalesce(heroImages, []), aboutText, "aboutImages": coalesce(aboutImages, []), mapInformation
+  "heroImages": coalesce(heroImages, []), aboutText, aboutFeatureImage, showAboutFeatureImage, "aboutImages": coalesce(aboutImages, []), mapInformation
 }`;
 export const healthQuery = `{
   "artists": count(*[_type == "artist" && ${publishedFilter}]),

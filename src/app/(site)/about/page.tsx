@@ -42,6 +42,8 @@ export default async function AboutPage() {
   const embedUrl = mapQuery ? `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed` : null;
   const aboutText = Array.isArray(settings?.aboutText) ? settings.aboutText : [];
   const aboutBody = moveIntroStatement(aboutText);
+  const featureImage = settings?.showAboutFeatureImage === false ? null : settings?.aboutFeatureImage || settings?.heroImages?.[0] || null;
+  const featureImageSrc = imageUrl(featureImage, 1600);
   const hasContact = settings && (settings.address || settings.telephone || settings.email || settings.instagram || map?.directions || mapUrl || OPENING_HOURS);
   return <article className="container about-page"><PageHeading>ABOUT</PageHeading><Divider />
     {status !== "ready" && <p>콘텐츠를 불러오지 못했습니다. 잠시 후 다시 확인해주세요.</p>}
@@ -52,6 +54,7 @@ export default async function AboutPage() {
       <p className="about-brand-statement">“ {BRAND_STATEMENT} ”</p>
       <p className="about-tagline">{INTRO_PHRASE}</p>
     </div>
+    {featureImageSrc && <figure className="about-feature-image"><ContentVisual src={featureImageSrc} alt="The Grotto Art Window 소개 이미지" /></figure>}
     {settings && aboutBody.length > 0 && <section className="about-introduction" aria-label="갤러리 소개">
       <div className="about-prose"><PortableText value={aboutBody} /></div>
     </section>}

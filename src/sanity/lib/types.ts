@@ -32,6 +32,7 @@ export type SiteSettings = {
   openingHours?: string | null; telephone?: string | null; email?: string | null;
   instagram?: string | null; copyright?: string | null; aboutText?: PortableTextBlock[] | null;
   aboutImages?: ContentImage[] | null; heroImages?: ContentImage[] | null;
+  aboutFeatureImage?: ContentImage | null; showAboutFeatureImage?: boolean | null;
   mapInformation?: { mapUrl?: string | null; directions?: string | null; location?: { lat: number; lng: number; alt?: number } | null } | null;
 };
 export type ContentResult<T> = { status: "ready"; data: T } | { status: "unconfigured" | "error"; data: T };
