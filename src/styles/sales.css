@@ -152,18 +152,16 @@
  .sales-page:not(.sales-detail) {
   width: min(calc(100% - 64px), 1434px);
   max-width: 1434px;
+  padding-top: calc(var(--page-entry-gap) * 1.13);
   padding-inline: 0;
  }
  .sales-page:not(.sales-detail) .sales-page-heading {
-  position: relative;
   align-items: flex-start;
-  padding-bottom: 0;
+  padding-bottom: 12px;
   padding-left: calc(max(var(--page-padding), (100vw - var(--container-max)) / 2) - max(32px, (100vw - 1434px) / 2));
  }
  .sales-page:not(.sales-detail) .sales-page-heading > .sales-purchase-contact {
-  position: absolute;
-  top: 0;
-  right: 0;
+  flex: 0 0 auto;
  }
  .sales-page:not(.sales-detail) > .sales-grid { margin-top: 48px; }
  .sales-page:not(.sales-detail) > .sales-grid { column-gap: 16px; }

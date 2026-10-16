@@ -20,8 +20,8 @@
 .about-space-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--grid-gap-tight); margin-top: var(--grid-gap-compact); }
 .about-space-grid figure { margin: 0; min-width: 0; aspect-ratio: 317 / 220; display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); }
 .about-contact { margin: var(--section-gap) var(--content-gap) 0; }
-.about-contact-grid { display: grid; grid-template-columns: minmax(0, 580px) minmax(0, 545px); gap: var(--artwork-row-gap); }
-.about-contact-copy { min-width: 0; width: 100%; max-width: 500px; justify-self: start; display: grid; align-content: start; gap: var(--content-gap); text-align: left; font-size: 14px; line-height: 24px; }
+.about-contact-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 545px); gap: 60px; }
+.about-contact-copy { min-width: 0; width: 100%; max-width: 500px; justify-self: end; display: grid; align-content: start; gap: var(--content-gap); text-align: left; font-size: 14px; line-height: 24px; }
 .about-contact-copy > #contact-title { margin: 0; font-family: var(--font-body); line-height: 24px; font-weight: var(--weight-semibold); }
 .about-contact-copy h3 { font-family: var(--font-heading); font-size: 16px; line-height: 1.4; font-weight: var(--weight-semibold); margin-bottom: var(--small-gap); }
 .about-contact-copy address { display: flex; flex-direction: column; align-items: flex-start; gap: var(--grid-gap-tight); }
@@ -52,7 +52,7 @@
 @media (max-width: 800px) {
   .about-contact-grid { grid-template-columns: minmax(0, 1fr); }
   .about-map { width: 100%; }
-  .about-contact-copy { max-width: 100%; }
+  .about-contact-copy { max-width: 100%; justify-self: start; }
 }
 @media (max-width: 640px) {
   .about-prose { font-size: 14px; line-height: 1.7; }
