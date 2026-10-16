@@ -31,7 +31,7 @@
 .ex-detail-archive-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--artwork-vertical-gap) var(--grid-gap); margin-top: var(--grid-gap); }
 .ex-detail-archive-grid > a { min-width: 0; }
 .ex-detail-archive-image { aspect-ratio: 323 / 287; }
-.ex-detail-archive h3 { margin-top: var(--caption-gap); font-size: 16px; line-height: var(--line-height-metadata); font-weight: var(--weight-semibold); }
+.ex-detail-archive h3 { margin-top: var(--caption-gap); font-size: 17.92px; line-height: var(--line-height-metadata); font-weight: var(--weight-semibold); }
 .ex-detail-archive h3 + p { margin-top: var(--grid-gap-tight); font-size: 14px; line-height: var(--line-height-metadata); }
 @media (max-width: 1024px) {
   .ex-detail-intro, .ex-detail-content { margin-inline: 0; }
@@ -102,7 +102,7 @@
  .ex-detail-layout .exhibition-viewer-main { display: grid; min-height: min(42svh, 370px); place-items: center; }
  .ex-detail-layout .exhibition-enlarge { width: 60%; height: min(37.2svh, 324px); display: grid; }
  .ex-detail-layout .exhibition-enlarge img { height: 100%; max-height: 100%; }
- .ex-detail-archive h3 { font-size: 11.2px; }
+ .ex-detail-archive h3 { font-size: 12.544px; }
  .ex-detail--archive .ex-detail-title { font-size: 27.2px; }
  .ex-detail--archive > .ex-detail-status { display: none; }
 }
@@ -118,9 +118,9 @@
 .ex-detail-work-image { display: grid; place-items: center; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; background: var(--color-surface); }
 .ex-detail-work-image .artwork-viewer { width: 100%; height: 100%; }
 .ex-detail-work-image img { width: 100%; height: 100%; object-fit: contain; }
-.ex-detail-works-grid figcaption { margin-top: var(--caption-gap); font-size: 12px; line-height: var(--line-height-metadata); color: var(--color-secondary); }
-.ex-detail-works-grid figcaption p:first-child { color: var(--color-text); font-size: 13px; font-weight: var(--weight-semibold); }
-.ex-detail-works-grid figcaption p + p { margin-top: var(--grid-gap-tight); }
+.ex-detail-works-grid figcaption { margin-top: var(--caption-gap); line-height: var(--line-height-metadata); }
+.ex-detail-works-grid .work-caption-title { color: var(--color-text); font-size: 13px; font-weight: var(--weight-semibold); }
+.ex-detail-works-grid .work-caption-information { margin-top: var(--grid-gap-tight); color: var(--color-secondary); font-size: 12px; font-weight: var(--weight-regular); }
 .ex-detail .ex-detail-title { font-family: var(--font-navigation); font-size: 32px; line-height: 1.3; font-weight: var(--weight-semibold); margin-top: 0; }
 .ex-detail > .ex-detail-status { font-size: 14px; margin: 16px 0; }
 .ex-detail > .ex-detail-status { font-size: 35px; line-height: 1.3; }
@@ -136,8 +136,8 @@
  .ex-detail-works { margin-top: 40px; padding-top: 16px; }
  .ex-detail-works > h2 { font-size: 16px; }
  .ex-detail-works-grid { gap: 28px 12px; margin-top: 16px; }
- .ex-detail-works-grid figcaption { font-size: 10px; }
- .ex-detail-works-grid figcaption p:first-child { font-size: 11px; }
+ .ex-detail-works-grid .work-caption-title { font-size: 11px; }
+ .ex-detail-works-grid .work-caption-information { font-size: 10px; }
 }
 
 .ex-detail-layout .exhibition-thumbnail-navigation { display: grid; grid-template-columns: 28px minmax(0, 240px) 28px; align-items: center; justify-content: center; gap: 6px; width: 100%; }

@@ -58,8 +58,8 @@ export default async function AboutPage() {
     {images.length > 1 && <section className="about-space" aria-labelledby="space-title"><h2 id="space-title">SPACE</h2>
       <div className="about-space-grid">{images.slice(1).map((image, i) => <figure key={image._key || i}><ContentVisual src={imageUrl(image, 900)} alt={`갤러리 공간 ${i + 2}`} /></figure>)}</div>
     </section>}
-    {hasContact && <section id="contact" className="about-contact" aria-labelledby="contact-title"><h2 id="contact-title">CONTACT</h2>
-      <div className="about-contact-grid"><div className="about-contact-copy">
+    {hasContact && <section id="contact" className="about-contact" aria-labelledby="contact-title">
+      <div className="about-contact-grid"><div className="about-contact-copy"><h2 id="contact-title">CONTACT</h2>
         <section className="about-contact-information" aria-labelledby="contact-information-title"><h3 id="contact-information-title">Contact Information</h3><address>
           {settings.telephone && <a href={`tel:${settings.telephone.replace(/[^+\d]/g, "")}`}>{settings.telephone}</a>}
           {settings.email && <a href={`mailto:${settings.email}`}>{settings.email}</a>}

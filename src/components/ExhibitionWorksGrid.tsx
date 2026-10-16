@@ -5,16 +5,20 @@ const protectedSize = (value?: string | null) => value?.trim().replace(/(\d)\s*[
 
 export function ExhibitionWorksGrid({ images, exhibitionTitle }: { images: ArtworkSlide[]; exhibitionTitle: string }) {
   if (!images.length) return null;
-  const viewerImages = images.map((image, index) => ({ ...image, title: image.title || `${exhibitionTitle} 작품 ${index + 1}` }));
+  const viewerImages = images.map((image, index) => {
+    const title = image.title || `${exhibitionTitle} 작품 ${index + 1}`;
+    const information = captionLine(image.year, protectedSize(image.size), image.medium) || "연도 · 크기 · 재료 정보 준비 중";
+    return { ...image, title, caption: [title, information] };
+  });
   return <section className="ex-detail-works" aria-labelledby="exhibition-works-title">
     <h2 id="exhibition-works-title">WORKS</h2>
     <div className="ex-detail-works-grid">{viewerImages.map((image, index) => {
       const alt = image.title!;
-      const firstLine = captionLine(image.title || alt, image.year);
-      const secondLine = captionLine(protectedSize(image.size), image.medium);
+      const firstLine = image.title || alt;
+      const secondLine = captionLine(image.year, protectedSize(image.size), image.medium) || "연도 · 크기 · 재료 정보 준비 중";
       return <figure key={`${image.src}-${index}`}>
         <div className="ex-detail-work-image"><ArtworkViewer src={image.src} fullSrc={image.fullSrc} alt={alt} images={viewerImages} initialIndex={index} /></div>
-        <figcaption><p>{firstLine}</p>{secondLine && <p>{secondLine}</p>}</figcaption>
+        <figcaption><p className="work-caption-title">{firstLine}</p><p className="work-caption-information">{secondLine}</p></figcaption>
       </figure>;
     })}</div>
   </section>;

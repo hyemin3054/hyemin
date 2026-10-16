@@ -1,13 +1,13 @@
 .about-page { padding-top: var(--page-entry-gap); padding-bottom: var(--content-gap); overflow-wrap: anywhere; }
 .about-page h2 { font-family: var(--font-body); font-size: 12px; line-height: 24px; font-weight: var(--weight-semibold); }
 .about-page > .divider { margin: 0; }
-.about-contact > h2 { font-size: 18px; }
+.about-contact #contact-title { font-size: 18px; }
 .about-panorama { margin-top: var(--heading-content-gap); aspect-ratio: 1328 / 430; display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); }
 .about-panorama img, .about-space-grid img { width: 100%; height: 100%; min-height: 0; object-fit: contain; }
 .about-page .content-visual-empty { width: 100%; height: 100%; display: grid; place-items: center; background: var(--color-surface); font-size: 13px; color: var(--color-muted); }
 .about-brand { display: flex; flex-direction: column; align-items: center; gap: 18px; margin-top: var(--content-gap); }
 .about-brand-statement { font-family: var(--font-heading); font-size: 16px; line-height: 1.6; font-weight: var(--weight-semibold); text-align: center; }
-.about-tagline { max-width: 720px; font-family: var(--font-heading); font-size: clamp(20px, 2.1vw, 30px); line-height: 1.45; font-weight: var(--weight-semibold); text-align: center; text-wrap: balance; word-break: keep-all; overflow-wrap: normal; }
+.about-tagline { max-width: 720px; font-family: var(--font-heading); font-size: clamp(16.4px, 1.722vw, 24.6px); line-height: 1.45; font-weight: var(--weight-semibold); text-align: center; text-wrap: balance; word-break: keep-all; overflow-wrap: normal; }
 .about-logo { width: 220px; max-width: 100%; }
 .about-logo img { width: 100%; height: auto; object-fit: contain; }
 .about-introduction { margin-top: var(--section-gap); padding-top: var(--heading-content-gap); border-top: 1px solid var(--color-divider); }
@@ -18,8 +18,9 @@
 .about-space-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--grid-gap-tight); margin-top: var(--grid-gap-compact); }
 .about-space-grid figure { margin: 0; min-width: 0; aspect-ratio: 317 / 220; display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); }
 .about-contact { margin: var(--section-gap) var(--content-gap) 0; }
-.about-contact-grid { display: grid; grid-template-columns: minmax(0, 580px) minmax(0, 545px); gap: var(--artwork-row-gap); margin-top: var(--heading-content-gap); }
+.about-contact-grid { display: grid; grid-template-columns: minmax(0, 580px) minmax(0, 545px); gap: var(--artwork-row-gap); }
 .about-contact-copy { min-width: 0; width: 100%; max-width: 500px; justify-self: start; display: grid; align-content: start; gap: var(--content-gap); text-align: left; font-size: 14px; line-height: 24px; }
+.about-contact-copy > #contact-title { margin: 0; font-family: var(--font-body); line-height: 24px; font-weight: var(--weight-semibold); }
 .about-contact-copy h3 { font-family: var(--font-heading); font-size: 16px; line-height: 1.4; font-weight: var(--weight-semibold); margin-bottom: var(--small-gap); }
 .about-contact-copy address { display: flex; flex-direction: column; align-items: flex-start; gap: var(--grid-gap-tight); }
 .about-location-copy > p + p { margin-top: var(--small-gap); }
@@ -49,6 +50,6 @@
 @media (max-width: 640px) {
   .about-prose { font-size: 14px; line-height: 1.7; }
   .about-brand { gap: 16px; }
-  .about-tagline { max-width: 18em; font-size: 18px; line-height: 1.5; }
+  .about-tagline { max-width: 18em; font-size: 14.76px; line-height: 1.5; }
   .about-contact-copy address a { display: flex; align-items: center; justify-content: flex-start; min-height: 44px; max-width: 100%; }
 }
