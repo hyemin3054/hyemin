@@ -22,6 +22,18 @@
 }
 .page-placeholder { padding-block: var(--content-gap); overflow-wrap: anywhere; }
 .divider { border: 0; border-top: 1px solid var(--color-divider); margin-block: var(--divider-spacing); }
+.site-main .page-heading,
+.site-main .container > .page-heading {
+  margin: 0 0 12px;
+  padding: 0;
+  font-family: var(--font-heading);
+  font-size: 30px;
+  font-weight: var(--weight-semibold);
+  line-height: 1.3;
+  letter-spacing: 0;
+  color: var(--color-text);
+}
+.site-main .page-heading--section { margin-bottom: 0; }
 .muted { color: var(--color-muted); }
 .preserve-lines { white-space: pre-line; }
 .site-footer { margin-top: var(--section-gap); padding-bottom: var(--footer-padding-bottom); }
@@ -78,6 +90,11 @@
   .site-main :is(.artists-page, .exhibitions-page, .ex-detail, .news-page, .sales-page, .about-page) { padding-top: 12px; }
   .site-main :is(.artists-page, .exhibitions-page, .ex-detail, .news-list-page, .sales-page) > h1,
   .site-main :is(.news-section-title, .sales-section-title) { font-size: 28px; line-height: 1.35; margin-top: 4px; padding-bottom: 8px; }
+}
+@media (max-width: 768px) {
+  .site-main .page-heading,
+  .site-main .container > .page-heading { margin-bottom: 10px; padding: 0; font-size: 24px; line-height: 1.3; }
+  .site-main .page-heading--section { margin-bottom: 0; }
 }
 
 /* Six navigation items share the existing header without wrapping. */

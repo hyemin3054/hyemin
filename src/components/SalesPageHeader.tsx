@@ -1,4 +1,5 @@
 import type { SiteSettings } from "@/sanity/lib/types";
+import { PageHeading } from "./PageHeading";
 
 export function PurchaseContact({ settings }: { settings: SiteSettings | null }) {
   const instagram = settings?.instagram?.trim();
@@ -17,7 +18,7 @@ export function PurchaseContact({ settings }: { settings: SiteSettings | null })
 
 export function SalesPageHeader({ settings, detail = false }: { settings: SiteSettings | null; detail?: boolean }) {
   return <header className="sales-page-heading">
-    <div>{detail ? <p className="sales-eyebrow">SALES</p> : <h1 className="sales-works-heading">SALES</h1>}</div>
+    <div>{detail ? <p className="sales-eyebrow">SALES</p> : <PageHeading>SALES</PageHeading>}</div>
     <PurchaseContact settings={settings} />
   </header>;
 }

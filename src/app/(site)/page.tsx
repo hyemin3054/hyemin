@@ -5,6 +5,7 @@ import { ExhibitionGallery } from "@/components/ExhibitionGallery";
 import { ImageCarousel } from "@/components/ImageCarousel";
 import { groupExhibitions } from "@/lib/exhibitions";
 import { ContentVisual } from "@/components/ContentVisual";
+import { PageHeading } from "@/components/PageHeading";
 import { getContentList, getSiteSettings } from "@/sanity/lib/content";
 import { imageUrl, previewImageUrl } from "@/sanity/lib/image";
 import { site } from "@/config/site";
@@ -41,7 +42,7 @@ export default async function HomePage() {
     {renderExhibition(current)}
     {past && renderExhibition(past, true)}
     {<section id="archive" className="container home-archive" aria-labelledby="home-archive-title">
-      <div className="home-archive-heading"><h2 id="home-archive-title">ARCHIVE</h2></div>
+      <div className="home-archive-heading"><PageHeading as="h2" id="home-archive-title" section>ARCHIVE</PageHeading></div>
       {archive.length === 0 && <p className="muted">{exhibitions.status === "ready" ? "등록된 지난 전시가 없습니다." : "지난 전시 정보를 불러오지 못했습니다."}</p>}
       <div className="home-archive-grid">{archive.map(item => <Link key={item._id} href={`/exhibitions/${encodeURIComponent(item.slug)}`}>
         <div className="home-archive-image"><ContentVisual src={previewImageUrl(item.mainImage, 840, 1188)} alt={item.title || "지난 전시"} /></div>

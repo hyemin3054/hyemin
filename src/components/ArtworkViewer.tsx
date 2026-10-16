@@ -37,7 +37,8 @@ export function ArtworkLightbox({ images, initialIndex, alt, contact, onClose }:
     element?.showModal(); document.body.style.overflow = "hidden";
     return () => { element?.close(); document.body.style.overflow = overflow; };
   }, []);
-  const caption = image.caption || [[image.title, image.year].filter(Boolean).join(", "), [image.medium, image.size].filter(Boolean).join(", ")].filter(Boolean);
+  const protectedSize = image.size?.trim().replace(/(\d)\s*[×x]\s*(\d)/gi, "$1\u00a0×\u00a0$2").replace(/(\d)\s+(cm|mm|m)\b/gi, "$1\u00a0$2");
+  const caption = image.caption || [[image.title, image.year].filter(Boolean).join(", "), [protectedSize, image.medium].filter(Boolean).join(", ")].filter(Boolean);
   return <dialog ref={dialog} className="artwork-lightbox grotto-viewer" aria-label={`${alt} 크게 보기`} onCancel={event => { event.preventDefault(); onClose(); }} onKeyDown={event => {
     if (event.key === "ArrowLeft" || event.key === "ArrowRight") { event.preventDefault(); change(event.key === "ArrowLeft" ? -1 : 1); }
     if (event.key === "+" || event.key === "=") { event.preventDefault(); adjustZoom(1); }

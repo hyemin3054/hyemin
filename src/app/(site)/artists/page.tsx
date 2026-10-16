@@ -1,6 +1,7 @@
 import { artistArtworks } from "@/lib/artist-artworks";
 import { ArtistsList } from "@/components/ArtistsList";
 import { Divider } from "@/components/Divider";
+import { PageHeading } from "@/components/PageHeading";
 import { getContentList } from "@/sanity/lib/content";
 import { imageUrl } from "@/sanity/lib/image";
 import "@/styles/artists.css";
@@ -9,7 +10,7 @@ export const metadata = { title: "Artists" };
 export default async function Page() {
   const result = await getContentList("artist");
   return <section className="container artists-page">
-    <h1>Artists</h1>
+    <PageHeading>ARTISTS</PageHeading>
     <Divider />
     {result.status !== "ready" ? <p className="artists-message">콘텐츠를 불러오지 못했습니다. 잠시 후 다시 확인해주세요.</p>
       : result.data.length ? <ArtistsList artists={result.data.map((artist) => ({

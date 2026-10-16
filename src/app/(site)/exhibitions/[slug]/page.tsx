@@ -27,7 +27,9 @@ export default async function DetailPage({ params }: Props) {
   if (!item) notFound();
   const legacyGallery = exhibitionImages(item.mainImage, item.galleryImages).filter(image => imageUrl(image));
   const savedInstallationImages = exhibitionImages(null, item.installationImages).filter(image => imageUrl(image));
-  const installationImages = savedInstallationImages.length ? savedInstallationImages : legacyGallery.slice(0, 1);
+  // Preserve the complete legacy gallery until editors populate the dedicated
+  // installation-view field; the new WORKS collection is additive.
+  const installationImages = savedInstallationImages.length ? savedInstallationImages : legacyGallery;
   const savedArtworkImages = exhibitionImages(null, item.artworkImages).filter(image => imageUrl(image));
   const legacyArtworkImages = exhibitionImages(null, item.galleryImages).filter(image => imageUrl(image));
   const artworkImages = savedArtworkImages.length ? savedArtworkImages : legacyArtworkImages;

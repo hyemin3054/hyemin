@@ -1,18 +1,33 @@
-import { PortableText } from "next-sanity";
+import { PortableText, type PortableTextBlock } from "next-sanity";
 import { getSiteSettings } from "@/sanity/lib/content";
 import { imageUrl } from "@/sanity/lib/image";
 import { ContentVisual } from "@/components/ContentVisual";
+import { Divider } from "@/components/Divider";
+import { PageHeading } from "@/components/PageHeading";
 import { site } from "@/config/site";
 import "@/styles/about.css";
 
 function AboutLogo() {
   return <div className="about-logo"><img src={site.logo} alt="The Grotto Art Window" /></div>;
 }
-const OPENING_HOURS = "Window 개방은 24시간\n오전 10시 ~ 20시 / 연중무휴";
+const OPENING_HOURS = "Window 개방: 24시간\n운영시간: 오전 10시 ~ 오후 8시\n연중무휴";
+const BRAND_STATEMENT = "예술과 일상이 마주하는 작은 창";
 const INTRO_PHRASE = "도시 속에서 만나는 작은 동굴, 그 안의 세계를 들여다보다";
 function blockText(block: unknown) {
   const children = (block as { children?: Array<{ text?: string }> })?.children || [];
   return children.map(child => child.text || "").join("").replace(/\s+/g, " ").trim();
+}
+function moveIntroStatement(blocks: PortableTextBlock[]): PortableTextBlock[] {
+  return blocks.map(block => ({
+    ...block,
+    children: block.children?.map(child => "text" in child && typeof child.text === "string" ? ({
+        ...child,
+        text: child.text
+          .replace("도시 속에서 만나는 작은 동굴", "")
+          .replace("그 안의 세계를 들여다보다.", "")
+          .replace("그 안의 세계를 들여다보다", ""),
+      }) : child),
+  })).filter(block => blockText(block));
 }
 export const metadata = { title: "About" };
 export default async function AboutPage() {
@@ -26,15 +41,15 @@ export default async function AboutPage() {
   const mapUrl = map?.mapUrl && /^https?:\/\//i.test(map.mapUrl) ? map.mapUrl : coordinateUrl || (mapQuery ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}` : null);
   const embedUrl = mapQuery ? `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed` : null;
   const aboutText = Array.isArray(settings?.aboutText) ? settings.aboutText : [];
-  const introBlockIndex = aboutText.findIndex(block => blockText(block).includes("도시 속에서 만나는 작은 동굴"));
-  const aboutBody = introBlockIndex >= 0 ? aboutText.filter((_, index) => index !== introBlockIndex) : aboutText;
+  const aboutBody = moveIntroStatement(aboutText);
   const hasContact = settings && (settings.address || settings.telephone || settings.email || settings.instagram || map?.directions || mapUrl || OPENING_HOURS);
-  return <article className="container about-page"><h1>ABOUT</h1>
+  return <article className="container about-page"><PageHeading>ABOUT</PageHeading><Divider />
     {status !== "ready" && <p>콘텐츠를 불러오지 못했습니다. 잠시 후 다시 확인해주세요.</p>}
     {status === "ready" && !settings && <p>갤러리 정보를 준비 중입니다.</p>}
     {images[0] && <div className="about-panorama"><ContentVisual src={imageUrl(images[0], 1800)} alt="갤러리 공간" /></div>}
     <div className="about-brand">
       <AboutLogo />
+      <p className="about-brand-statement">“ {BRAND_STATEMENT} ”</p>
       <p className="about-tagline">{INTRO_PHRASE}</p>
     </div>
     {settings && aboutBody.length > 0 && <section className="about-introduction" aria-label="갤러리 소개">

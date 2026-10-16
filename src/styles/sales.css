@@ -13,7 +13,7 @@
 .sales-purchase-contact a { max-width: 100%; overflow-wrap: anywhere; }
 .sales-page > .divider { margin: 0; }
 .sales-page a { text-decoration: none; }
-.sales-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--artwork-vertical-gap) var(--grid-gap-compact); list-style: none; padding: 0 var(--content-gap); margin: var(--content-gap) 0 0; }
+.sales-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--artwork-vertical-gap) var(--grid-gap-compact); list-style: none; padding: 0 var(--content-gap); margin: var(--heading-content-gap) 0 0; }
 .sales-grid li { min-width: 0; text-align: center; }
 .sales-grid--image-aligned > li > a { display: block; width: 100%; }
 .sales-grid--image-aligned .sales-grid-copy { margin-inline: auto; min-width: 0; max-width: 100%; text-align: center; overflow-wrap: anywhere; }
@@ -153,6 +153,9 @@
   width: min(calc(100% - 64px), 1434px);
   max-width: 1434px;
   padding-inline: 0;
+ }
+ .sales-page:not(.sales-detail) .sales-page-heading {
+  padding-left: calc(max(var(--page-padding), (100vw - var(--container-max)) / 2) - max(32px, (100vw - 1434px) / 2));
  }
  .sales-page:not(.sales-detail) > .sales-grid { column-gap: 16px; }
  .sales-page:not(.sales-detail) .sales-grid-image { aspect-ratio: 10 / 9; }
