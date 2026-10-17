@@ -25,14 +25,8 @@ export default async function DetailPage({ params }: Props) {
   if (result.status !== "ready") return <section className="container ex-detail"><Link href="/exhibitions">EXHIBITIONS / ARCHIVE</Link><p>콘텐츠를 불러오지 못했습니다. 잠시 후 다시 확인해주세요.</p></section>;
   const item = result.data;
   if (!item) notFound();
-  const legacyGallery = exhibitionImages(item.mainImage, item.galleryImages).filter(image => imageUrl(image));
-  const savedInstallationImages = exhibitionImages(null, item.installationImages).filter(image => imageUrl(image));
-  // Preserve the complete legacy gallery until editors populate the dedicated
-  // installation-view field; the new WORKS collection is additive.
-  const installationImages = savedInstallationImages.length ? savedInstallationImages : legacyGallery;
-  const savedArtworkImages = exhibitionImages(null, item.artworkImages).filter(image => imageUrl(image));
-  const legacyArtworkImages = exhibitionImages(null, item.galleryImages).filter(image => imageUrl(image));
-  const artworkImages = savedArtworkImages.length ? savedArtworkImages : legacyArtworkImages;
+  const installationImages = exhibitionImages(null, item.installationImages).filter(image => imageUrl(image));
+  const artworkImages = exhibitionImages(null, item.artworkImages).filter(image => imageUrl(image));
   const slides = (images: typeof installationImages) => images.map(image => ({ src: imageUrl(image, 1600)!, fullSrc: imageUrl({ asset: image.asset }, 3000)!, title: image.title, year: image.year, medium: image.medium, size: image.size }));
   const hasDescription = Array.isArray(item.description) && item.description.length > 0;
   const groups = groupExhibitions(list.data);

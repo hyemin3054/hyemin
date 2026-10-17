@@ -24,7 +24,7 @@ export default async function HomePage() {
     if (fallback) heroImages.push(fallback);
   }
   const renderExhibition = (item: typeof current, past = false) => <section id={past ? "past-exhibition" : "current-exhibition"} className="home-current" aria-label={past ? "지난 전시" : "현재 전시"}>
-    <ExhibitionGallery label={past ? <h2 className="home-past-label">PAST</h2> : undefined} href={item ? `/exhibitions/${encodeURIComponent(item.slug)}` : undefined} layout="home" title={item?.title || "현재 전시"} images={item ? exhibitionImages(item.mainImage, item.galleryImages).map(image => ({ ...image, src: imageUrl(image, 1500)!, fullSrc: imageUrl({asset: image.asset}, 3000)! })) : []} information={<div className="home-current-copy">
+    <ExhibitionGallery label={past ? <h2 className="home-past-label">PAST</h2> : undefined} href={item ? `/exhibitions/${encodeURIComponent(item.slug)}` : undefined} layout="home" title={item?.title || "현재 전시"} images={item ? exhibitionImages(item.mainImage, item.installationImages?.length ? item.installationImages : item.galleryImages).map(image => ({ ...image, src: imageUrl(image, 1500)!, fullSrc: imageUrl({asset: image.asset}, 3000)! })) : []} information={<div className="home-current-copy">
       {item ? <><h1><Link href={"/exhibitions/" + encodeURIComponent(item.slug)}>{item.title}</Link></h1>
         {item.artist?.name && <p>{item.artist.name}</p>}
         {(item.startDate || item.endDate) && <p>{[item.startDate, item.endDate].filter(Boolean).map(date => date!.replaceAll("-", ".")).join(" — ")}</p>}

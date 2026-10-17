@@ -10,8 +10,14 @@
 .about-tagline { max-width: 720px; font-family: var(--font-heading); font-size: clamp(16.4px, 1.722vw, 24.6px); line-height: 1.45; font-weight: var(--weight-semibold); text-align: center; text-wrap: balance; word-break: keep-all; overflow-wrap: normal; }
 .about-logo { width: 220px; max-width: 100%; }
 .about-logo img { width: 100%; height: auto; object-fit: contain; }
-.about-feature-image { width: min(100%, 960px); aspect-ratio: 16 / 9; margin: var(--content-gap) auto 0; display: grid; place-items: center; overflow: hidden; background: var(--color-surface); }
-.about-feature-image img { width: 100%; height: 100%; object-fit: contain; }
+.about-image-slider { width: min(100%, 960px); margin: var(--content-gap) auto 0; }
+.about-image-frame { position: relative; aspect-ratio: 16 / 9; display: grid; place-items: center; overflow: hidden; background: var(--color-surface); touch-action: pan-y; }
+.about-image-frame .image-dissolve, .about-image-frame .image-dissolve > div { width: 100%; height: 100%; }
+.about-image-frame img { width: 100%; height: 100%; object-fit: contain; }
+.about-image-step { position: absolute; z-index: 2; top: 50%; width: 44px; height: 44px; display: grid; place-items: center; transform: translateY(-50%); border: 0; background: color-mix(in srgb, var(--color-background) 72%, transparent); color: var(--color-text); font: inherit; font-size: 24px; line-height: 1; cursor: pointer; }
+.about-image-step--previous { left: var(--small-gap); }
+.about-image-step--next { right: var(--small-gap); }
+.about-image-step:focus-visible { outline: 1px solid currentColor; outline-offset: 2px; }
 .about-introduction { margin-top: var(--section-gap); padding-top: var(--heading-content-gap); border-top: 1px solid var(--color-divider); }
 .about-prose { width: min(100%, 960px); margin-inline: auto; font-size: 18px; line-height: 1.75; }
 .about-prose > * + * { margin-top: 20px; }
@@ -58,7 +64,7 @@
   .about-prose { font-size: 14px; line-height: 1.7; }
   .about-brand { gap: 16px; }
   .about-tagline { max-width: 18em; font-size: 14.76px; line-height: 1.5; }
-  .about-feature-image { aspect-ratio: 4 / 3; }
+  .about-image-frame { aspect-ratio: 4 / 3; }
   .about-contact-copy address { gap: 0; }
   .about-contact-copy address a { display: flex; align-items: center; justify-content: flex-start; min-height: 24px; max-width: 100%; }
 }

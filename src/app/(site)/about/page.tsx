@@ -1,7 +1,7 @@
 import { PortableText, type PortableTextBlock } from "next-sanity";
 import { getSiteSettings } from "@/sanity/lib/content";
 import { imageUrl } from "@/sanity/lib/image";
-import { ContentVisual } from "@/components/ContentVisual";
+import { AboutImageSlider } from "@/components/AboutImageSlider";
 import { Divider } from "@/components/Divider";
 import { PageHeading } from "@/components/PageHeading";
 import { site } from "@/config/site";
@@ -33,6 +33,7 @@ export const metadata = { title: "About" };
 export default async function AboutPage() {
   const { data: settings, status } = await getSiteSettings();
   const images = (settings?.aboutImages || []).filter((image) => imageUrl(image));
+  const aboutSlides = images.map((image, index) => ({ src: imageUrl(image, 1600)!, alt: `The Grotto Art Window 소개 이미지 ${index + 1}` }));
   const map = settings?.mapInformation;
   const location = map?.location;
   const coordinateUrl = location && Number.isFinite(location.lat) && Number.isFinite(location.lng)
@@ -42,24 +43,18 @@ export default async function AboutPage() {
   const embedUrl = mapQuery ? `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed` : null;
   const aboutText = Array.isArray(settings?.aboutText) ? settings.aboutText : [];
   const aboutBody = moveIntroStatement(aboutText);
-  const featureImage = settings?.showAboutFeatureImage === false ? null : settings?.aboutFeatureImage || settings?.heroImages?.[0] || null;
-  const featureImageSrc = imageUrl(featureImage, 1600);
   const hasContact = settings && (settings.address || settings.telephone || settings.email || settings.instagram || map?.directions || mapUrl || OPENING_HOURS);
   return <article className="container about-page"><PageHeading>ABOUT</PageHeading><Divider />
     {status !== "ready" && <p>콘텐츠를 불러오지 못했습니다. 잠시 후 다시 확인해주세요.</p>}
     {status === "ready" && !settings && <p>갤러리 정보를 준비 중입니다.</p>}
-    {images[0] && <div className="about-panorama"><ContentVisual src={imageUrl(images[0], 1800)} alt="갤러리 공간" /></div>}
     <div className="about-brand">
       <AboutLogo />
       <p className="about-brand-statement">“ {BRAND_STATEMENT} ”</p>
       <p className="about-tagline">{INTRO_PHRASE}</p>
     </div>
-    {featureImageSrc && <figure className="about-feature-image"><ContentVisual src={featureImageSrc} alt="The Grotto Art Window 소개 이미지" /></figure>}
+    <AboutImageSlider images={aboutSlides} />
     {settings && aboutBody.length > 0 && <section className="about-introduction" aria-label="갤러리 소개">
       <div className="about-prose"><PortableText value={aboutBody} /></div>
-    </section>}
-    {images.length > 1 && <section className="about-space" aria-labelledby="space-title"><h2 id="space-title">SPACE</h2>
-      <div className="about-space-grid">{images.slice(1).map((image, i) => <figure key={image._key || i}><ContentVisual src={imageUrl(image, 900)} alt={`갤러리 공간 ${i + 2}`} /></figure>)}</div>
     </section>}
     {hasContact && <section id="contact" className="about-contact" aria-labelledby="contact-title">
       <div className="about-contact-grid"><div className="about-contact-copy"><h2 id="contact-title">CONTACT</h2>

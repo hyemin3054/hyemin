@@ -8,9 +8,9 @@ export const siteSettings = defineType({
     defineField({ name: "telephone", title: "전화", type: "string" }), defineField({ name: "email", title: "이메일", type: "string", validation: (rule) => rule.email() }),
     defineField({ name: "instagram", title: "Instagram 주소", type: "url", validation: (rule) => rule.uri({ scheme: ["https"] }) }),
     defineField({ name: "copyright", title: "저작권 문구", type: "string" }), richTextField("aboutText", "갤러리 소개"),
-    defineField({ name: "aboutFeatureImage", title: "ABOUT 이미지 창", type: "contentImage", description: "ABOUT 소개 문구 아래의 선택 이미지입니다. 비어 있으면 HOME Hero의 첫 이미지를 사용합니다." }),
-    defineField({ name: "showAboutFeatureImage", title: "ABOUT 이미지 창 표시", type: "boolean", initialValue: true, description: "끄면 이미지를 삭제하지 않아도 ABOUT 이미지 창이 숨겨집니다." }),
-    galleryField("aboutImages", "갤러리 소개 이미지"),
+    defineField({ name: "aboutFeatureImage", title: "기존 ABOUT 이미지 창 (보존용)", type: "contentImage", hidden: true, readOnly: true }),
+    defineField({ name: "showAboutFeatureImage", title: "기존 ABOUT 이미지 표시 설정 (보존용)", type: "boolean", hidden: true, readOnly: true }),
+    { ...galleryField("aboutImages", "ABOUT 이미지"), description: "ABOUT 페이지에 표시할 이미지를 등록합니다. 여러 장을 추가하거나 삭제할 수 있으며, 드래그하여 표시 순서를 변경할 수 있습니다." },
     defineField({ name: "mapInformation", title: "지도 / 찾아오는 길", type: "object", fields: [
       defineField({ name: "location", title: "지도 좌표 (선택)", type: "geopoint" }),
       defineField({ name: "mapUrl", title: "지도 링크", type: "url", validation: (rule) => rule.uri({ scheme: ["https", "http"] }) }),

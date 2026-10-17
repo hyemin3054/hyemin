@@ -25,7 +25,7 @@ export default async function Page() {
     {result.status !== "ready" ? <p className="exhibitions-error">콘텐츠를 불러오지 못했습니다. 잠시 후 다시 확인해주세요.</p> : <>
       {[{ label: "CURRENT", items: current }, ...(past ? [{ label: "PAST", items: [past] }] : [])].map(({ label, items }) => <section key={label} className="exhibitions-current" aria-labelledby={label + "-title"}>
         {items.length ? items.map((item) => <article className="exhibition-current-row" key={item._id}>
-          <ExhibitionGallery label={<h2 id={label + "-title"} className="home-past-label">{label}</h2>} href={`/exhibitions/${encodeURIComponent(item.slug)}`} layout="list" title={item.title} images={exhibitionImages(item.mainImage, item.galleryImages).map(image => ({ ...image, src: imageUrl(image, 1500)!, fullSrc: imageUrl({asset: image.asset}, 3000)! }))} information={<div className="exhibition-current-copy"><h3><Link href={href(item)}>{item.title}</Link></h3>
+          <ExhibitionGallery label={<h2 id={label + "-title"} className="home-past-label">{label}</h2>} href={`/exhibitions/${encodeURIComponent(item.slug)}`} layout="list" title={item.title} images={exhibitionImages(item.mainImage, item.installationImages?.length ? item.installationImages : item.galleryImages).map(image => ({ ...image, src: imageUrl(image, 1500)!, fullSrc: imageUrl({asset: image.asset}, 3000)! }))} information={<div className="exhibition-current-copy"><h3><Link href={href(item)}>{item.title}</Link></h3>
             {item.artist?.name && <p className="exhibition-artist">{item.artist.name}</p>}
             <Dates item={item} />
             {item.shortDescription?.trim() && <p className="exhibition-summary preserve-lines">{item.shortDescription}</p>}

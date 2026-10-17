@@ -3,10 +3,10 @@ import { defineArrayMember, defineField, defineType } from "sanity";
 export const contentImage = defineType({
   name: "contentImage", title: "이미지", type: "image", options: { hotspot: true },
   fields: [
-    defineField({ name: "title", title: "작품 제목 · Group 1", type: "string", hidden: ({ document }) => !["exhibition", "artist"].includes(String(document?._type)) }),
-    defineField({ name: "year", title: "제작 연도 · Group 1", type: "string", hidden: ({ document }) => !["exhibition", "artist"].includes(String(document?._type)) }),
-    defineField({ name: "size", title: "작품 크기 · Group 2", type: "string", description: "예: 130 × 162 cm. 숫자와 단위를 함께 입력하세요.", hidden: ({ document }) => !["exhibition", "artist"].includes(String(document?._type)) }),
-    defineField({ name: "medium", title: "재료 / 기법 · Group 2", type: "string", description: "예: Oil on canvas. 캡션 항목은 모두 선택 입력입니다.", hidden: ({ document }) => !["exhibition", "artist"].includes(String(document?._type)) }),
+    defineField({ name: "title", title: "작품 제목 · Group 1", type: "string", hidden: ({ document, path }) => !["exhibition", "artist"].includes(String(document?._type)) || (document?._type === "exhibition" && path[0] === "mainImage") }),
+    defineField({ name: "year", title: "제작 연도 · Group 1", type: "string", hidden: ({ document, path }) => !["exhibition", "artist"].includes(String(document?._type)) || (document?._type === "exhibition" && path[0] === "mainImage") }),
+    defineField({ name: "size", title: "작품 크기 · Group 2", type: "string", description: "예: 130 × 162 cm. 숫자와 단위를 함께 입력하세요.", hidden: ({ document, path }) => !["exhibition", "artist"].includes(String(document?._type)) || (document?._type === "exhibition" && path[0] === "mainImage") }),
+    defineField({ name: "medium", title: "재료 / 기법 · Group 2", type: "string", description: "예: Oil on canvas. 캡션 항목은 모두 선택 입력입니다.", hidden: ({ document, path }) => !["exhibition", "artist"].includes(String(document?._type)) || (document?._type === "exhibition" && path[0] === "mainImage") }),
   ],
 });
 export const richText = defineType({
