@@ -195,3 +195,6 @@
 
 /* Unzoomed viewers swipe horizontally; zoomed viewers retain two-axis panning. */
 .grotto-viewer .viewer-window:not(.is-zoomed) { touch-action: pan-y; }
+
+/* The whole stable image stage is a swipe hit area, including its blank sides. */
+.exhibition-viewer-main { touch-action: pan-y; }

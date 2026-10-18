@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArchivePeriod } from "@/components/ArchivePeriod";
 import { CurrentExhibitionLink } from "@/components/CurrentExhibitionLink";
 import { exhibitionImages } from "@/lib/exhibition-images";
 import { ExhibitionGallery } from "@/components/ExhibitionGallery";
@@ -46,7 +47,7 @@ export default async function HomePage() {
       <div className="home-archive-grid">{archive.map(item => <Link key={item._id} href={`/exhibitions/${encodeURIComponent(item.slug)}`}>
         <div className="home-archive-image"><ContentVisual src={previewImageUrl(item.mainImage, 840, 1188)} alt={item.title || "지난 전시"} /></div>
         <h3>{item.title}</h3>{item.artist?.name && <p>{item.artist.name}</p>}
-        {(item.startDate || item.endDate) && <p>{[item.startDate, item.endDate].filter(Boolean).map(date => date!.replaceAll("-", ".")).join(" — ")}</p>}
+        <ArchivePeriod start={item.startDate} end={item.endDate} />
       </Link>)}</div>
     </section>}
   </div>;

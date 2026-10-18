@@ -4,7 +4,7 @@ import { ArtworkViewer } from "./ArtworkViewer";
 import { ContentVisual } from "./ContentVisual";
 import { ImageIndicators } from "./ImageIndicators";
 import { ImageDissolve } from "./ImageDissolve";
-import { useAdjacentImages } from "./useImageSwipe";
+import { useAdjacentImages, useImageSwipe } from "./useImageSwipe";
 
 export type ExhibitionSlide = { src: string; fullSrc: string; title?: string | null; year?: string | null; medium?: string | null; size?: string | null };
 
@@ -16,6 +16,7 @@ export function ExhibitionGallery({ images, title, layout = "detail", informatio
   const main = useRef<HTMLDivElement>(null);
   const swipeAnimation = useRef<Animation | null>(null);
   useAdjacentImages(visibleImages.map(image => image.src), selected);
+  const gesture = useImageSwipe(visibleImages.length > 1 ? direction => swipe(direction) : undefined);
   if (!visibleImages.length) return <div className="exhibition-viewer-empty">{information}</div>;
   const active = Math.min(preview ?? selected, visibleImages.length - 1);
   const image = visibleImages[active];
@@ -48,7 +49,7 @@ export function ExhibitionGallery({ images, title, layout = "detail", informatio
   return <section className={`exhibition-viewer exhibition-viewer--${layout}${layout !== "detail" ? " exhibition-preview" : ""}`} aria-label={ariaLabel}>
     {information && <div className="exhibition-viewer-information">{label}<div>{information}</div>{layout !== "detail" && thumbnails}</div>}
     {layout === "detail" && thumbnails}
-    <div ref={main} className="exhibition-viewer-main"><ArtworkViewer className="exhibition-enlarge" src={image.src} fullSrc={image.fullSrc} alt={image.title || `${title} 이미지 ${active + 1}`} href={layout !== "detail" ? href : undefined} magnifier={layout !== "home"} images={visibleImages} initialIndex={active} swipeThreshold={18} onSwipe={swipe}>{<ImageDissolve imageKey={image.src} src={image.src}><ContentVisual src={image.src} alt={image.title || `${title} 이미지 ${active + 1}`} /></ImageDissolve>}</ArtworkViewer></div>
+    <div ref={main} className="exhibition-viewer-main" {...gesture.handlers} onClickCapture={event => { if (gesture.suppressClick.current) { event.preventDefault(); event.stopPropagation(); } }}><ArtworkViewer className="exhibition-enlarge" src={image.src} fullSrc={image.fullSrc} alt={image.title || `${title} 이미지 ${active + 1}`} href={layout !== "detail" ? href : undefined} magnifier={layout !== "home"} images={visibleImages} initialIndex={active}>{<ImageDissolve imageKey={image.src} src={image.src}><ContentVisual src={image.src} alt={image.title || `${title} 이미지 ${active + 1}`} /></ImageDissolve>}</ArtworkViewer></div>
     {layout !== "detail" && <div className="exhibition-viewer-indicators"><ImageIndicators count={visibleImages.length} active={active} onSelect={select} /></div>}
   </section>;
 }

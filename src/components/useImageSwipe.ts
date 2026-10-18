@@ -13,14 +13,15 @@ export function useImageSwipe(onSwipe?: (direction: number) => void, threshold =
       onPointerDown(event: PointerEvent<HTMLElement>) {
         suppressClick.current = false;
         const control = (event.target as Element).closest("button, a");
-        if (control && control !== event.currentTarget) { start.current = null; return; }
+        if (control && control !== event.currentTarget && !control.classList.contains("artwork-viewer")) { start.current = null; return; }
         if (!onSwipe || !event.isPrimary || event.button !== 0) { start.current = null; return; }
         start.current = { id: event.pointerId, x: event.clientX, y: event.clientY };
-        event.currentTarget.setPointerCapture(event.pointerId);
       },
       onPointerMove(event: PointerEvent<HTMLElement>) {
         const first = start.current;
         if (first && Math.hypot(event.clientX - first.x, event.clientY - first.y) > 8) suppressClick.current = true;
+        // Capture only a horizontal drag, so taps still reach the image link/button.
+        if (first && Math.abs(event.clientX - first.x) > 8 && Math.abs(event.clientX - first.x) > Math.abs(event.clientY - first.y) * 1.15) event.currentTarget.setPointerCapture(event.pointerId);
       },
       onPointerCancel() { start.current = null; suppressClick.current = true; },
       onPointerUp(event: PointerEvent<HTMLElement>) {

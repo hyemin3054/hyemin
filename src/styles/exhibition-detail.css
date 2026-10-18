@@ -161,3 +161,7 @@
  .ex-detail .ex-detail-archive-grid > a { width: 100%; }
  .ex-detail .ex-detail-archive-grid h3 { overflow-wrap: anywhere; }
 }
+
+@media (max-width: 800px) {
+ .ex-detail > .ex-detail-status:is([data-status="CURRENT"], [data-status="PAST"]) { font-size: 17.5px; }
+}

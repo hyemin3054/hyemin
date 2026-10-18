@@ -115,3 +115,5 @@
 
 .artist-works-grid { gap: calc(var(--content-gap) / 2) calc(var(--grid-gap) / 2); }
 @media (max-width: 800px) { .artist-works-grid { gap: calc(var(--content-gap) / 2) var(--small-gap); } }
+
+@media (max-width: 800px) { .artist-detail .artist-label { display: none; } }

@@ -62,6 +62,13 @@ export default async function DetailPage({ params }: Props) {
         </figcaption>}
       </figure>
     </section>
+    {(exhibitions.length > 0 || education.length > 0 || awards.length > 0) && <section className="artist-history" aria-labelledby="artist-cv-title"><h2 id="artist-cv-title">CV</h2><div className="artist-history-columns">
+      {exhibitions.length > 0 && <section><h3>Selected Exhibitions</h3><History entries={exhibitions} /></section>}
+      {(education.length > 0 || awards.length > 0) && <section className="artist-cv"><h3>Education &amp; Awards</h3>
+        {education.length > 0 && <section aria-label="학력"><History entries={education} /></section>}
+        {awards.length > 0 && <section aria-label="수상"><History entries={awards} /></section>}
+      </section>}
+    </div></section>}
     {works.length > 0 && <section className="artist-works" aria-labelledby="artist-works-title">
       <h2 id="artist-works-title">Additional Works</h2>
       <div className="artist-works-grid">{works.map((work, i) => <figure className="artist-work" key={work._key || i}>
@@ -72,13 +79,6 @@ export default async function DetailPage({ params }: Props) {
         </figcaption>}
       </figure>)}</div>
     </section>}
-    {(exhibitions.length > 0 || education.length > 0 || awards.length > 0) && <section className="artist-history" aria-labelledby="artist-cv-title"><h2 id="artist-cv-title">CV</h2><div className="artist-history-columns">
-      {exhibitions.length > 0 && <section><h3>Selected Exhibitions</h3><History entries={exhibitions} /></section>}
-      {(education.length > 0 || awards.length > 0) && <section className="artist-cv"><h3>Education &amp; Awards</h3>
-        {education.length > 0 && <section aria-label="학력"><History entries={education} /></section>}
-        {awards.length > 0 && <section aria-label="수상"><History entries={awards} /></section>}
-      </section>}
-    </div></section>}
     {(previous || next) && <nav className="artist-pagination" aria-label="이전 다음 작가">
       {previous && <Link href={`/artists/${encodeURIComponent(previous.slug)}`} aria-label={`이전 작가: ${previous.name || previous.title}`}>← PREVIOUS ARTIST</Link>}
       {next && <Link className="artist-next" href={`/artists/${encodeURIComponent(next.slug)}`} aria-label={`다음 작가: ${next.name || next.title}`}>NEXT ARTIST →</Link>}

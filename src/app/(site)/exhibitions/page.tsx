@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArchivePeriod } from "@/components/ArchivePeriod";
 import { ExhibitionGallery } from "@/components/ExhibitionGallery";
 import { exhibitionImages } from "@/lib/exhibition-images";
 import { groupExhibitions } from "@/lib/exhibitions";
@@ -37,7 +38,7 @@ export default async function Page() {
             <div className="exhibition-archive-image"><ExhibitionImage src={imageUrl(item.mainImage, 900)} alt={item.title} /></div>
             <h3>{item.title}</h3>
             {item.artist?.name && <p className="exhibition-artist">{item.artist.name}</p>}
-            <Dates item={item} />
+            <ArchivePeriod start={item.startDate} end={item.endDate} />
           </Link>
         </article>)}</div> : <p className="exhibition-empty">등록된 지난 전시가 없습니다.</p>}
       </section>

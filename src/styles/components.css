@@ -128,3 +128,25 @@
   font-family: var(--font-navigation); font-size: 14px; font-weight: 600; line-height: 1.25;
  }
 }
+
+/* One desktop section-heading system for HOME and Exhibition. */
+@media (min-width: 801px) {
+ .site-main :is(.home-page, .exhibitions-page) .exhibition-preview.exhibition-viewer .home-past-label,
+ .site-main .home-page .home-archive-heading > .page-heading,
+ .site-main .exhibitions-page .exhibitions-archive > .page-heading {
+  font-family: var(--font-body); font-size: 27.12px; font-weight: 600;
+  color: var(--color-text); letter-spacing: 0; line-height: 1.4;
+ }
+ .site-header--home .navigation { column-gap: clamp(20px, calc(20px + (100vw - 800px) * .07), 64px); }
+}
+@media (min-width: 1025px) {
+ .site-header--inner nav { flex: 0 1 700px; }
+ .site-header--inner .navigation { column-gap: clamp(18px, calc(18px + (100vw - 1024px) * .04), 34px); justify-content: space-between; }
+ .site-header--inner .header-content { gap: 25.6px; }
+}
+.site-main :is(.home-archive-grid, .exhibition-archive-grid) .archive-period {
+ font-size: 12px; line-height: 1.5; font-weight: 400; color: var(--color-secondary); margin-top: 4px;
+}
+@media (max-width: 800px) {
+ .site-main :is(.home-archive-grid, .exhibition-archive-grid) .archive-period { font-size: 10px; }
+}
