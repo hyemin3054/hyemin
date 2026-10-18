@@ -173,11 +173,32 @@
 
 @media (max-width: 800px) {
  .home-current-anchor-arrow { font-weight: 700; }
- .home-current-anchor-text { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+ .home-current-anchor-text { font-weight: 600; text-decoration: none; }
  .home-page #past-exhibition, .home-page .home-archive { position: relative; }
  .home-page #past-exhibition::before, .home-page .home-archive::before {
   content: ""; position: absolute; inset-inline: calc(var(--page-padding) + 12px);
   top: -24px; border-top: 1px solid #e2e2e2; pointer-events: none;
  }
  .home-page .home-archive::before { top: calc(var(--section-gap) / -2); }
+}
+
+/* HOME adopts the Exhibition page's alternating desktop sequence. */
+.home-page .home-current-anchor, .home-page .home-current-anchor span { text-decoration: none; }
+@media (min-width: 801px) {
+ .site-main .home-page #past-exhibition .exhibition-preview.exhibition-viewer { grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); }
+ .site-main .home-page #past-exhibition .exhibition-preview.exhibition-viewer .exhibition-viewer-information { grid-column: 2; }
+ .site-main .home-page #past-exhibition .exhibition-preview.exhibition-viewer .exhibition-viewer-main,
+ .site-main .home-page #past-exhibition .exhibition-preview.exhibition-viewer .exhibition-viewer-indicators { grid-column: 1; }
+ .home-page #past-exhibition, .home-page .home-archive { position: relative; }
+ .home-page #past-exhibition::before, .home-page .home-archive::before {
+  content: ""; position: absolute; inset-inline: calc(var(--page-padding) + 12px);
+  border-top: 1px solid #e2e2e2; pointer-events: none; top: calc(var(--section-gap) / -2);
+ }
+ .home-page #past-exhibition::before { top: -57.6px; }
+}
+@media (max-width: 800px) {
+ .home-hero-screen .home-hero { aspect-ratio: 1440 / 1482.4; }
+ .site-main .home-current .exhibition-preview.exhibition-viewer .exhibition-viewer-main { height: clamp(239.8px, 76.3vw, 370.6px); }
+ .site-main #current-exhibition .exhibition-preview.exhibition-viewer .exhibition-enlarge.artwork-viewer { width: 68.2776%; }
+ .site-main #past-exhibition .exhibition-preview.exhibition-viewer .exhibition-enlarge.artwork-viewer { width: 85.347%; }
 }

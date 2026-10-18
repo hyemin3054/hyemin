@@ -1,35 +1,22 @@
 "use client";
 
-import { useRef, useState, type TouchEvent } from "react";
+import { useState } from "react";
 import { ContentVisual } from "./ContentVisual";
 import { ImageDissolve } from "./ImageDissolve";
+import { useImageSwipe, useAdjacentImages } from "./useImageSwipe";
 
 export type AboutSlide = { src: string; alt: string };
 
 export function AboutImageSlider({ images }: { images: AboutSlide[] }) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const touchStart = useRef<{ x: number; y: number } | null>(null);
-  if (!images.length) return null;
-
   const select = (index: number) => setActiveIndex((index + images.length) % images.length);
+  const swipe = useImageSwipe(images.length > 1 ? direction => select(activeIndex + direction) : undefined);
+  useAdjacentImages(images.map(image => image.src), activeIndex);
+  if (!images.length) return null;
   const active = images[activeIndex] || images[0];
-  const onTouchStart = (event: TouchEvent<HTMLDivElement>) => {
-    const touch = event.touches[0];
-    touchStart.current = touch ? { x: touch.clientX, y: touch.clientY } : null;
-  };
-  const onTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
-    const start = touchStart.current;
-    const touch = event.changedTouches[0];
-    touchStart.current = null;
-    if (!start || !touch) return;
-    const deltaX = touch.clientX - start.x;
-    const deltaY = touch.clientY - start.y;
-    if (Math.abs(deltaX) < 40 || Math.abs(deltaX) <= Math.abs(deltaY) * 1.2) return;
-    select(activeIndex + (deltaX < 0 ? 1 : -1));
-  };
 
   return <section className="about-image-slider" aria-label="ABOUT 이미지">
-    <div className="about-image-frame" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+    <div className="about-image-frame" {...swipe.handlers} onDragStart={event => event.preventDefault()} onClickCapture={event => { if (swipe.suppressClick.current) { event.preventDefault(); event.stopPropagation(); } }}>
       <ImageDissolve imageKey={active.src} src={active.src}>
         <ContentVisual src={active.src} alt={active.alt} />
       </ImageDissolve>

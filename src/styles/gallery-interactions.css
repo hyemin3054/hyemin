@@ -192,3 +192,6 @@
  .site-main .exhibitions-page .exhibition-preview.exhibition-viewer .exhibition-viewer-information h3 { margin-bottom: 6px; }
  .site-main .exhibitions-page .exhibition-preview.exhibition-viewer .exhibition-viewer-main { margin-top: -48px; margin-bottom: 4px; }
 }
+
+/* Unzoomed viewers swipe horizontally; zoomed viewers retain two-axis panning. */
+.grotto-viewer .viewer-window:not(.is-zoomed) { touch-action: pan-y; }

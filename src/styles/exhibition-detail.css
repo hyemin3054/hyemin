@@ -155,3 +155,9 @@
  .ex-detail-layout .exhibition-thumbnails img { height: 64px; }
  .ex-detail-layout .thumbnail-page-step { min-width: 32px; }
 }
+
+@media (max-width: 800px) {
+ .ex-detail .ex-detail-archive-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 8px; }
+ .ex-detail .ex-detail-archive-grid > a { width: 100%; }
+ .ex-detail .ex-detail-archive-grid h3 { overflow-wrap: anywhere; }
+}

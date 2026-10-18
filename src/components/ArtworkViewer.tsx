@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState, type ReactNode, type PointerEvent } from "react";
 import Link from "next/link";
+import { useImageSwipe, useAdjacentImages } from "./useImageSwipe";
 import { ContentVisual } from "./ContentVisual";
 
 export type ArtworkSlide = { src: string; fullSrc?: string; title?: string | null; year?: string | null; medium?: string | null; size?: string | null; caption?: string[] };
@@ -26,6 +27,8 @@ export function ArtworkLightbox({ images, initialIndex, alt, contact, onClose }:
   const image = images[index];
   const resetViewport = () => requestAnimationFrame(() => viewerWindow.current?.scrollTo({ left: 0, top: 0 }));
   const change = (direction: number) => { setZoom(1); setPanning(false); panStart.current = null; resetViewport(); setIndex(value => (value + direction + images.length) % images.length); };
+  const swipe = useImageSwipe(zoom === 1 && images.length > 1 ? change : undefined);
+  useAdjacentImages(images.map(slide => slide.src), index);
   const adjustZoom = (direction: number) => setZoom(value => {
     const next = Math.min(2.5, Math.max(1, Number((value + direction * .25).toFixed(2))));
     if (next === 1) { setPanning(false); panStart.current = null; resetViewport(); }
@@ -49,21 +52,23 @@ export function ArtworkLightbox({ images, initialIndex, alt, contact, onClose }:
       <button className="viewer-previous" type="button" disabled={images.length < 2} onClick={() => change(-1)} aria-label="이전 작품">&lt;</button>
       <figure className="viewer-artwork" key={index}>
         <div ref={viewerWindow} className={`viewer-window${zoom > 1 ? " is-zoomed" : ""}${panning ? " is-panning" : ""}`} onPointerDown={event => {
-          if (zoom <= 1) return;
+          if (zoom <= 1) { swipe.handlers.onPointerDown(event); return; }
           event.preventDefault();
           event.currentTarget.setPointerCapture(event.pointerId);
           panStart.current = { pointerId: event.pointerId, x: event.clientX, y: event.clientY, left: event.currentTarget.scrollLeft, top: event.currentTarget.scrollTop };
           setPanning(true);
         }} onPointerMove={event => {
+          if (zoom <= 1) { swipe.handlers.onPointerMove(event); return; }
           const start = panStart.current;
           if (!start || start.pointerId !== event.pointerId) return;
           event.preventDefault();
           event.currentTarget.scrollLeft = start.left - (event.clientX - start.x);
           event.currentTarget.scrollTop = start.top - (event.clientY - start.y);
         }} onPointerUp={event => {
+          if (zoom <= 1) { swipe.handlers.onPointerUp(event); return; }
           if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
           panStart.current = null; setPanning(false);
-        }} onPointerCancel={() => { panStart.current = null; setPanning(false); }}>
+        }} onPointerCancel={() => { swipe.handlers.onPointerCancel(); panStart.current = null; setPanning(false); }} onDragStart={event => event.preventDefault()}>
           <div className="viewer-zoom-surface" style={{ transform: `scale(${zoom})` }}><ViewerVisual image={image} alt={alt} /></div>
         </div>
         <div className="viewer-controls-row"><div className="viewer-zoom-controls" aria-label="이미지 확대 조절">
@@ -78,11 +83,10 @@ export function ArtworkLightbox({ images, initialIndex, alt, contact, onClose }:
   </dialog>;
 }
 
-export function ArtworkViewer({ src, fullSrc, alt, className = "", href, magnifier = true, images, initialIndex = 0, contact, onSwipe, swipeThreshold = 40, children }: { src: string | null; fullSrc?: string; alt: string; className?: string; href?: string; magnifier?: boolean; images?: ArtworkSlide[]; initialIndex?: number; contact?: ReactNode; onSwipe?: (direction: number) => void; swipeThreshold?: number; children?: ReactNode }) {
+export function ArtworkViewer({ src, fullSrc, alt, className = "", href, magnifier = true, images, initialIndex = 0, contact, onSwipe, swipeThreshold = 18, children }: { src: string | null; fullSrc?: string; alt: string; className?: string; href?: string; magnifier?: boolean; images?: ArtworkSlide[]; initialIndex?: number; contact?: ReactNode; onSwipe?: (direction: number) => void; swipeThreshold?: number; children?: ReactNode }) {
   const [open, setOpen] = useState(false);
   const [lens, setLens] = useState<{x: number; y: number; width: number; height: number; px: number; py: number} | null>(null);
-  const start = useRef<{x: number; y: number} | null>(null);
-  const swiped = useRef(false);
+  const swipe = useImageSwipe(onSwipe ? direction => { setLens(null); onSwipe(direction); } : undefined, swipeThreshold);
   const move = (event: PointerEvent<HTMLElement>) => {
     if (!magnifier || event.pointerType !== "mouse" || !matchMedia("(min-width: 801px) and (hover: hover) and (pointer: fine)").matches) return;
     const img = event.currentTarget.querySelector("img");
@@ -96,35 +100,12 @@ export function ArtworkViewer({ src, fullSrc, alt, className = "", href, magnifi
   const content = <>{children || <ContentVisual src={src} alt={alt} />}{lens && src && <span aria-hidden="true" className="artwork-lens" style={{ left: lens.x, top: lens.y, backgroundImage: `url("${src}")`, backgroundSize: `${lens.width * 2}px ${lens.height * 2}px`, backgroundPosition: `${80 - lens.px * 2}px ${80 - lens.py * 2}px` }} />}</>;
   const props = {
     className: `artwork-viewer ${className}`,
-    onPointerMove: move,
+    ...swipe.handlers,
+    onPointerMove: (event: PointerEvent<HTMLElement>) => { swipe.handlers.onPointerMove(event); move(event); },
     onPointerLeave: () => setLens(null),
     onDragStart: (event: React.DragEvent) => event.preventDefault(),
-    onTouchStart: (event: React.TouchEvent<HTMLElement>) => {
-      swiped.current = false;
-      const touch = event.touches[0];
-      start.current = onSwipe && event.touches.length === 1 ? { x: touch.clientX, y: touch.clientY } : null;
-    },
-    onTouchCancel: () => { start.current = null; },
-    onTouchEnd: (event: React.TouchEvent<HTMLElement>) => {
-      const first = start.current; start.current = null;
-      const touch = event.changedTouches[0];
-      if (!first || !touch || !onSwipe) return;
-      const dx = touch.clientX - first.x, dy = touch.clientY - first.y;
-      swiped.current = Math.max(Math.abs(dx), Math.abs(dy)) > swipeThreshold;
-      if (Math.abs(dx) > swipeThreshold && Math.abs(dx) > Math.abs(dy) * (swipeThreshold < 40 ? 1.2 : 1.5)) {
-        setLens(null); onSwipe(dx < 0 ? 1 : -1);
-      }
-    },
-    onPointerDown: (event: PointerEvent<HTMLElement>) => { if (event.pointerType === "touch") return; swiped.current = false; start.current = {x: event.clientX, y: event.clientY}; if (onSwipe) event.currentTarget.setPointerCapture(event.pointerId); },
-    onPointerCancel: () => { start.current = null; },
-    onPointerUp: (event: PointerEvent<HTMLElement>) => {
-      if (event.pointerType === "touch") return;
-      const first = start.current; start.current = null;
-      const threshold = matchMedia("(max-width: 800px)").matches ? swipeThreshold : 40;
-      if (first && onSwipe && Math.abs(event.clientX - first.x) > threshold && Math.abs(event.clientX - first.x) > Math.abs(event.clientY - first.y)) { swiped.current = true; setLens(null); onSwipe(event.clientX < first.x ? 1 : -1); }
-    },
     onClick: (event: React.MouseEvent<HTMLElement>) => {
-      if (swiped.current) { event.preventDefault(); swiped.current = false; return; }
+      if (swipe.suppressClick.current) { event.preventDefault(); swipe.suppressClick.current = false; return; }
       if (href) return;
       event.preventDefault(); if (src) { setLens(null); setOpen(true); }
     },

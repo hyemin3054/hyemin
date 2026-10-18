@@ -139,3 +139,11 @@
   margin-top: calc(clamp(260px, 85vw, 420px) * -.1);
  }
 }
+
+@media (max-width: 800px) {
+ /* Previous gap = 6px row gap - 48px offset + 15.2% of the stable stage.
+    Add 30% of that gap without changing the artwork dimensions. */
+ .site-main .exhibitions-page .exhibition-preview.exhibition-viewer .exhibition-viewer-main {
+  margin-top: calc(-48px + (6px - 48px + clamp(260px, 85vw, 420px) * .152) * .3);
+ }
+}

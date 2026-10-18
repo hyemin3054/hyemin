@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { ContentVisual } from "./ContentVisual";
 import { ImageDissolve } from "./ImageDissolve";
 import { ImageIndicators } from "./ImageIndicators";
+import { useImageSwipe, useAdjacentImages } from "./useImageSwipe";
 
 const HERO_DURATION_MS = 15000;
 
@@ -45,13 +46,16 @@ export function ImageCarousel({ images, alt, frameClass, href, thumbnails = fals
     return () => { cancelled = true; cancelAnimationFrame(frame); };
   }, [autoPlay, images, selected, cycle]);
   const active = selected < images.length ? selected : 0;
+  const swipe = useImageSwipe(images.length > 1 ? direction => select((active + direction + images.length) % images.length) : undefined);
+  useAdjacentImages(images, active);
+  const swipeProps = { ...swipe.handlers, style: { touchAction: "pan-y" }, onDragStart: (event: React.DragEvent) => event.preventDefault(), onClickCapture: (event: React.MouseEvent) => { if (swipe.suppressClick.current) { event.preventDefault(); event.stopPropagation(); } } };
   const isHero = frameClass === "home-hero-image";
   const content = isHero ? <div className="hero-image-layers">
     <div className="hero-image-foreground"><ContentVisual src={images[active] || null} alt={alt} /></div>
   </div> : <ContentVisual src={images[active] || null} alt={alt} />;
   const visual = <ImageDissolve imageKey={images[active] || "empty"} src={images[active] || null}>{content}</ImageDissolve>;
   return <div className="image-carousel">
-    {href ? <Link className={frameClass} href={href} aria-label={`${alt} 상세`}>{visual}</Link> : <div className={frameClass}>{visual}</div>}
+    {href ? <Link {...swipeProps} className={frameClass} href={href} aria-label={`${alt} 상세`}>{visual}</Link> : <div {...swipeProps} className={frameClass}>{visual}</div>}
     {autoPlay && images.length > 1 ? <div className="hero-slider-controls">
       <button type="button" aria-label="이전 전경 이미지" onClick={() => select((active - 1 + images.length) % images.length)}>&lt;</button>
       <ImageIndicators count={images.length} active={active} onSelect={select} />
