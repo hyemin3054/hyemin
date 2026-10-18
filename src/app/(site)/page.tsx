@@ -28,7 +28,6 @@ export default async function HomePage() {
       {item ? <><h1><Link href={"/exhibitions/" + encodeURIComponent(item.slug)}>{item.title}</Link></h1>
         {item.artist?.name && <p>{item.artist.name}</p>}
         {(item.startDate || item.endDate) && <p>{[item.startDate, item.endDate].filter(Boolean).map(date => date!.replaceAll("-", ".")).join(" — ")}</p>}
-        {item.shortDescription?.trim() && <p className="home-current-summary">{item.shortDescription}</p>}
       </> : <p>{exhibitions.status === "ready" ? "현재 진행 중인 전시가 없습니다." : "전시 정보를 불러오지 못했습니다. 잠시 후 다시 확인해주세요."}</p>}
     </div>} />
   </section>;

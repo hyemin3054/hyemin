@@ -143,7 +143,7 @@
 @media (max-width: 800px) { #current-exhibition { margin-top: 32px; } }
 
 @media (max-width: 800px) {
- .home-hero-screen .home-hero { aspect-ratio: 1440 / 850; }
+ .home-hero-screen .home-hero { aspect-ratio: 1440 / 1360; }
  .site-main .home-current .exhibition-preview.exhibition-viewer .exhibition-viewer-main { display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); }
  .home-hero-wordmark { width: clamp(128px, 42vw, 180px); margin-bottom: 34px; }
  .site-main .home-current .exhibition-preview.exhibition-viewer .exhibition-enlarge.artwork-viewer { width: 60%; height: 80%; align-self: center; }
@@ -169,4 +169,15 @@
  .site-main #current-exhibition .exhibition-preview.exhibition-viewer .exhibition-enlarge.artwork-viewer { width: 62.64%; height: 83.52%; }
  .site-main #past-exhibition .exhibition-preview.exhibition-viewer .exhibition-viewer-main { margin-top: 20px; }
  .site-main #past-exhibition .exhibition-preview.exhibition-viewer .exhibition-enlarge.artwork-viewer { width: min(78.3%, 100%); height: 100%; }
+}
+
+@media (max-width: 800px) {
+ .home-current-anchor-arrow { font-weight: 700; }
+ .home-current-anchor-text { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+ .home-page #past-exhibition, .home-page .home-archive { position: relative; }
+ .home-page #past-exhibition::before, .home-page .home-archive::before {
+  content: ""; position: absolute; inset-inline: calc(var(--page-padding) + 12px);
+  top: -24px; border-top: 1px solid #e2e2e2; pointer-events: none;
+ }
+ .home-page .home-archive::before { top: calc(var(--section-gap) / -2); }
 }

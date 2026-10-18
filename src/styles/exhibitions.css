@@ -111,3 +111,31 @@
  .site-main .exhibitions-page .exhibition-preview.exhibition-viewer { row-gap: 6px; }
  .site-main .exhibitions-page .exhibition-preview.exhibition-viewer .exhibition-viewer-main { margin-bottom: 4px; }
 }
+
+/* Listing headings and alternation stay scoped to the Exhibition route. */
+@media (min-width: 801px) {
+ .site-main .exhibitions-page .exhibition-preview.exhibition-viewer .home-past-label,
+ .site-main .exhibitions-page .exhibitions-archive > .page-heading {
+  font-family: var(--font-body); font-size: 27.12px; font-weight: 600;
+  color: var(--color-text); letter-spacing: 0; line-height: 1.4;
+ }
+ .site-main .exhibitions-current--past .exhibition-preview.exhibition-viewer { grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); }
+ .site-main .exhibitions-current--past .exhibition-preview.exhibition-viewer .exhibition-viewer-information { grid-column: 2; }
+ .site-main .exhibitions-current--past .exhibition-preview.exhibition-viewer .exhibition-viewer-main,
+ .site-main .exhibitions-current--past .exhibition-preview.exhibition-viewer .exhibition-viewer-indicators { grid-column: 1; }
+}
+/* Place separators inside existing section whitespace without shifting content. */
+.exhibitions-current + .exhibitions-current,
+.exhibitions-page .exhibitions-archive { position: relative; }
+.exhibitions-current + .exhibitions-current::before,
+.exhibitions-page .exhibitions-archive::before {
+ content: ""; position: absolute; inset-inline: 12px; top: calc(var(--section-gap) / -2);
+ border-top: 1px solid #e2e2e2; pointer-events: none;
+}
+@media (max-width: 800px) {
+ .exhibitions-page .exhibitions-archive::before { top: -16px; }
+ /* Keep the image/frame dimensions; bring only the dots into the spare lower space. */
+ .site-main .exhibitions-page .exhibition-preview.exhibition-viewer .exhibition-viewer-indicators {
+  margin-top: calc(clamp(260px, 85vw, 420px) * -.1);
+ }
+}

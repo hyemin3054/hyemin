@@ -1,4 +1,7 @@
 .site-header { padding-block: var(--header-padding-block); }
+@media (min-width: 801px) {
+ .site-header { --font-size-navigation: 19.21px; --font-size-navigation-home: 21.47px; }
+}
 .header-content { display: flex; align-items: center; justify-content: space-between; gap: var(--content-gap); }
 .header-content nav { min-width: 0; }
 .site-logo { display: block; flex: 0 0 auto; width: var(--header-logo-width); height: var(--header-logo-height); text-decoration: none; }
@@ -114,3 +117,14 @@
   font-weight: var(--weight-semibold);
 }
 @media (max-width: 640px) { .footer-brand { align-items: flex-start; flex-direction: column; } }
+@media (max-width: 800px) {
+ .site-header--home .site-logo--home { width: calc(var(--home-logo-width) * .8); height: calc(var(--home-logo-height) * .8); }
+}
+
+/* The Archive menu targets HOME #archive; all mobile archive cards share this value. */
+@media (max-width: 800px) {
+ .site-main .home-archive-grid h3,
+ .site-main .exhibition-archive-grid .exhibition-archive-link h3 {
+  font-family: var(--font-navigation); font-size: 14px; font-weight: 600; line-height: 1.25;
+ }
+}

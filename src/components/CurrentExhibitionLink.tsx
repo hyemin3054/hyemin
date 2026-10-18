@@ -12,5 +12,5 @@ export function CurrentExhibitionLink() {
     const landing = Math.max(header + 24, header + (window.innerHeight - header - rect.height) / 2);
     window.history.pushState(null, "", "#current-exhibition");
     window.scrollTo({ top: Math.max(0, window.scrollY + rect.top - landing), behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
-  }}>↓<br />CURRENT EXHIBITION</a>;
+  }}><span className="home-current-anchor-arrow" aria-hidden="true">↓</span><br /><span className="home-current-anchor-text">CURRENT EXHIBITION</span></a>;
 }
