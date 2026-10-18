@@ -8,7 +8,7 @@ export const artist = defineType({
     { ...textField("representativeImageDescription", "대표 작품 설명"), description: "작가 상세 페이지의 대표 작품 이미지 아래에 표시됩니다. 작품명, 제작 연도, 설명 등을 자유롭게 입력하세요. 비워두어도 됩니다." },
     { ...galleryField("portfolioImages", "포트폴리오 이미지 모음"), description: "추가 작품 이미지 모음입니다. 드래그로 순서를 바꿀 수 있습니다. 대표 이미지가 비어 있는 기존 작가는 첫 이미지를 대표로 사용합니다." },
     textField("shortBio", "짧은 작가 소개"), richTextField("fullBio", "상세 작가 소개"),
-    defineField({ name: "works", title: "작품 목록", type: "array", of: [defineArrayMember({ type: "artistWork" })], options: { sortable: true }, description: "작품별 이미지·제목·제작연도·설명을 입력하세요. 목록 대표 이미지와 같은 이미지를 선택한 작품은 대표 작품의 제목과 설명에도 연결됩니다. 드래그로 순서를 바꿀 수 있습니다." }),
+    defineField({ name: "works", title: "작품 목록", type: "array", of: [defineArrayMember({ type: "artistWork" })], options: { sortable: true }, description: "작품별 이미지와 하나의 캡션 세트(작품명·연도·크기·재료)를 입력하세요. 기존 이미지 내부 정보는 입력값이 없을 때 보존하여 표시합니다. 목록 대표 이미지와 같은 이미지를 선택한 작품은 대표 작품의 제목과 설명에도 연결됩니다. 드래그로 순서를 바꿀 수 있습니다." }),
     historyField("selectedExhibitions", "주요 전시 이력"), historyField("education", "학력"), historyField("awards", "수상"), orderField,
   ],
   orderings: [displayOrder], preview: { select: { title: "name", media: "representativeImage" } },

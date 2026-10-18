@@ -31,10 +31,10 @@ export default async function DetailPage({ params }: Props) {
   const mainCaption = artworkCaption(main, mainWork);
   const viewerImages = [{ image: main, work: mainWork }, ...works.map(work => ({ image: work.image, work }))].flatMap(({ image, work }) => {
     const src = imageUrl(image);
-    return src ? [{ src, fullSrc: imageUrl(image, 3000) || src, title: image?.title || work?.title || artist.name, caption: [[image?.title || work?.title, image?.year || work?.year].filter(Boolean).join(", "), [image?.medium, image?.size].filter(Boolean).join(", ") || work?.description?.trim()].filter((line): line is string => Boolean(line)) }] : [];
+    return src ? [{ src, fullSrc: imageUrl(image, 3000) || src, title: image?.title || work?.title || artist.name, caption: [...artworkCaption(image, work), ...(!(work?.dimensions?.trim() || work?.medium?.trim() || image?.size?.trim() || image?.medium?.trim()) && work?.description?.trim() ? [work.description.trim()] : [])] }] : [];
   });
   const captionDescription = (mainWork?.description || (main?.asset?._ref === artist.representativeImage?.asset?._ref ? artist.representativeImageDescription : ""))?.trim();
-  const showDescription = captionDescription && !mainCaption.includes(captionDescription);
+  const showDescription = captionDescription && !(mainWork?.dimensions?.trim() || mainWork?.medium?.trim() || main?.size?.trim() || main?.medium?.trim()) && !mainCaption.includes(captionDescription);
   const exhibitions = historyRows(artist.selectedExhibitions);
   const education = historyRows(artist.education);
   const awards = historyRows(artist.awards);
@@ -57,7 +57,7 @@ export default async function DetailPage({ params }: Props) {
       <figure className="artist-main-artwork">
         <div className="artist-main-image"><ArtistDetailImage images={viewerImages} src={imageUrl(main)} alt={main?.title || mainWork?.title || name + " 대표 작품"} /></div>
         {(mainCaption.length > 0 || showDescription) && <figcaption>
-          {mainCaption.map((line, i) => <p key={i}>{line}</p>)}
+          {mainCaption.map((line, i) => <p className={i === 0 && (mainWork?.title || main?.title || mainWork?.year || main?.year) ? "artist-caption-title" : undefined} key={i}>{line}</p>)}
           {showDescription && <p className="preserve-lines">{captionDescription}</p>}
         </figcaption>}
       </figure>
@@ -74,8 +74,8 @@ export default async function DetailPage({ params }: Props) {
       <div className="artist-works-grid">{works.map((work, i) => <figure className="artist-work" key={work._key || i}>
         <div className="artist-work-image"><ArtistDetailImage images={viewerImages} initialIndex={Math.max(0, viewerImages.findIndex(image => image.src === imageUrl(work.image)))} src={imageUrl(work.image)} alt={work.title || `${name} 작품 ${i + 1}`} /></div>
         {(artworkCaption(work.image, work).length > 0 || work.description?.trim()) && <figcaption>
-          {artworkCaption(work.image, work).map((line, index) => <p key={index}>{line}</p>)}
-          {work.description?.trim() && <p className="artist-work-description preserve-lines">{work.description}</p>}
+          {artworkCaption(work.image, work).map((line, index) => <p className={index === 0 && (work.title || work.image?.title || work.year || work.image?.year) ? "artist-caption-title" : undefined} key={index}>{line}</p>)}
+          {!(work.dimensions?.trim() || work.medium?.trim() || work.image?.size?.trim() || work.image?.medium?.trim()) && work.description?.trim() && <p className="artist-work-description preserve-lines">{work.description}</p>}
         </figcaption>}
       </figure>)}</div>
     </section>}

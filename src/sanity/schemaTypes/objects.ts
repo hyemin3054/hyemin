@@ -3,10 +3,10 @@ import { defineArrayMember, defineField, defineType } from "sanity";
 export const contentImage = defineType({
   name: "contentImage", title: "이미지", type: "image", options: { hotspot: true },
   fields: [
-    defineField({ name: "title", title: "작품 제목 · Group 1", type: "string", hidden: ({ document, path }) => !["exhibition", "artist"].includes(String(document?._type)) || (document?._type === "exhibition" && path[0] === "mainImage") }),
-    defineField({ name: "year", title: "제작 연도 · Group 1", type: "string", hidden: ({ document, path }) => !["exhibition", "artist"].includes(String(document?._type)) || (document?._type === "exhibition" && path[0] === "mainImage") }),
-    defineField({ name: "size", title: "작품 크기 · Group 2", type: "string", description: "예: 130 × 162 cm. 숫자와 단위를 함께 입력하세요.", hidden: ({ document, path }) => !["exhibition", "artist"].includes(String(document?._type)) || (document?._type === "exhibition" && path[0] === "mainImage") }),
-    defineField({ name: "medium", title: "재료 / 기법 · Group 2", type: "string", description: "예: Oil on canvas. 캡션 항목은 모두 선택 입력입니다.", hidden: ({ document, path }) => !["exhibition", "artist"].includes(String(document?._type)) || (document?._type === "exhibition" && path[0] === "mainImage") }),
+    defineField({ name: "title", title: "작품 제목 · Group 1", type: "string", hidden: ({ document, path }) => !["exhibition", "artist"].includes(String(document?._type)) || (document?._type === "exhibition" && path[0] === "mainImage") || (document?._type === "artist" && path[0] === "works") }),
+    defineField({ name: "year", title: "제작 연도 · Group 1", type: "string", hidden: ({ document, path }) => !["exhibition", "artist"].includes(String(document?._type)) || (document?._type === "exhibition" && path[0] === "mainImage") || (document?._type === "artist" && path[0] === "works") }),
+    defineField({ name: "size", title: "작품 크기 · Group 2", type: "string", description: "예: 130 × 162 cm. 숫자와 단위를 함께 입력하세요.", hidden: ({ document, path }) => !["exhibition", "artist"].includes(String(document?._type)) || (document?._type === "exhibition" && path[0] === "mainImage") || (document?._type === "artist" && path[0] === "works") }),
+    defineField({ name: "medium", title: "재료 / 기법 · Group 2", type: "string", description: "예: Oil on canvas. 캡션 항목은 모두 선택 입력입니다.", hidden: ({ document, path }) => !["exhibition", "artist"].includes(String(document?._type)) || (document?._type === "exhibition" && path[0] === "mainImage") || (document?._type === "artist" && path[0] === "works") }),
   ],
 });
 export const richText = defineType({
@@ -26,7 +26,9 @@ export const artistWork = defineType({
     defineField({ name: "image", title: "이미지", type: "contentImage" }),
     defineField({ name: "title", title: "작품명", type: "string" }),
     defineField({ name: "year", title: "제작 연도", type: "string" }),
-    defineField({ name: "description", title: "작품 설명", type: "text", rows: 4 }),
+    defineField({ name: "dimensions", title: "Dimensions · 작품 크기", type: "string", description: "예: 120 × 160 cm. 비어 있으면 기존 이미지의 크기 정보를 사용합니다." }),
+    defineField({ name: "medium", title: "Medium / Technique · 재료 / 기법", type: "string", description: "비어 있으면 기존 이미지의 재료 정보를 사용합니다." }),
+    defineField({ name: "description", title: "이전 작품 설명 (보존)", type: "text", rows: 4, hidden: true, readOnly: true }),
   ],
   preview: { select: { title: "title", subtitle: "year", media: "image" }, prepare: ({ title, subtitle, media }) => ({ title: title || "제목 미입력 작품", subtitle, media }) },
 });

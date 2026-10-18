@@ -4,15 +4,13 @@ import { imageUrl } from "@/sanity/lib/image";
 import { AboutImageSlider } from "@/components/AboutImageSlider";
 import { Divider } from "@/components/Divider";
 import { PageHeading } from "@/components/PageHeading";
-import { site } from "@/config/site";
+import { Fragment } from "react";
 import "@/styles/about.css";
 
-function AboutLogo() {
-  return <div className="about-logo"><img src={site.logo} alt="The Grotto Art Window" /></div>;
-}
-const OPENING_HOURS = "Window 개방: 24시간\n운영시간: 오전 10시 ~ 오후 8시\n연중무휴";
+const OPENING_HOURS = "Window Open: 24 Hours\n10:00 — 20:00\nOpen Daily / 연중무휴";
+const OPEN_MESSAGE = "Grotto Art Window 의 윈도우는 24시간 개방되어, 언제든지 작품을 만나보실 수 있습니다.";
 const BRAND_STATEMENT = "예술과 일상이 마주하는 작은 창";
-const INTRO_PHRASE = "도시 속에서 만나는 작은 동굴, 그 안의 세계를 들여다보다";
+
 function blockText(block: unknown) {
   const children = (block as { children?: Array<{ text?: string }> })?.children || [];
   return children.map(child => child.text || "").join("").replace(/\s+/g, " ").trim();
@@ -43,19 +41,34 @@ export default async function AboutPage() {
   const embedUrl = mapQuery ? `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed` : null;
   const aboutText = Array.isArray(settings?.aboutText) ? settings.aboutText : [];
   const aboutBody = moveIntroStatement(aboutText);
+  // Move only the existing brand label into the intro; preserve every body block.
+  const brandBlocks = aboutBody.filter(block => blockText(block) === "Grotto Art Window");
+  const body = aboutBody.filter(block => blockText(block) !== "Grotto Art Window");
+  const groups = [body.slice(0, 1), body.slice(1, 3), body.slice(3, 4), body.slice(4)].filter(group => group.length);
+  // Section labels are excerpts of existing copy, never replacement body text.
+  const labelFor = (blocks: PortableTextBlock[]) => {
+    const text = blocks.map(blockText).join(" ");
+    return ["작은 윈도우 갤러리", "작은 동굴", "예술을 경험할 수 있는 방식", "비영리 쇼케이스 공간"].find(label => text.includes(label));
+  };
   const hasContact = settings && (settings.address || settings.telephone || settings.email || settings.instagram || map?.directions || mapUrl || OPENING_HOURS);
   return <article className="container about-page"><PageHeading>ABOUT</PageHeading><Divider />
     {status !== "ready" && <p>콘텐츠를 불러오지 못했습니다. 잠시 후 다시 확인해주세요.</p>}
     {status === "ready" && !settings && <p>갤러리 정보를 준비 중입니다.</p>}
-    <div className="about-brand">
-      <AboutLogo />
-      <p className="about-brand-statement">“ {BRAND_STATEMENT} ”</p>
-      <p className="about-tagline">{INTRO_PHRASE}</p>
-    </div>
-    <AboutImageSlider images={aboutSlides} />
-    {settings && aboutBody.length > 0 && <section className="about-introduction" aria-label="갤러리 소개">
-      <div className="about-prose"><PortableText value={aboutBody} /></div>
-    </section>}
+    <header className="about-editorial-intro">
+      {brandBlocks.length > 0 && <div className="about-intro-brand"><PortableText value={brandBlocks} /></div>}
+      <p className="about-tagline">도시 속에서 만나는 작은 동굴<br />그 안의 세계를 들여다보다</p>
+    </header>
+    {settings && groups.map((blocks, index) => <Fragment key={blocks[0]._key || index}>
+      <section className={`about-editorial-row${index % 2 ? " about-editorial-row--reverse" : ""}`} aria-label={labelFor(blocks) || "갤러리 소개"}>
+        <div className="about-editorial-copy">
+          {labelFor(blocks) && <h2>{labelFor(blocks)}</h2>}
+          <div className="about-prose"><PortableText value={blocks} /></div>
+        </div>
+        <AboutImageSlider images={aboutSlides.length < groups.length ? (aboutSlides.length ? [aboutSlides[index % aboutSlides.length]] : []) : aboutSlides.filter((_, imageIndex) => imageIndex % groups.length === index)} />
+      </section>
+      {index === Math.min(1, groups.length - 1) && <blockquote className="about-highlight"><p>{BRAND_STATEMENT}</p></blockquote>}
+    </Fragment>)}
+    {!groups.length && <AboutImageSlider images={aboutSlides} />}
     {hasContact && <section id="contact" className="about-contact" aria-labelledby="contact-title">
       <div className="about-contact-grid"><div className="about-contact-copy"><h2 id="contact-title">CONTACT</h2>
         <section className="about-contact-information" aria-labelledby="contact-information-title"><h3 id="contact-information-title">Contact Information</h3><address>
@@ -66,7 +79,7 @@ export default async function AboutPage() {
         <section className="about-location-copy" aria-labelledby="location-title"><h3 id="location-title">Location</h3>
           {settings.address && <p className="preserve-lines">{settings.address}</p>}
           {map?.directions?.trim() && <p className="preserve-lines">{map.directions}</p>}
-          <div className="about-opening-hours"><h3>Opening Hours</h3><p className="preserve-lines">{OPENING_HOURS}</p></div>
+          <div className="about-opening-hours"><h3>Opening Hours</h3><p className="preserve-lines">{OPENING_HOURS}</p><p className="about-open-message">{OPEN_MESSAGE}</p></div>
         </section>
       </div>
       {mapUrl && <div className="about-map">{embedUrl && <iframe title="The Grotto Art Window 위치" src={embedUrl} loading="eager" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />}<a href={mapUrl} target="_blank" rel="noopener noreferrer">Google Maps에서 위치 보기</a></div>}

@@ -117,3 +117,7 @@
 @media (max-width: 800px) { .artist-works-grid { gap: calc(var(--content-gap) / 2) var(--small-gap); } }
 
 @media (max-width: 800px) { .artist-detail .artist-label { display: none; } }
+
+/* The intro bottom border is the CV upper divider; move its duplicate below. */
+.artist-history { border-top: 0; border-bottom: 1px solid var(--color-divider); margin-top: 0; }
+.artist-detail figcaption .artist-caption-title { font-weight: 600; color: var(--color-text); }

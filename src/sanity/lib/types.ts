@@ -8,7 +8,7 @@ export type ContentImage = {
   hotspot?: { x: number; y: number; width: number; height: number };
 };
 export type HistoryEntry = { _key: string; year?: string | null; description?: string | null };
-export type ArtistWork = { _key: string; image?: ContentImage | null; title?: string | null; year?: string | null; description?: string | null };
+export type ArtistWork = { dimensions?: string | null; medium?: string | null; _key: string; image?: ContentImage | null; title?: string | null; year?: string | null; description?: string | null };
 export type ArtistReference = { _id: string; name?: string | null; slug?: string | null };
 export type ContentType = "artist" | "exhibition" | "news" | "salesArtwork";
 export type ContentDocument = {
