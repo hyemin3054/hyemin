@@ -202,3 +202,8 @@
  width: 90%;
  margin-inline: auto;
 }
+
+@media (min-width: 801px) {
+ .sales-page:not(.sales-detail) > .sales-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+ .sales-page:not(.sales-detail) .sales-page-heading { align-items: flex-end; padding-bottom: 0; }
+}

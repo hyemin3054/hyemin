@@ -107,3 +107,5 @@
  .artists-scroll-progress { height: 2px; margin: 10px auto 0; width: 70%; position: relative; background: rgb(0 0 0 / .12); }
  .artists-scroll-progress > span { display: block; position: absolute; height: 3px; top: -.5px; width: var(--thumb-width, 20%); left: var(--thumb-left, 0%); background: rgb(0 0 0 / .5); }
 }
+
+.artist-english-name { display: block; font-family: var(--font-body); font-size: .666667em; font-weight: 300; line-height: 1.5; margin-top: 3px; }

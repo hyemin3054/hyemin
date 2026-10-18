@@ -150,3 +150,13 @@
 @media (max-width: 800px) {
  .site-main :is(.home-archive-grid, .exhibition-archive-grid) .archive-period { font-size: 10px; }
 }
+
+/* Archive artist and period use the same typography, on both listing routes. */
+.site-main :is(.home-archive-grid, .exhibition-archive-grid) :is(h3 + p, .exhibition-artist, .archive-period) { font-family: var(--font-body); font-size: 14.4px; font-weight: 400; line-height: 1.5; }
+.site-main :is(.home-archive-grid, .exhibition-archive-grid) h3 + p { margin-top: 4px; }
+.site-main :is(.home-archive-grid, .exhibition-archive-grid) .archive-period { margin-top: 10px; }
+@media (max-width: 800px) {
+ .site-main :is(.home-archive-grid, .exhibition-archive-grid) :is(h3 + p, .exhibition-artist, .archive-period) { font-size: 10.5px; }
+ .site-main :is(.home-archive-grid, .exhibition-archive-grid) h3 + p { margin-top: 2px; }
+ .site-main :is(.home-archive-grid, .exhibition-archive-grid) .archive-period { margin-top: 6px; }
+}

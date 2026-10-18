@@ -13,7 +13,7 @@ export type ArtistReference = { _id: string; name?: string | null; slug?: string
 export type ContentType = "artist" | "exhibition" | "news" | "salesArtwork";
 export type ContentDocument = {
   _id: string; _type: ContentType; title: string; slug: string;
-  name?: string | null; shortBio?: string | null; fullBio?: PortableTextBlock[] | null;
+  name?: string | null; englishName?: string | null; shortBio?: string | null; fullBio?: PortableTextBlock[] | null;
   portrait?: ContentImage | null; representativeImage?: ContentImage | null;
   representativeImageDescription?: string | null;
   portfolioImages?: ContentImage[] | null;
@@ -27,7 +27,9 @@ export type ContentDocument = {
   year?: string | null; medium?: string | null; dimensions?: string | null; price?: number | null;
   availability?: "available" | "reserved" | "sold" | null; displayOrder?: number | null;
 };
+export type AboutSection = { _key: string; title?: string | null; body?: PortableTextBlock[] | null; image?: ContentImage | null };
 export type SiteSettings = {
+  aboutSections?: AboutSection[] | null;
   logo?: ContentImage | null; address?: string | null;
   openingHours?: string | null; telephone?: string | null; email?: string | null;
   instagram?: string | null; copyright?: string | null; aboutText?: PortableTextBlock[] | null;
