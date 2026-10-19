@@ -26,7 +26,7 @@ export function MobileImageRail({ count, active, onSelect, renderSlide, label }:
   const [drag, setDrag] = useState(0);
   useEffect(() => () => { animation.current?.cancel(); }, []);
   const move = (direction: number) => {
-    const step = (frame.current?.clientWidth || 0) * .80 + 8;
+    const step = (track.current?.querySelector<HTMLElement>('[data-position="0"]')?.offsetWidth || 0) + 8;
     onSelect((active + direction + count) % count);
     setDrag(0);
     animation.current?.cancel();
