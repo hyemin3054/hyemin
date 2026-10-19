@@ -18,7 +18,7 @@
 .about-image-step--previous { left: 0; }
 .about-image-step--next { right: 0; }
 .about-image-step:focus-visible { outline: 1px solid currentColor; }
-.about-highlight { margin: 0; padding: clamp(42px, 6vw, 82px) 20px; text-align: center; font-family: var(--font-heading); font-size: clamp(24px, 2.5vw, 34px); line-height: 1.6; }
+.about-highlight { margin: 0; border-top: 1px solid var(--color-divider); padding: clamp(42px, 6vw, 82px) 20px; text-align: center; font-family: var(--font-heading); font-size: clamp(24px, 2.5vw, 34px); line-height: 1.6; }
 .about-highlight p::before, .about-highlight p::after { color: #d5d5d5; font-size: 1.7em; line-height: 0; vertical-align: -.15em; }
 .about-highlight p::before { content: "“"; margin-right: .4em; }
 .about-highlight p::after { content: "”"; margin-left: .4em; }
