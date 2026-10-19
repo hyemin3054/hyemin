@@ -208,3 +208,7 @@
  .sales-page:not(.sales-detail) .sales-page-heading { align-items: flex-end; padding-bottom: 0; }
  .sales-page:not(.sales-detail) .sales-page-heading > .sales-purchase-contact { margin-bottom: 20px; }
 }
+@media (min-width: 1025px) {
+ /* The Sales header and list share the wider container at this breakpoint. */
+ .sales-page:not(.sales-detail) .sales-page-heading { padding-left: 0; }
+}
