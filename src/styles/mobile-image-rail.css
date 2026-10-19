@@ -1,0 +1,20 @@
+@media (max-width: 800px) {
+  .mobile-image-rail { position: relative; width: 100%; height: 100%; min-width: 0; overflow: hidden; touch-action: pan-y; user-select: none; }
+  .mobile-image-track { position: relative; width: 100%; height: 100%; }
+  .mobile-image-slide { position: absolute; inset-block: 0; left: 10%; width: 80%; display: grid; align-items: center; }
+  .mobile-image-slide[data-position="-1"] { transform: translateX(calc(-100% - 8px)); }
+  .mobile-image-slide[data-position="1"] { transform: translateX(calc(100% + 8px)); }
+  .mobile-image-rail .mobile-image-slide > :is(button, a),
+  .mobile-image-rail .mobile-image-slide .artists-image { display: grid; place-items: center; width: 100%; height: 100%; min-height: 0; aspect-ratio: auto; padding: 0; border: 0; margin: 0; background: transparent; touch-action: pan-y; }
+  .mobile-image-rail .mobile-image-slide img { display: block; width: 100%; height: 100%; max-height: 100%; object-fit: contain; object-position: center; pointer-events: none; }
+  .mobile-image-rail .mobile-image-slide[data-position="-1"] img { object-position: right center; }
+  .mobile-image-rail .mobile-image-slide[data-position="1"] img { object-position: left center; }
+  /* Replace the old inset/scaled artwork, while preserving a stable stage. */
+  .site-main .exhibition-viewer .exhibition-viewer-main.exhibition-mobile-main,
+  .site-main :is(.home-current, .exhibitions-page) .exhibition-preview.exhibition-viewer .exhibition-viewer-main.exhibition-mobile-main { height: clamp(280px, 85vw, 420px); min-height: 0; width: 100%; margin-top: 16px; margin-bottom: 0; display: block; }
+  .site-main :is(.home-current, .exhibitions-page) .exhibition-preview.exhibition-viewer .exhibition-viewer-main.exhibition-mobile-main + .exhibition-viewer-indicators { margin-top: 8px; }
+  .artists-mobile-browser .artist-english-name { display: block; margin: 2px 0 0; font-size: calc(max(10px, 1em - 5pt) - 2pt); white-space: nowrap; overflow-wrap: normal; word-break: normal; }
+  .artists-mobile-browser .artists-rail button { flex: 0 0 auto; width: max-content; min-width: 72px; }
+  .artists-mobile-browser .artists-rail button > span:first-child { white-space: nowrap; }
+  .artists-mobile-browser .artists-rail img { margin-inline: auto; }
+}

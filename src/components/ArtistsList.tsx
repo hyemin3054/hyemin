@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ImageDissolve } from "./ImageDissolve";
+import "@/styles/mobile-image-rail.css";
 
 type Artist = { englishName?: string | null; id: string; name: string; slug: string; image: string | null; thumbnail: string | null };
 function ArtistImage({ artist }: { artist: Artist }) {

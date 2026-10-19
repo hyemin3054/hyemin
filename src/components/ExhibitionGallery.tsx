@@ -5,11 +5,13 @@ import { ContentVisual } from "./ContentVisual";
 import { ImageIndicators } from "./ImageIndicators";
 import { ImageDissolve } from "./ImageDissolve";
 import { useAdjacentImages, useImageSwipe } from "./useImageSwipe";
+import { MobileImageRail, useMobileGallery } from "./MobileImageRail";
 
 export type ExhibitionSlide = { src: string; fullSrc: string; title?: string | null; year?: string | null; medium?: string | null; size?: string | null };
 
 export function ExhibitionGallery({ images, title, layout = "detail", information, href, label, ariaLabel = "전시 작품 이미지" }: { images: ExhibitionSlide[]; title: string; layout?: "detail" | "home" | "list"; information?: ReactNode; href?: string; label?: ReactNode; ariaLabel?: string }) {
   const visibleImages = layout === "detail" ? images : images.slice(0, 4);
+  const mobile = useMobileGallery();
   const [selected, setSelected] = useState(0);
   const [preview, setPreview] = useState<number | null>(null);
   const [thumbnailPage, setThumbnailPage] = useState(0);
@@ -49,7 +51,11 @@ export function ExhibitionGallery({ images, title, layout = "detail", informatio
   return <section className={`exhibition-viewer exhibition-viewer--${layout}${layout !== "detail" ? " exhibition-preview" : ""}`} aria-label={ariaLabel}>
     {information && <div className="exhibition-viewer-information">{label}<div>{information}</div>{layout !== "detail" && thumbnails}</div>}
     {layout === "detail" && thumbnails}
-    <div ref={main} className="exhibition-viewer-main" {...gesture.handlers} onClickCapture={event => { if (gesture.suppressClick.current) { event.preventDefault(); event.stopPropagation(); } }}><ArtworkViewer className="exhibition-enlarge" src={image.src} fullSrc={image.fullSrc} alt={image.title || `${title} 이미지 ${active + 1}`} href={layout !== "detail" ? href : undefined} magnifier={layout !== "home"} images={visibleImages} initialIndex={active}>{<ImageDissolve imageKey={image.src} src={image.src}><ContentVisual src={image.src} alt={image.title || `${title} 이미지 ${active + 1}`} /></ImageDissolve>}</ArtworkViewer></div>
+    {mobile ? <div className="exhibition-viewer-main exhibition-mobile-main"><MobileImageRail count={visibleImages.length} active={active} onSelect={select} label={ariaLabel} renderSlide={(index, current) => {
+      const slide = visibleImages[index];
+      const visual = <ContentVisual src={slide.src} alt={current ? slide.title || `${title} 이미지 ${index + 1}` : ""} />;
+      return current ? <ArtworkViewer src={slide.src} fullSrc={slide.fullSrc} alt={slide.title || title} href={layout !== "detail" ? href : undefined} magnifier={false} images={visibleImages} initialIndex={index}>{visual}</ArtworkViewer> : visual;
+    }} /></div> : <div ref={main} className="exhibition-viewer-main" {...gesture.handlers} onClickCapture={event => { if (gesture.suppressClick.current) { event.preventDefault(); event.stopPropagation(); } }}><ArtworkViewer className="exhibition-enlarge" src={image.src} fullSrc={image.fullSrc} alt={image.title || `${title} 이미지 ${active + 1}`} href={layout !== "detail" ? href : undefined} magnifier={layout !== "home"} images={visibleImages} initialIndex={active}>{<ImageDissolve imageKey={image.src} src={image.src}><ContentVisual src={image.src} alt={image.title || `${title} 이미지 ${active + 1}`} /></ImageDissolve>}</ArtworkViewer></div>}
     {layout !== "detail" && <div className="exhibition-viewer-indicators"><ImageIndicators count={visibleImages.length} active={active} onSelect={select} /></div>}
   </section>;
 }
