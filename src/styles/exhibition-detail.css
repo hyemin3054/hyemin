@@ -172,5 +172,6 @@
  .ex-detail-layout .exhibition-enlarge { height: min(65svh, 620px, calc(var(--exhibition-text-height, 800px) - 80px), max(160px, calc(100svh - var(--sticky-header-height, 160px) - 116px))); }
 }
 @media (max-width: 800px) {
- .ex-detail .ex-detail-works-jump { display: flex; align-items: center; justify-content: center; gap: 8px; width: fit-content; margin: 0 0 16px auto; padding: 7px 14px; border: 1px solid var(--color-divider); border-radius: 999px; color: inherit; font-size: 12px; line-height: 1.5; }
+ .ex-detail .ex-detail-works-jump { position: fixed; z-index: 40; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); align-items: center; justify-content: center; gap: 8px; width: fit-content; margin: 0; padding: 11px 18px; border: 1px solid var(--color-divider); border-radius: 999px; background: #fff; color: inherit; font-size: 12px; line-height: 1.5; }
+ .ex-detail .ex-detail-works-jump[data-visible="true"] { display: flex; }
 }

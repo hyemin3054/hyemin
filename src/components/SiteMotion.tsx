@@ -7,6 +7,25 @@ import { usePathname } from "next/navigation";
 export function SiteMotion() {
   const pathname = usePathname();
   useLayoutEffect(() => {
+    const jump = document.querySelector<HTMLElement>(".ex-detail-works-jump");
+    const works = document.getElementById("exhibition-works");
+    if (!jump || !works) return;
+    const update = () => {
+      // Hide on arrival and throughout Works / the sections below it.
+      jump.dataset.visible = String(works.getBoundingClientRect().top >= window.innerHeight);
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    const observer = new ResizeObserver(update);
+    observer.observe(document.querySelector(".ex-detail-layout")!);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+      observer.disconnect();
+    };
+  }, [pathname]);
+  useLayoutEffect(() => {
     const layout = document.querySelector<HTMLElement>(".ex-detail-layout");
     const heading = layout?.querySelector<HTMLElement>(".ex-detail-heading");
     const description = layout?.querySelector<HTMLElement>(".ex-detail-description");
