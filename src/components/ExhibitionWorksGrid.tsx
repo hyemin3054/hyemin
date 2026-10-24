@@ -10,7 +10,7 @@ export function ExhibitionWorksGrid({ images, exhibitionTitle }: { images: Artwo
     const information = captionLine(image.year, protectedSize(image.size), image.medium) || "연도 · 크기 · 재료 정보 준비 중";
     return { ...image, title, caption: [title, information] };
   });
-  return <section className="ex-detail-works" aria-labelledby="exhibition-works-title">
+  return <section id="exhibition-works" className="ex-detail-works" aria-labelledby="exhibition-works-title">
     <h2 id="exhibition-works-title">WORKS</h2>
     <div className="ex-detail-works-grid">{viewerImages.map((image, index) => {
       const alt = image.title!;

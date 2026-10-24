@@ -165,3 +165,12 @@
 @media (max-width: 800px) {
  .ex-detail > .ex-detail-status:is([data-status="CURRENT"], [data-status="PAST"]) { font-size: 17.5px; }
 }
+
+.ex-detail-works-jump { display: none; }
+@media (min-width: 801px) {
+ .ex-detail-layout > .exhibition-viewer--detail { position: sticky; top: calc(var(--sticky-header-height, 160px) + 16px); align-self: start; }
+ .ex-detail-layout .exhibition-enlarge { height: min(65svh, 620px, calc(var(--exhibition-text-height, 800px) - 80px), max(160px, calc(100svh - var(--sticky-header-height, 160px) - 116px))); }
+}
+@media (max-width: 800px) {
+ .ex-detail .ex-detail-works-jump { display: flex; align-items: center; justify-content: center; gap: 8px; width: fit-content; margin: 0 0 16px auto; padding: 7px 14px; border: 1px solid var(--color-divider); border-radius: 999px; color: inherit; font-size: 12px; line-height: 1.5; }
+}

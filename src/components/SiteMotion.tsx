@@ -7,6 +7,16 @@ import { usePathname } from "next/navigation";
 export function SiteMotion() {
   const pathname = usePathname();
   useLayoutEffect(() => {
+    const layout = document.querySelector<HTMLElement>(".ex-detail-layout");
+    const heading = layout?.querySelector<HTMLElement>(".ex-detail-heading");
+    const description = layout?.querySelector<HTMLElement>(".ex-detail-description");
+    if (!layout || !heading || !description) return;
+    const measure = () => layout.style.setProperty("--exhibition-text-height", `${description.getBoundingClientRect().bottom - heading.getBoundingClientRect().top}px`);
+    const observer = new ResizeObserver(measure);
+    observer.observe(heading); observer.observe(description); measure();
+    return () => observer.disconnect();
+  }, [pathname]);
+  useLayoutEffect(() => {
     if (pathname !== "/artists") return;
     const page = document.querySelector<HTMLElement>(".artists-page");
     const about = document.querySelector<HTMLElement>('.site-header a[href="/about"]');
@@ -44,7 +54,7 @@ export function SiteMotion() {
         const deficit = Math.max(0, requiredScroll - availableScroll);
         if (deficit > 0) archive.style.minHeight = `${archive.getBoundingClientRect().height + deficit}px`;
       }
-      archive.scrollIntoView({ block: "start", behavior: pathname === "/" ? "smooth" : "instant" });
+      archive.scrollIntoView({ block: "start", behavior: "instant" });
     };
     const observer = new MutationObserver(align);
     observer.observe(document.body, { childList: true, subtree: true });

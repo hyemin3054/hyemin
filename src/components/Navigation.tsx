@@ -17,7 +17,7 @@ export function Navigation() {
               event.preventDefault();
               if (pathname === "/") {
                 window.history.pushState(window.history.state, "", "/#archive");
-                document.getElementById("archive")?.scrollIntoView({ block: "start", behavior: "smooth" });
+                document.getElementById("archive")?.scrollIntoView({ block: "start", behavior: "instant" });
               } else {
                 router.push("/#archive", { scroll: false });
               }

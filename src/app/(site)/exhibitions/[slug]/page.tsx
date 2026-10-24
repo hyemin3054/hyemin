@@ -45,7 +45,7 @@ export default async function DetailPage({ params }: Props) {
 
     </section>
     <ExhibitionGallery title={item.title} images={slides(installationImages)} ariaLabel="전시장 전경 이미지" />
-    {hasDescription && <section className="ex-detail-description" aria-label="상세 전시 설명"><PortableText value={item.description!} /></section>}
+    {hasDescription && <section className="ex-detail-description" aria-label="상세 전시 설명">{artworkImages.length > 0 && <a className="ex-detail-works-jump" href="#exhibition-works" aria-label="작품 Works 구역으로 이동"><span>Works</span><span aria-hidden="true">↓</span></a>}<PortableText value={item.description!} /></section>}
     </div>
     <ExhibitionWorksGrid exhibitionTitle={item.title} images={slides(artworkImages)} />
     {status !== "CURRENT" && archive.length > 0 && <section className="ex-detail-archive" aria-labelledby="ex-archive-title"><h2 id="ex-archive-title">ARCHIVE</h2>
