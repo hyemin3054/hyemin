@@ -9,16 +9,20 @@ export function SiteMotion() {
   useLayoutEffect(() => {
     const jump = document.querySelector<HTMLElement>(".ex-detail-works-jump");
     const works = document.getElementById("exhibition-works");
-    if (!jump || !works) return;
+    const title = document.querySelector<HTMLElement>(".ex-detail-title");
+    const header = document.querySelector<HTMLElement>(".site-header");
+    if (!jump || !works || !title) return;
     const update = () => {
-      // Hide on arrival and throughout Works / the sections below it.
-      jump.dataset.visible = String(works.getBoundingClientRect().top >= window.innerHeight);
+      // Appear once the title passes behind the sticky header; hide at Works.
+      const titlePassed = title.getBoundingClientRect().bottom <= (header?.getBoundingClientRect().bottom ?? 0);
+      jump.dataset.visible = String(titlePassed && works.getBoundingClientRect().top >= window.innerHeight);
     };
     update();
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
     const observer = new ResizeObserver(update);
     observer.observe(document.querySelector(".ex-detail-layout")!);
+    if (header) observer.observe(header);
     return () => {
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
