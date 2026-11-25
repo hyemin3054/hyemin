@@ -114,7 +114,7 @@ export function ArtworkLightbox({ images, initialIndex, alt, contact, onClose }:
     const start = gesture.current;
     gesture.current = null; setPanning(false);
     if (event.type === "pointercancel") cancelTap();
-    if (event.type !== "pointercancel" && event.pointerType === "touch" && start && !start.pinched && !start.moved && event.timeStamp - start.time < 350 && Math.hypot(event.clientX - start.x, event.clientY - start.y) <= 8) {
+    if (event.type !== "pointercancel" && start && !start.pinched && !start.moved && event.timeStamp - start.time < 350 && Math.hypot(event.clientX - start.x, event.clientY - start.y) <= 8) {
       const last = tap.current;
       if (last && event.timeStamp - last.time <= 300 && Math.hypot(event.clientX - last.x, event.clientY - last.y) < 32) {
         cancelTap(); applyView({ zoom: 1, x: 0, y: 0 });
