@@ -25,6 +25,7 @@ export function ArtworkLightbox({ images, initialIndex, alt, contact, onClose }:
   const pointers = useRef(new Map<number, { x: number; y: number }>());
   const view = useRef({ zoom: 1, x: 0, y: 0 });
   const gesture = useRef<{ x: number; y: number; pinched: boolean } | null>(null);
+  const touchPan = useRef<{ x: number; y: number; left: number; top: number; axis: "x" | "y" | null } | null>(null);
   const [index, setIndex] = useState(Math.min(initialIndex, images.length - 1));
   const [viewport, setViewport] = useState(view.current);
   const [panning, setPanning] = useState(false);
@@ -59,6 +60,8 @@ export function ArtworkLightbox({ images, initialIndex, alt, contact, onClose }:
     if (event.pointerType === "mouse" && event.button !== 0) return;
     event.preventDefault(); event.currentTarget.setPointerCapture(event.pointerId);
     pointers.current.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    touchPan.current = event.pointerType === "touch" && pointers.current.size === 1
+      ? { x: event.clientX, y: event.clientY, left: view.current.x, top: view.current.y, axis: null } : null;
     if (pointers.current.size === 1) gesture.current = { x: event.clientX, y: event.clientY, pinched: false };
     else if (gesture.current) gesture.current.pinched = true;
     setPanning(true);
@@ -79,12 +82,26 @@ export function ArtworkLightbox({ images, initialIndex, alt, contact, onClose }:
       const ratio = nextZoom / current.zoom;
       applyView({ zoom: nextZoom, x: to.x - (from.x - current.x) * ratio, y: to.y - (from.y - current.y) * ratio });
     } else if (current.zoom > 1) {
-      applyView({ ...current, x: current.x + event.clientX - previous.x, y: current.y + event.clientY - previous.y });
+      const pan = touchPan.current;
+      if (event.pointerType === "touch" && pan) {
+        const dx = event.clientX - pan.x, dy = event.clientY - pan.y;
+        // Ignore finger jitter, then keep one axis until this drag ends.
+        if (!pan.axis) {
+          if (Math.max(Math.abs(dx), Math.abs(dy)) < 8) return;
+          pan.axis = Math.abs(dy) > Math.abs(dx) * 1.3 ? "y" : "x";
+        }
+        applyView({ ...current, x: pan.left + (pan.axis === "x" ? dx : 0), y: pan.top + (pan.axis === "y" ? dy : 0) });
+      } else {
+        applyView({ ...current, x: current.x + event.clientX - previous.x, y: current.y + event.clientY - previous.y });
+      }
     }
   };
   const pointerEnd = (event: PointerEvent<HTMLDivElement>) => {
     pointers.current.delete(event.pointerId);
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+    const remaining = [...pointers.current.values()][0];
+    touchPan.current = remaining && event.pointerType === "touch"
+      ? { ...remaining, left: view.current.x, top: view.current.y, axis: null } : null;
     if (pointers.current.size) return;
     const start = gesture.current;
     gesture.current = null; setPanning(false);
