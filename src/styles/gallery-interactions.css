@@ -198,3 +198,23 @@
 
 /* The whole stable image stage is a swipe hit area, including its blank sides. */
 .exhibition-viewer-main { touch-action: pan-y; }
+/* Full viewport canvas: zoom is bounded by the screen, never a small image frame. */
+.artwork-lightbox.grotto-viewer { position: fixed; inset: 0; box-sizing: border-box; padding: max(60px, env(safe-area-inset-top)) 0 0; }
+.grotto-viewer .viewer-stage { display: block; position: relative; height: 100%; }
+.grotto-viewer .viewer-artwork { display: grid; grid-template-rows: minmax(0, 1fr) auto auto; width: 100%; height: 100%; }
+.grotto-viewer .viewer-window { width: 100%; height: 100%; max-width: none; max-height: none; min-height: 0; border: 0; overflow: hidden; touch-action: none; }
+.grotto-viewer .viewer-zoom-surface { width: 100%; height: 100%; transform-origin: center; transition: none; }
+.grotto-viewer .viewer-window img { width: 100%; height: 100%; max-width: none; max-height: none; object-fit: contain; }
+.grotto-viewer .viewer-stage > button { position: absolute; top: 42%; z-index: 2; background: rgb(255 255 255 / .75); }
+.grotto-viewer .viewer-previous { left: 8px; }
+.grotto-viewer .viewer-next { right: 8px; }
+.grotto-viewer .viewer-controls-row { box-sizing: border-box; margin: 0; padding: 4px 24px 0; }
+.grotto-viewer figcaption { box-sizing: border-box; width: 100%; min-width: 0; max-height: 20dvh; overflow: auto; padding: 0 24px max(12px, env(safe-area-inset-bottom)); }
+.grotto-viewer .viewer-index { margin-bottom: 4px; }
+@media (max-width: 800px) {
+ .grotto-viewer .viewer-stage > button { min-width: 44px; min-height: 48px; font-size: 32px; }
+ .grotto-viewer .viewer-previous { left: 0; }
+ .grotto-viewer .viewer-next { right: 0; }
+ .grotto-viewer .viewer-controls-row { padding-inline: 12px; }
+ .grotto-viewer figcaption { padding-inline: 12px; font-size: 12px; }
+}
