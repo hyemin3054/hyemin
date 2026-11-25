@@ -24,7 +24,12 @@ export function ArtworkLightbox({ images, initialIndex, alt, contact, onClose }:
   const viewerWindow = useRef<HTMLDivElement>(null);
   const pointers = useRef(new Map<number, { x: number; y: number }>());
   const view = useRef({ zoom: 1, x: 0, y: 0 });
-  const gesture = useRef<{ x: number; y: number; pinched: boolean } | null>(null);
+  const gesture = useRef<{ x: number; y: number; pinched: boolean; moved: boolean; time: number } | null>(null);
+  const tap = useRef<{ x: number; y: number; time: number } | null>(null);
+  const tapTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [arrowsHidden, setArrowsHidden] = useState(false);
+  const cancelTap = () => { if (tapTimer.current) clearTimeout(tapTimer.current); tapTimer.current = null; tap.current = null; };
+  useEffect(() => () => cancelTap(), []);
   const touchPan = useRef<{ x: number; y: number; left: number; top: number; axis: "x" | "y" | null } | null>(null);
   const [index, setIndex] = useState(Math.min(initialIndex, images.length - 1));
   const [viewport, setViewport] = useState(view.current);
@@ -46,6 +51,7 @@ export function ArtworkLightbox({ images, initialIndex, alt, contact, onClose }:
     view.current = next; setViewport(next);
   };
   const change = (direction: number) => {
+    cancelTap();
     pointers.current.clear(); gesture.current = null; setPanning(false);
     applyView({ zoom: 1, x: 0, y: 0 });
     setIndex(value => (value + direction + images.length) % images.length);
@@ -62,13 +68,15 @@ export function ArtworkLightbox({ images, initialIndex, alt, contact, onClose }:
     pointers.current.set(event.pointerId, { x: event.clientX, y: event.clientY });
     touchPan.current = event.pointerType === "touch" && pointers.current.size === 1
       ? { x: event.clientX, y: event.clientY, left: view.current.x, top: view.current.y, axis: null } : null;
-    if (pointers.current.size === 1) gesture.current = { x: event.clientX, y: event.clientY, pinched: false };
-    else if (gesture.current) gesture.current.pinched = true;
+    if (pointers.current.size === 1) gesture.current = { x: event.clientX, y: event.clientY, pinched: false, moved: false, time: event.timeStamp };
+    else if (gesture.current) { gesture.current.pinched = true; cancelTap(); }
     setPanning(true);
   };
   const pointerMove = (event: PointerEvent<HTMLDivElement>) => {
     const previous = pointers.current.get(event.pointerId);
     if (!previous) return;
+    const start = gesture.current;
+    if (start && Math.hypot(event.clientX - start.x, event.clientY - start.y) > 8) { start.moved = true; cancelTap(); }
     const before = [...pointers.current.values()];
     pointers.current.set(event.pointerId, { x: event.clientX, y: event.clientY });
     const after = [...pointers.current.values()];
@@ -105,6 +113,18 @@ export function ArtworkLightbox({ images, initialIndex, alt, contact, onClose }:
     if (pointers.current.size) return;
     const start = gesture.current;
     gesture.current = null; setPanning(false);
+    if (event.type === "pointercancel") cancelTap();
+    if (event.type !== "pointercancel" && event.pointerType === "touch" && start && !start.pinched && !start.moved && event.timeStamp - start.time < 350 && Math.hypot(event.clientX - start.x, event.clientY - start.y) <= 8) {
+      const last = tap.current;
+      if (last && event.timeStamp - last.time <= 300 && Math.hypot(event.clientX - last.x, event.clientY - last.y) < 32) {
+        cancelTap(); applyView({ zoom: 1, x: 0, y: 0 });
+      } else {
+        cancelTap(); tap.current = { x: event.clientX, y: event.clientY, time: event.timeStamp };
+        // Wait briefly so a double tap resets zoom without flashing the arrows.
+        tapTimer.current = setTimeout(() => { setArrowsHidden(value => !value); tap.current = null; tapTimer.current = null; }, 300);
+      }
+      return;
+    }
     if (event.type !== "pointercancel" && start && !start.pinched && view.current.zoom === 1 && images.length > 1) {
       const dx = event.clientX - start.x, dy = event.clientY - start.y;
       if (Math.abs(dx) > 35 && Math.abs(dx) > Math.abs(dy) * 1.3) change(dx < 0 ? 1 : -1);
@@ -130,7 +150,7 @@ export function ArtworkLightbox({ images, initialIndex, alt, contact, onClose }:
     if (event.key === "-") { event.preventDefault(); adjustZoom(-1); }
   }}>
     <button className="viewer-close" type="button" onClick={onClose} autoFocus aria-label="확대 이미지 닫기">×</button>
-    <div className="viewer-stage">
+    <div className={`viewer-stage${arrowsHidden ? " viewer-arrows-hidden" : ""}`}>
       <button className="viewer-previous" type="button" disabled={images.length < 2} onClick={() => change(-1)} aria-label="이전 작품">&lt;</button>
       <figure className="viewer-artwork" key={index}>
         <div ref={viewerWindow} className={`viewer-window${zoom > 1 ? " is-zoomed" : ""}${panning ? " is-panning" : ""}`} onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerEnd} onPointerCancel={pointerEnd} onDragStart={event => event.preventDefault()}>
